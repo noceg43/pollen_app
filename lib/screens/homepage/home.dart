@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:demo_1/providers/position.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatelessWidget {
@@ -7,20 +10,56 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-          ],
-        ),
-      ),
-    );
+    return FutureBuilder<List<dynamic>>(
+        future: determinePosition(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(title),
+              ),
+              body: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(snapshot.data.toString()),
+                  ],
+                ),
+              ),
+            );
+          } else if (snapshot.hasError) {
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(title),
+              ),
+              body: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      "${snapshot.error}",
+                    ),
+                  ],
+                ),
+              ),
+            );
+          } else {
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(title),
+              ),
+              body: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const <Widget>[
+                    Text(
+                      "aspetta",
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }
+        });
   }
 }
