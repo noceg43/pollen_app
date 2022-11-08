@@ -301,7 +301,7 @@ String _calcoloTendenza(Polline p, num pre, num att) {
 
   num prePart = valore(p, pre);
   num attPart = valore(p, att);
-  print("pre $pre  att $att");
+  //print("pre $pre  att $att");
   String valoreAttuale = att.toStringAsFixed(2);
   if (prePart == attPart) return "Stabile_$valoreAttuale";
   if (prePart < attPart) return "Diminuzione_$valoreAttuale";
@@ -317,8 +317,8 @@ void main(List<String> args) async {
   num latMo = 44.645958;
   // ignore: unused_local_variable
   num lonMo = 10.925529;
-  Stazione stazLocalizzata = staz.firstWhere((element) => element.statId == 1);
-  print(stazLocalizzata.prettyPrint());
+  //Stazione stazLocalizzata = staz.firstWhere((element) => element.statId == 1);
+  //print(stazLocalizzata.prettyPrint());
 
   var out = File('tendenze.txt').openWrite();
 

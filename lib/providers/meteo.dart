@@ -46,19 +46,19 @@ class Meteo {
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['latitude'] = latitude;
-    _data['longitude'] = longitude;
-    _data['generationtime_ms'] = generationtimeMs;
-    _data['utc_offset_seconds'] = utcOffsetSeconds;
-    _data['timezone'] = timezone;
-    _data['timezone_abbreviation'] = timezoneAbbreviation;
-    _data['elevation'] = elevation;
-    _data['hourly_units'] = hourlyUnits.toJson();
-    _data['hourly'] = hourly.toJson();
-    _data['daily_units'] = dailyUnits.toJson();
-    _data['daily'] = daily.toJson();
-    return _data;
+    final data = <String, dynamic>{};
+    data['latitude'] = latitude;
+    data['longitude'] = longitude;
+    data['generationtime_ms'] = generationtimeMs;
+    data['utc_offset_seconds'] = utcOffsetSeconds;
+    data['timezone'] = timezone;
+    data['timezone_abbreviation'] = timezoneAbbreviation;
+    data['elevation'] = elevation;
+    data['hourly_units'] = hourlyUnits.toJson();
+    data['hourly'] = hourly.toJson();
+    data['daily_units'] = dailyUnits.toJson();
+    data['daily'] = daily.toJson();
+    return data;
   }
 }
 
@@ -82,12 +82,12 @@ class HourlyUnits {
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['time'] = time;
-    _data['temperature_2m'] = temperature_2m;
-    _data['apparent_temperature'] = apparentTemperature;
-    _data['weathercode'] = weathercode;
-    return _data;
+    final data = <String, dynamic>{};
+    data['time'] = time;
+    data['temperature_2m'] = temperature_2m;
+    data['apparent_temperature'] = apparentTemperature;
+    data['weathercode'] = weathercode;
+    return data;
   }
 }
 
@@ -113,12 +113,12 @@ class Hourly {
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['time'] = time;
-    _data['temperature_2m'] = temperature_2m;
-    _data['apparent_temperature'] = apparentTemperature;
-    _data['weathercode'] = weathercode;
-    return _data;
+    final data = <String, dynamic>{};
+    data['time'] = time;
+    data['temperature_2m'] = temperature_2m;
+    data['apparent_temperature'] = apparentTemperature;
+    data['weathercode'] = weathercode;
+    return data;
   }
 }
 
@@ -148,14 +148,14 @@ class DailyUnits {
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['time'] = time;
-    _data['weathercode'] = weathercode;
-    _data['temperature_2m_max'] = temperature_2mMax;
-    _data['temperature_2m_min'] = temperature_2mMin;
-    _data['sunrise'] = sunrise;
-    _data['sunset'] = sunset;
-    return _data;
+    final data = <String, dynamic>{};
+    data['time'] = time;
+    data['weathercode'] = weathercode;
+    data['temperature_2m_max'] = temperature_2mMax;
+    data['temperature_2m_min'] = temperature_2mMin;
+    data['sunrise'] = sunrise;
+    data['sunset'] = sunset;
+    return data;
   }
 }
 
@@ -187,14 +187,14 @@ class Daily {
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['time'] = time;
-    _data['weathercode'] = weathercode;
-    _data['temperature_2m_max'] = temperature_2mMax;
-    _data['temperature_2m_min'] = temperature_2mMin;
-    _data['sunrise'] = sunrise;
-    _data['sunset'] = sunset;
-    return _data;
+    final data = <String, dynamic>{};
+    data['time'] = time;
+    data['weathercode'] = weathercode;
+    data['temperature_2m_max'] = temperature_2mMax;
+    data['temperature_2m_min'] = temperature_2mMin;
+    data['sunrise'] = sunrise;
+    data['sunset'] = sunset;
+    return data;
   }
 }
 
@@ -204,147 +204,118 @@ String numerpretazioneWeatherCode(num code) {
       {
         return "Soleggiato";
       }
-      break;
     case 1:
       {
         return "Prevalentemente sereno";
       }
-      break;
     case 2:
       {
         return "Poco nuvoloso";
       }
-      break;
     case 3:
       {
         return "Nuvoloso";
       }
-      break;
     case 45:
       {
         return "Nebbia";
       }
-      break;
     case 48:
       {
         return "Depositi di nebbbia";
       }
-      break;
     case 51:
       {
         return "Pioggerellina leggera";
       }
-      break;
     case 53:
       {
         return "Pioggerellina";
       }
-      break;
     case 55:
       {
         return "Pioggerellina numensa";
       }
-      break;
     case 56:
       {
         return "Pioggierellina leggera e gelo";
       }
-      break;
     case 57:
       {
         return "Pioggerellina numensa e gelo";
       }
-      break;
     case 61:
       {
         return "Pioggia leggera";
       }
-      break;
     case 63:
       {
         return "Pioggia";
       }
-      break;
     case 65:
       {
         return "Pioggia numensa";
       }
-      break;
     case 66:
       {
         return "Pioggia leggera e gelo";
       }
-      break;
     case 67:
       {
         return "Pioggia numensa e gelo";
       }
-      break;
     case 71:
       {
         return "Nevicata leggera";
       }
-      break;
     case 73:
       {
         return "Nevicata";
       }
-      break;
     case 75:
       {
         return "Nevicata numensa";
       }
-      break;
     case 77:
       {
         return "Granelli di neve";
       }
-      break;
     case 80:
       {
         return "Rovesci lievi";
       }
-      break;
     case 81:
       {
         return "Rovesci";
       }
-      break;
     case 82:
       {
         return "Rovesci numensi";
       }
-      break;
     case 85:
       {
         return "Rovesci di neve lievi";
       }
-      break;
     case 86:
       {
         return "Rovesci di neve abbondanti";
       }
-      break;
     case 95:
       {
         return "Temporale";
       }
-      break;
     case 96:
       {
         return "Temporale con leggera grandine";
       }
-      break;
     case 99:
       {
         return "Temporale con pesante grandine";
       }
-      break;
     default:
       {
         return '';
       }
-      break;
   }
 /*
   0	Clear sky
@@ -382,7 +353,7 @@ void main() async {
   num latMo = 44.645958;
   num lonMo = 10.925529;
   Meteo m = await fetchMeteo(latMo, lonMo);
-  print([for (num n in m.daily.weathercode) numerpretazioneWeatherCode(n)]);
+  //print([for (num n in m.daily.weathercode) numerpretazioneWeatherCode(n)]);
   var out = File('meteo.txt').openWrite();
   for (int i = 0; i < m.daily.time.length; i++) {
     out.write(
