@@ -287,7 +287,6 @@ Future<Map<Polline, String>> tendenza(Stazione s, List<Polline> poll,
     for (Polline p in ultimaTend.keys)
       p: _calcoloTendenza(p, annoFaTend[p]!, ultimaTend[p]!)
   };
-
   return tendenzaFinale;
 }
 
@@ -302,7 +301,7 @@ String _calcoloTendenza(Polline p, num pre, num att) {
   num prePart = valore(p, pre);
   num attPart = valore(p, att);
   //print("pre $pre  att $att");
-  String valoreAttuale = att.toStringAsFixed(2);
+  String valoreAttuale = ((att + pre) / 2).toStringAsFixed(2);
   if (prePart == attPart) return "Stabile_$valoreAttuale";
   if (prePart < attPart) return "Diminuzione_$valoreAttuale";
   if (prePart > attPart) return "Aumento_$valoreAttuale";

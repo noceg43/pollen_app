@@ -1,23 +1,41 @@
 import 'package:demo_1/providers/meteo.dart';
+import 'package:demo_1/providers/polline.dart';
 import 'package:demo_1/providers/position.dart';
 import 'package:demo_1/screens/homepage/dati_giornalieri.dart';
+import 'package:demo_1/utils/format_meteo.dart';
 import 'package:flutter/material.dart';
 
+// Contiene: TabBarView di 3 elementi e funzione tendenzaDaPos
+
+// INPUT: Posizione
+// OUTPUT: 3 ListGiornaliera rispettivamente OGGI, DOMANI, DOPODOMANI
 class DatiCompleti extends StatelessWidget {
-  const DatiCompleti({super.key, required this.data});
-  final Posizione data;
+  const DatiCompleti({super.key, required this.dataPos});
+  final Posizione dataPos;
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<Meteo>(
-      future: fetchMeteo(data.lat, data.lon),
-      builder: (context, snapshot) {
+    return FutureBuilder<List<dynamic>>(
+      future: Future.wait(
+        [
+          fetchMeteo(dataPos.lat, dataPos.lon),
+          tendenzaDaPos(dataPos),
+        ],
+      ),
+      builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
         if (snapshot.hasData) {
+          Meteo m = snapshot.data![0];
+          List<FormatMeteo> meteoList = [
+            FormatMeteo(m, 0, dataPos),
+            FormatMeteo(m, 1, dataPos),
+            FormatMeteo(m, 2, dataPos)
+          ];
+          List<Map<Polline, String>> tendList = snapshot.data![1];
           return TabBarView(
             children: [
-              ListGiornaliera(offset: 0, m: snapshot.data!),
-              Center(child: Text(snapshot.data.toString())),
-              Center(child: Text(snapshot.data.toString())),
+              ListGiornaliera(m: meteoList[0], tend: tendList[0]),
+              ListGiornaliera(m: meteoList[1], tend: tendList[1]),
+              ListGiornaliera(m: meteoList[2], tend: tendList[2]),
             ],
           );
         } else {
@@ -59,4 +77,15 @@ class DatiCompleti extends StatelessWidget {
       },
     );
   }
+}
+
+Future<List<Map<Polline, String>>> tendenzaDaPos(Posizione p) async {
+  List<Polline> poll = await fetchPolline();
+  List<Stazione> staz = await fetchStazione();
+  Stazione localizzata = localizza(staz, p.lat, p.lon);
+  return [
+    await tendenza(localizzata, poll, offset: 0),
+    await tendenza(localizzata, poll, offset: 1),
+    await tendenza(localizzata, poll, offset: 2)
+  ];
 }
