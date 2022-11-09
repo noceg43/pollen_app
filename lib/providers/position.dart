@@ -5,12 +5,12 @@ class Posizione {
   String pos;
   num lat, lon;
 
-  Posizione._create(this.lat, this.lon, this.pos);
+  Posizione(this.lat, this.lon, this.pos);
 
-  static Future<Posizione> create() async {
+  static Future<Posizione> localizza() async {
     List<dynamic> l = await _determinePosition();
 
-    var component = Posizione._create(l[0], l[1], l[2]);
+    var component = Posizione(l[0], l[1], l[2]);
 
     return component;
   }

@@ -12,15 +12,18 @@ import 'package:flutter/material.dart';
 // INPUT: FormatMeteo e tendenza giornaliera
 // OUTPUT: Listview con meteo e polline
 class ListGiornaliera extends StatelessWidget {
-  const ListGiornaliera({super.key, required this.m, required this.tend});
+  ListGiornaliera({required this.m, required this.tend})
+      : super(key: ObjectKey(m));
   final FormatMeteo m;
   final Map<Polline, String> tend;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      key: PageStorageKey(key),
       itemCount: tend.length + 1,
       padding: const EdgeInsets.all(16.0),
       itemBuilder: (context, index) {
+        // primo elemento sarà il meteo
         if (index == 0) {
           return WidgetMeteo(m: m);
         }
@@ -28,13 +31,6 @@ class ListGiornaliera extends StatelessWidget {
           p: FormatPolline(
               tend.keys.elementAt(index - 1), tend.values.elementAt(index - 1)),
         );
-
-        /*
-        return ItemPolline(
-          p: FormatPolline(
-              tend.keys.elementAt(index), tend.values.elementAt(index)),
-        );
-        */
       },
     );
   }
