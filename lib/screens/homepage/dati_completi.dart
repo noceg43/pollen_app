@@ -79,13 +79,31 @@ class DatiCompleti extends StatelessWidget {
   }
 }
 
+// da posizione restituisce tendenze dei 3 giorni successivi
+// aggiunto controllo su stazione vuota
 Future<List<Map<Polline, String>>> tendenzaDaPos(Posizione p) async {
   List<Polline> poll = await fetchPolline();
   List<Stazione> staz = await fetchStazione();
   Stazione localizzata = localizza(staz, p.lat, p.lon);
+  Future<bool> checkStazione(Stazione s) async {
+    List<Concentrazione> c = await fetchConcentrazione(s);
+    if (c.isEmpty) return false;
+    return true;
+  }
+
+  num maxIterazioni = staz.length;
+  Stazione trovata = localizzata;
+
+  for (num i = 0; i < maxIterazioni; i++) {
+    bool check = await checkStazione(trovata);
+    if (check) break;
+    staz.remove(trovata);
+    trovata = localizza(staz, p.lat, p.lon);
+  }
+
   return [
-    await tendenza(localizzata, poll, offset: 0),
-    await tendenza(localizzata, poll, offset: 1),
-    await tendenza(localizzata, poll, offset: 2)
+    await tendenza(trovata, poll, offset: 0),
+    await tendenza(trovata, poll, offset: 1),
+    await tendenza(trovata, poll, offset: 2)
   ];
 }
