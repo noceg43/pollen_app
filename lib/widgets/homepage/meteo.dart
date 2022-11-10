@@ -12,18 +12,16 @@ class WidgetMeteo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 300,
-      height: 250,
       padding: const EdgeInsets.all(8.0),
       child: Column(children: [
         Row(
           children: [
-            Text(
-              m.pos.pos,
-              style: Theme.of(context).textTheme.headline4,
-            ),
-            const Spacer(
-              flex: 1,
+            Expanded(
+              child: Text(
+                m.pos.pos,
+                style: Theme.of(context).textTheme.headline4,
+                textAlign: TextAlign.center,
+              ),
             ),
             const Icon(
               Icons.location_on,

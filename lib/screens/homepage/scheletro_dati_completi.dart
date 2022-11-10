@@ -1,5 +1,6 @@
 import 'package:demo_1/providers/position.dart';
 import 'package:demo_1/screens/homepage/dati_completi.dart';
+import 'package:demo_1/screens/scelta_manuale/schermata_scelta_stazione.dart';
 import 'package:flutter/material.dart';
 
 // Contiene: Scheletro dati completi
@@ -19,7 +20,16 @@ class SchermataDatiCompleti extends StatelessWidget {
           leading:
               IconButton(onPressed: () => {}, icon: const Icon(Icons.settings)),
           actions: [
-            IconButton(onPressed: () => {}, icon: const Icon(Icons.search)),
+            IconButton(
+                onPressed: () => {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SchermataSceltaStazione(),
+                        ),
+                      ),
+                    },
+                icon: const Icon(Icons.search)),
           ],
           bottom: const TabBar(
             tabs: [
@@ -55,7 +65,16 @@ class SchermataDatiCaricamento extends StatelessWidget {
           leading:
               IconButton(onPressed: () => {}, icon: const Icon(Icons.settings)),
           actions: [
-            IconButton(onPressed: () => {}, icon: const Icon(Icons.search)),
+            IconButton(
+                onPressed: () => {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SchermataSceltaStazione(),
+                        ),
+                      ),
+                    },
+                icon: const Icon(Icons.search)),
           ],
           bottom: const TabBar(
             tabs: [

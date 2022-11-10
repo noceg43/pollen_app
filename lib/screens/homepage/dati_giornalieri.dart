@@ -20,16 +20,21 @@ class ListGiornaliera extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       key: PageStorageKey(key),
-      itemCount: tend.length + 1,
+      itemCount: tend.length + 2,
       padding: const EdgeInsets.all(16.0),
       itemBuilder: (context, index) {
         // primo elemento sarà il meteo
         if (index == 0) {
           return WidgetMeteo(m: m);
         }
+        if (index == 1) {
+          return const SizedBox(
+            height: 20,
+          );
+        }
         return ItemPolline(
           p: FormatPolline(
-              tend.keys.elementAt(index - 1), tend.values.elementAt(index - 1)),
+              tend.keys.elementAt(index - 2), tend.values.elementAt(index - 2)),
         );
       },
     );

@@ -16,7 +16,8 @@ class MyHomePage extends StatelessWidget {
       future: Posizione.localizza(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          //navigator verso la schermata scelta stazione manuali
+          // schermata tipo "cerca manualmente la stazione cliccando la lente
+          //d'ingrandimento qua sopra"
         }
         if (snapshot.hasData) {
           return SchermataDatiCompleti(dataPos: snapshot.data!);
