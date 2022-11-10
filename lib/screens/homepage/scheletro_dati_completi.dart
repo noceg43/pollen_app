@@ -54,8 +54,8 @@ class SchermataDatiCompleti extends StatelessWidget {
 }
 
 class SchermataDatiCaricamento extends StatelessWidget {
-  const SchermataDatiCaricamento({super.key});
-
+  const SchermataDatiCaricamento({super.key, required this.errore});
+  final bool errore;
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -90,7 +90,14 @@ class SchermataDatiCaricamento extends StatelessWidget {
             ],
           ),
         ),
-        body: Container(),
+        body: Center(
+            child: errore
+                ? const Expanded(
+                    child: Text(
+                        "Seleziona manualmente la stazione da monitorare dall'icona 🔍 in alto a destra",
+                        textAlign: TextAlign.center),
+                  )
+                : Container()),
       ),
     );
   }

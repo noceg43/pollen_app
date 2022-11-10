@@ -59,9 +59,12 @@ class WidgetMeteo extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              m.stringaMeteo,
-              style: Theme.of(context).textTheme.headline5,
+            Expanded(
+              child: Text(
+                m.stringaMeteo,
+                style: Theme.of(context).textTheme.headline5,
+                textAlign: TextAlign.center,
+              ),
             )
           ],
         ),

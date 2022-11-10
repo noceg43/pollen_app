@@ -16,13 +16,16 @@ class MyHomePage extends StatelessWidget {
       future: Posizione.localizza(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          // schermata tipo "cerca manualmente la stazione cliccando la lente
-          //d'ingrandimento qua sopra"
+          return const SchermataDatiCaricamento(
+            errore: true,
+          );
         }
         if (snapshot.hasData) {
           return SchermataDatiCompleti(dataPos: snapshot.data!);
         }
-        return const SchermataDatiCaricamento();
+        return const SchermataDatiCaricamento(
+          errore: false,
+        );
       },
     );
   }
