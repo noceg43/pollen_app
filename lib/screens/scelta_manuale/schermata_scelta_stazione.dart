@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 // Contiene: caricamento lista stazioni
 
 // INPUT: niente
-// OUTPUT: lista stazioni caricate
+// OUTPUT: caricamento o mostrare all'utente SceltaStazione
 class SchermataSceltaStazione extends StatelessWidget {
   const SchermataSceltaStazione({super.key});
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Stazione>>(
-        future: fetchStazione(),
+        future: Stazione.fetch(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {}
           if (snapshot.hasData) {

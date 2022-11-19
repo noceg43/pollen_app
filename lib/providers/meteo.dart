@@ -19,6 +19,21 @@ class Meteo {
     required this.dailyUnits,
     required this.daily,
   });
+  static Future<Meteo> fetch(num lat, num lon) async {
+    final response = await http.get(Uri.parse(
+        'https://api.open-meteo.com/v1/forecast?latitude=$lat&longitude=$lon&hourly=temperature_2m,apparent_temperature,weathercode&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset&timezone=auto'));
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      return Meteo.fromJson(jsonDecode(response.body));
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load album');
+    }
+  }
+
   late final double latitude;
   late final double longitude;
   late final double generationtimeMs;
@@ -131,6 +146,7 @@ class DailyUnits {
     required this.sunrise,
     required this.sunset,
   });
+
   late final String time;
   late final String weathercode;
   late final String temperature_2mMax;
@@ -334,25 +350,10 @@ String numerpretazioneWeatherCode(num code) {
 */
 }
 
-Future<Meteo> fetchMeteo(num lat, num lon) async {
-  final response = await http.get(Uri.parse(
-      'https://api.open-meteo.com/v1/forecast?latitude=$lat&longitude=$lon&hourly=temperature_2m,apparent_temperature,weathercode&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset&timezone=auto'));
-
-  if (response.statusCode == 200) {
-    // If the server did return a 200 OK response,
-    // then parse the JSON.
-    return Meteo.fromJson(jsonDecode(response.body));
-  } else {
-    // If the server did not return a 200 OK response,
-    // then throw an exception.
-    throw Exception('Failed to load album');
-  }
-}
-
 void main() async {
   num latMo = 44.645958;
   num lonMo = 10.925529;
-  Meteo m = await fetchMeteo(latMo, lonMo);
+  Meteo m = await Meteo.fetch(latMo, lonMo);
   //print([for (num n in m.daily.weathercode) numerpretazioneWeatherCode(n)]);
   var out = File('meteo.txt').openWrite();
   for (int i = 0; i < m.daily.time.length; i++) {

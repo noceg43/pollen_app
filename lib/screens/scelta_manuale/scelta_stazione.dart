@@ -2,6 +2,10 @@ import 'package:demo_1/providers/polline.dart';
 import 'package:demo_1/widgets/scelta_manuale/stazione.dart';
 import 'package:flutter/material.dart';
 
+// Contiene: scaffold con barra di ricerca e listview delle stazioni
+
+// INPUT: lista stazioni
+// OUTPUT: schermata selezione stazioni con ricerca testuale
 class SceltaStazione extends StatefulWidget {
   const SceltaStazione({super.key, required this.staz});
   final List<Stazione> staz;

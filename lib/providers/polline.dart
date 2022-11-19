@@ -16,6 +16,21 @@ class Polline {
       partNameE,
       partNameF,
       partNameL;
+  static Future<List<Polline>> fetch() async {
+    var urlPolline =
+        'http://dati.retecivica.bz.it/services/POLLNET_PARTICLES?format=json';
+    final response = await http.get(Uri.parse(urlPolline));
+
+    if (response.statusCode == 200) {
+      Iterable p = jsonDecode(response.body);
+      List<Polline> poll =
+          List<Polline>.from(p.map((model) => Polline.fromJson(model)));
+      return [for (Polline i in poll) i];
+    } else {
+      throw Exception('Failed to load polline');
+    }
+  }
+
   const Polline({
     required this.partId,
     required this.parentId,
@@ -68,24 +83,47 @@ class Polline {
   int get hashCode => partId.hashCode;
 }
 
-Future<List<Polline>> fetchPolline() async {
-  var urlPolline =
-      'http://dati.retecivica.bz.it/services/POLLNET_PARTICLES?format=json';
-  final response = await http.get(Uri.parse(urlPolline));
-
-  if (response.statusCode == 200) {
-    Iterable p = jsonDecode(response.body);
-    List<Polline> poll =
-        List<Polline>.from(p.map((model) => Polline.fromJson(model)));
-    return [for (Polline i in poll) i];
-  } else {
-    throw Exception('Failed to load polline');
-  }
-}
-
 class Stazione {
   final num latitude, longitude, regiId, statId;
   final String regiNameD, regiNameI, statCode, statNameD, statenameI;
+  static Future<List<Stazione>> fetch() async {
+    var urlStazione =
+        'http://dati.retecivica.bz.it/services/POLLNET_STATIONS?format=json';
+    final response = await http.get(Uri.parse(urlStazione));
+
+    if (response.statusCode == 200) {
+      Iterable p = jsonDecode(response.body);
+      List<Stazione> staz =
+          List<Stazione>.from(p.map((model) => Stazione.fromJson(model)));
+      return staz;
+    } else {
+      throw Exception('Failed to load stazioni');
+    }
+  }
+
+  static Stazione localizza(List<Stazione> s, num lat, num lon) {
+    num formula(lat1, lon1, lat2, lon2) {
+      num p = 0.017453292519943295;
+      num hav = 0.5 -
+          cos((lat2 - lat1) * p) / 2 +
+          cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2;
+      return 12742 * asin(sqrt(hav));
+    }
+
+    Map<num, Stazione> test = {
+      for (Stazione i in s) formula(lat, lon, i.latitude, i.longitude): i
+    };
+    Stazione theValue = test.values.first;
+    num theKey = test.keys.first;
+    test.forEach((k, v) {
+      if (k < theKey) {
+        theValue = v;
+        theKey = k;
+      }
+    });
+    return theValue;
+  }
+
   const Stazione({
     required this.latitude,
     required this.longitude,
@@ -130,44 +168,6 @@ class Stazione {
   int get hashCode => statId.hashCode;
 }
 
-Future<List<Stazione>> fetchStazione() async {
-  var urlStazione =
-      'http://dati.retecivica.bz.it/services/POLLNET_STATIONS?format=json';
-  final response = await http.get(Uri.parse(urlStazione));
-
-  if (response.statusCode == 200) {
-    Iterable p = jsonDecode(response.body);
-    List<Stazione> staz =
-        List<Stazione>.from(p.map((model) => Stazione.fromJson(model)));
-    return staz;
-  } else {
-    throw Exception('Failed to load stazioni');
-  }
-}
-
-Stazione localizza(List<Stazione> s, num lat, num lon) {
-  num formula(lat1, lon1, lat2, lon2) {
-    num p = 0.017453292519943295;
-    num hav = 0.5 -
-        cos((lat2 - lat1) * p) / 2 +
-        cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2;
-    return 12742 * asin(sqrt(hav));
-  }
-
-  Map<num, Stazione> test = {
-    for (Stazione i in s) formula(lat, lon, i.latitude, i.longitude): i
-  };
-  Stazione theValue = test.values.first;
-  num theKey = test.keys.first;
-  test.forEach((k, v) {
-    if (k < theKey) {
-      theValue = v;
-      theKey = k;
-    }
-  });
-  return theValue;
-}
-
 class Concentrazione {
   final num partId, partLevel, partSeq, remaConc, statId;
   final String partNameL,
@@ -176,6 +176,27 @@ class Concentrazione {
       statCode,
       statNameD,
       statNameI;
+  static Future<List<Concentrazione>> fetch(Stazione staz,
+      {DateTime? giorno}) async {
+    var urlConcentrazione =
+        'http://dati.retecivica.bz.it/services/POLLNET_REMARKS?format=json&STAT_ID=$staz';
+    if (giorno != null) {
+      String giornoS = '${giorno.year}-${giorno.month}-${giorno.day}';
+      urlConcentrazione =
+          'http://dati.retecivica.bz.it/services/POLLNET_REMARKS?format=json&from=$giornoS&to=$giornoS&STAT_ID=$staz';
+    }
+    final response = await http.get(Uri.parse(urlConcentrazione));
+
+    if (response.statusCode == 200) {
+      Iterable p = jsonDecode(response.body);
+      List<Concentrazione> conc = List<Concentrazione>.from(
+          p.map((model) => Concentrazione.fromJson(model)));
+      return conc;
+    } else {
+      throw Exception('Failed to load stazioni');
+    }
+  }
+
   Concentrazione({
     required this.partId,
     required this.partLevel,
@@ -228,47 +249,27 @@ class Concentrazione {
   int get hashCode => partId.hashCode + remaDate.hashCode;
 }
 
-Future<List<Concentrazione>> fetchConcentrazione(Stazione staz,
-    {DateTime? giorno}) async {
-  var urlConcentrazione =
-      'http://dati.retecivica.bz.it/services/POLLNET_REMARKS?format=json&STAT_ID=$staz';
-  if (giorno != null) {
-    String giornoS = '${giorno.year}-${giorno.month}-${giorno.day}';
-    urlConcentrazione =
-        'http://dati.retecivica.bz.it/services/POLLNET_REMARKS?format=json&from=$giornoS&to=$giornoS&STAT_ID=$staz';
-  }
-  final response = await http.get(Uri.parse(urlConcentrazione));
-
-  if (response.statusCode == 200) {
-    Iterable p = jsonDecode(response.body);
-    List<Concentrazione> conc = List<Concentrazione>.from(
-        p.map((model) => Concentrazione.fromJson(model)));
-    return conc;
-  } else {
-    throw Exception('Failed to load stazioni');
-  }
-}
-
-List<Concentrazione> trovaConcentrazione(
-    List<Concentrazione> totale, Polline cercato) {
-  List<Concentrazione> trova = [
-    for (Concentrazione c in totale)
-      if (c == cercato) c
-  ];
-  return trova;
-}
-
-num calcolaConcentrazioneMedia(List<Concentrazione> conc) {
-  if (conc.isEmpty) return 0;
-
-  List<num> cValori = [for (Concentrazione i in conc) i.remaConc];
-
-  return cValori.reduce((a, b) => a + b) / cValori.length;
-}
-
 Future<Map<Polline, String>> tendenza(Stazione s, List<Polline> poll,
     {int offset = 0}) async {
-  List<Concentrazione> ultimaConc = await fetchConcentrazione(s);
+  List<Concentrazione> ultimaConc = await Concentrazione.fetch(s);
+
+  List<Concentrazione> trovaConcentrazione(
+      List<Concentrazione> totale, Polline cercato) {
+    List<Concentrazione> trova = [
+      for (Concentrazione c in totale)
+        if (c == cercato) c
+    ];
+    return trova;
+  }
+
+  num calcolaConcentrazioneMedia(List<Concentrazione> conc) {
+    if (conc.isEmpty) return 0;
+
+    List<num> cValori = [for (Concentrazione i in conc) i.remaConc];
+
+    return cValori.reduce((a, b) => a + b) / cValori.length;
+  }
+
   Map<Polline, num> ultimaTend = {
     for (Polline p in poll)
       p: calcolaConcentrazioneMedia(trovaConcentrazione(ultimaConc, p))
@@ -277,7 +278,7 @@ Future<Map<Polline, String>> tendenza(Stazione s, List<Polline> poll,
   var annoFa = DateTime(DateTime.now().year - 1, DateTime.now().month,
       DateTime.now().day + offset);
   List<Concentrazione> annoFaConc =
-      await fetchConcentrazione(s, giorno: annoFa);
+      await Concentrazione.fetch(s, giorno: annoFa);
   Map<Polline, num> annoFaTend = {
     for (Polline p in ultimaTend.keys)
       p: calcolaConcentrazioneMedia(trovaConcentrazione(annoFaConc, p))
@@ -309,9 +310,9 @@ String _calcoloTendenza(Polline p, num pre, num att) {
 }
 
 void main(List<String> args) async {
-  List<Polline> poll = await fetchPolline();
+  List<Polline> poll = await Polline.fetch();
 
-  List<Stazione> staz = await fetchStazione();
+  List<Stazione> staz = await Stazione.fetch();
   // ignore: unused_local_variable
   num latMo = 44.645958;
   // ignore: unused_local_variable

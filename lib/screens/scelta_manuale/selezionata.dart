@@ -2,30 +2,36 @@ import 'package:demo_1/providers/position.dart';
 import 'package:demo_1/screens/homepage/scheletro_dati_completi.dart';
 import 'package:flutter/material.dart';
 
-// Contiene: Scaffold homepage
+// Contiene: Scaffold stazione selezionata
 
-// INPUT: niente
+// INPUT: posizione con lat lon e nome di una stazione
 // OUTPUT: se ottiene posizione SchermataDatiCompleti
 //         altrimenti errore e consigliare di cercare manualmente
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class Selezionata extends StatefulWidget {
+  const Selezionata({super.key, required this.dataPos});
+  final Posizione dataPos;
+  // funzione che ritarda l'ottenimento istantaneo della posizione da una stazione
+  Future<Posizione> ottieni() async {
+    await Future.delayed(const Duration(microseconds: 50));
+    return dataPos;
+  }
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<Selezionata> createState() => _SelezionataState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _SelezionataState extends State<Selezionata> {
   late Future<Posizione> posizione;
   @override
   void initState() {
     super.initState();
-    posizione = Posizione.localizza();
+    posizione = widget.ottieni();
   }
 
   void update() {
     setState(() {
-      posizione = Posizione.localizza();
+      posizione = widget.ottieni();
     });
   }
 

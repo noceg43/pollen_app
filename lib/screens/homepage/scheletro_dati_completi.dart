@@ -8,8 +8,10 @@ import 'package:flutter/material.dart';
 // INPUT: posizione
 // OUTPUT: Scaffold con nome posizione e le 3 schermate giorno
 class SchermataDatiCompleti extends StatelessWidget {
-  const SchermataDatiCompleti({super.key, required this.dataPos});
+  const SchermataDatiCompleti(
+      {super.key, required this.dataPos, required this.update});
   final Posizione dataPos;
+  final void Function() update;
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -17,8 +19,11 @@ class SchermataDatiCompleti extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(dataPos.pos),
-          leading:
-              IconButton(onPressed: () => {}, icon: const Icon(Icons.settings)),
+          leading: IconButton(
+              onPressed: () {
+                update();
+              },
+              icon: const Icon(Icons.settings)),
           actions: [
             IconButton(
                 onPressed: () => {
@@ -47,6 +52,7 @@ class SchermataDatiCompleti extends StatelessWidget {
         ),
         body: DatiCompleti(
           dataPos: dataPos,
+          update: update,
         ),
       ),
     );

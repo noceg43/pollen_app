@@ -1,6 +1,6 @@
 import 'package:demo_1/providers/polline.dart';
 import 'package:demo_1/providers/position.dart';
-import 'package:demo_1/screens/homepage/scheletro_dati_completi.dart';
+import 'package:demo_1/screens/scelta_manuale/selezionata.dart';
 import 'package:flutter/material.dart';
 
 class WidgetStazione extends StatelessWidget {
@@ -14,9 +14,8 @@ class WidgetStazione extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => SchermataDatiCompleti(
-                    dataPos: Posizione(s.latitude, s.longitude, s.statenameI),
-                  )),
+              builder: (context) => Selezionata(
+                  dataPos: Posizione(s.latitude, s.longitude, s.statenameI))),
         );
       },
     );

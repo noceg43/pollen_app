@@ -1,6 +1,10 @@
 import 'package:demo_1/utils/format_polline.dart';
 import 'package:flutter/material.dart';
 
+// Contiene SizedBox 250x50
+
+// INPUT: FormatPolline del giorno richiesto
+// OUTPUT: SizedBox con dati rappresentati nel modo corretto
 class ItemPolline extends StatelessWidget {
   const ItemPolline({super.key, required this.p});
   final FormatPolline p;
