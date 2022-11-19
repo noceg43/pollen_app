@@ -1,8 +1,10 @@
 // contiene listview del giorno, widget meteo e polline
 
 import 'package:demo_1/providers/polline.dart';
+import 'package:demo_1/utils/format_inquinamento.dart';
 import 'package:demo_1/utils/format_meteo.dart';
 import 'package:demo_1/utils/format_polline.dart';
+import 'package:demo_1/widgets/homepage/inquinamento.dart';
 import 'package:demo_1/widgets/homepage/meteo.dart';
 import 'package:demo_1/widgets/homepage/polline.dart';
 import 'package:flutter/material.dart';
@@ -12,10 +14,15 @@ import 'package:flutter/material.dart';
 // INPUT: FormatMeteo e tendenza giornaliera
 // OUTPUT: Listview con meteo e polline
 class ListGiornaliera extends StatelessWidget {
-  ListGiornaliera({required this.m, required this.tend, required this.update})
+  ListGiornaliera(
+      {required this.m,
+      required this.tend,
+      required this.update,
+      required this.inq})
       : super(key: ObjectKey(m));
   final FormatMeteo m;
   final Map<Polline, String> tend;
+  final FormatInquinamento inq;
   final void Function() update;
   @override
   Widget build(BuildContext context) {
@@ -25,7 +32,7 @@ class ListGiornaliera extends StatelessWidget {
       },
       child: ListView.builder(
         key: PageStorageKey(key),
-        itemCount: tend.length + 2,
+        itemCount: tend.length + 2 + 6,
         padding: const EdgeInsets.all(16.0),
         itemBuilder: (context, index) {
           // primo elemento sarà il meteo
@@ -36,6 +43,24 @@ class ListGiornaliera extends StatelessWidget {
             return const SizedBox(
               height: 20,
             );
+          }
+          if (index == (tend.length + 2)) {
+            return ItemInquinamento(p: inq.particelle[0]);
+          }
+          if (index == (tend.length + 2 + 1)) {
+            return ItemInquinamento(p: inq.particelle[1]);
+          }
+          if (index == (tend.length + 2 + 2)) {
+            return ItemInquinamento(p: inq.particelle[2]);
+          }
+          if (index == (tend.length + 2 + 3)) {
+            return ItemInquinamento(p: inq.particelle[3]);
+          }
+          if (index == (tend.length + 2 + 4)) {
+            return ItemInquinamento(p: inq.particelle[4]);
+          }
+          if (index == (tend.length + 2 + 5)) {
+            return ItemInquinamento(p: inq.particelle[5]);
           }
           return ItemPolline(
             p: FormatPolline(tend.keys.elementAt(index - 2),

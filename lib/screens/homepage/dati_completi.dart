@@ -1,7 +1,9 @@
+import 'package:demo_1/providers/inquinamento.dart';
 import 'package:demo_1/providers/meteo.dart';
 import 'package:demo_1/providers/polline.dart';
 import 'package:demo_1/providers/position.dart';
 import 'package:demo_1/screens/homepage/dati_giornalieri.dart';
+import 'package:demo_1/utils/format_inquinamento.dart';
 import 'package:demo_1/utils/format_meteo.dart';
 import 'package:demo_1/utils/format_polline.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +27,7 @@ class DatiCompleti extends StatelessWidget {
         [
           Meteo.fetch(dataPos.lat, dataPos.lon),
           tendenzaDaPos(dataPos),
+          Inquinamento.fetch(dataPos.lat, dataPos.lon),
         ],
       ),
       builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
@@ -36,14 +39,28 @@ class DatiCompleti extends StatelessWidget {
             FormatMeteo(m, 2, dataPos)
           ];
           List<Map<Polline, String>> tendList = snapshot.data![1];
+          List<FormatInquinamento> formInq = [
+            FormatInquinamento(snapshot.data![2], 0),
+            FormatInquinamento(snapshot.data![2], 1),
+            FormatInquinamento(snapshot.data![2], 2),
+          ];
           return TabBarView(
             children: [
               ListGiornaliera(
-                  m: meteoList[0], tend: tendList[0], update: update),
+                  m: meteoList[0],
+                  tend: tendList[0],
+                  inq: formInq[0],
+                  update: update),
               ListGiornaliera(
-                  m: meteoList[1], tend: tendList[1], update: update),
+                  m: meteoList[1],
+                  tend: tendList[1],
+                  inq: formInq[1],
+                  update: update),
               ListGiornaliera(
-                  m: meteoList[2], tend: tendList[2], update: update),
+                  m: meteoList[2],
+                  tend: tendList[2],
+                  inq: formInq[2],
+                  update: update),
             ],
           );
         } else {
