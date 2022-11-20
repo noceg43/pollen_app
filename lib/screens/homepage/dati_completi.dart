@@ -39,10 +39,11 @@ class DatiCompleti extends StatelessWidget {
             FormatMeteo(m, 2, dataPos)
           ];
           List<Map<Polline, String>> tendList = snapshot.data![1];
-          List<FormatInquinamento> formInq = [
-            FormatInquinamento(snapshot.data![2], 0),
-            FormatInquinamento(snapshot.data![2], 1),
-            FormatInquinamento(snapshot.data![2], 2),
+          Inquinamento i = snapshot.data![2];
+          List<List<ParticellaInquinante>> formInq = [
+            i.giornaliero(0),
+            i.giornaliero(1),
+            i.giornaliero(2)
           ];
           return TabBarView(
             children: [

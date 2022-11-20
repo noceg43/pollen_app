@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 
 // Contiene SizedBox 250x50
 
-// INPUT: FormatPolline del giorno richiesto
+// INPUT: FormatInquinamento del giorno richiesto
 // OUTPUT: SizedBox con dati rappresentati nel modo corretto
 class ItemInquinamento extends StatelessWidget {
   const ItemInquinamento({super.key, required this.p});
-  final ParticellaInquinante p;
+  final FormatInquinamento p;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -21,8 +21,12 @@ class ItemInquinamento extends StatelessWidget {
             const Spacer(
               flex: 1,
             ),
+            Text("${p.tipo} "),
+            const Spacer(
+              flex: 1,
+            ),
             Text(
-              "${p.tipo} ${p.val}",
+              "${p.val}",
             ),
           ],
         ),

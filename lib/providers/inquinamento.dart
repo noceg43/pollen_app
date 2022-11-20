@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:http/http.dart' as http;
 
@@ -60,13 +61,44 @@ class Inquinamento {
     data['utc_offset_seconds'] = utcOffsetSeconds;
     data['timezone'] = timezone;
     data['timezone_abbreviation'] = timezoneAbbreviation;
-    if (hourlyUnits != null) {
-      data['hourly_units'] = hourlyUnits.toJson();
-    }
-    if (hourly != null) {
-      data['hourly'] = hourly.toJson();
-    }
+    data['hourly_units'] = hourlyUnits.toJson();
+    data['hourly'] = hourly.toJson();
     return data;
+  }
+
+  // metodo per ottenere in modo strutturato (ParticellaInquinante) i dati di un giorno
+  List<ParticellaInquinante> giornaliero(int day) {
+    List<ParticellaInquinante> ret = [];
+    ret.add(ParticellaInquinante(
+        "CO",
+        hourly.carbonMonoxide.sublist(24 * (day), 24 * (day + 1)).reduce(max),
+        4000));
+    ret.add(ParticellaInquinante(
+        "SO2",
+        hourly.sulphurDioxide.sublist(24 * (day), 24 * (day + 1)).reduce(max),
+        40));
+    ret.add(ParticellaInquinante(
+        "NO2",
+        hourly.nitrogenDioxide.sublist(24 * (day), 24 * (day + 1)).reduce(max),
+        25));
+    ret.add(ParticellaInquinante("O3",
+        hourly.ozone.sublist(24 * (day), 24 * (day + 1)).reduce(max), 100));
+    ret.add(ParticellaInquinante("PM10",
+        hourly.pm10.sublist(24 * (day), 24 * (day + 1)).reduce(max), 45));
+    ret.add(ParticellaInquinante("PM25",
+        hourly.pm25.sublist(24 * (day), 24 * (day + 1)).reduce(max), 15));
+
+    return ret;
+  }
+}
+
+class ParticellaInquinante {
+  String tipo = "";
+  int val;
+  int lim;
+  bool superato = false;
+  ParticellaInquinante(this.tipo, this.val, this.lim) {
+    superato = (val >= lim);
   }
 }
 
