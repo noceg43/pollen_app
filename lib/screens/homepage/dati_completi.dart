@@ -3,7 +3,6 @@ import 'package:demo_1/providers/meteo.dart';
 import 'package:demo_1/providers/polline.dart';
 import 'package:demo_1/providers/position.dart';
 import 'package:demo_1/screens/homepage/dati_giornalieri.dart';
-import 'package:demo_1/utils/format_inquinamento.dart';
 import 'package:demo_1/utils/format_meteo.dart';
 import 'package:demo_1/utils/format_polline.dart';
 import 'package:flutter/material.dart';

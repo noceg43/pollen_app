@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
+import 'package:demo_1/providers/inquinamento.dart';
+import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
 import 'package:http/http.dart' as http;
 
 // valori se non presenti = 0 o se stringhe = '' tranne per il parentNameL
@@ -323,6 +325,30 @@ class Tendenza {
   String toString() {
     return "$valore $gruppoValore $freccia ";
   }
+
+  static Map<Polline, Tendenza> getAlberi(Map<Polline, Tendenza> tutte) {
+    Map<Polline, Tendenza> ret = {};
+    for (Polline p in tutte.keys) {
+      if (p.tipo == "Alberi") ret[p] = tutte[p]!;
+    }
+    return ret;
+  }
+
+  static Map<Polline, Tendenza> getErbe(Map<Polline, Tendenza> tutte) {
+    Map<Polline, Tendenza> ret = {};
+    for (Polline p in tutte.keys) {
+      if (p.tipo == "Erbe") ret[p] = tutte[p]!;
+    }
+    return ret;
+  }
+
+  static Map<Polline, Tendenza> getSpore(Map<Polline, Tendenza> tutte) {
+    Map<Polline, Tendenza> ret = {};
+    for (Polline p in tutte.keys) {
+      if (p.tipo == "Spore") ret[p] = tutte[p]!;
+    }
+    return ret;
+  }
 }
 
 Future<Map<Polline, Tendenza>> tendenza(Stazione s, List<Polline> poll,
@@ -426,7 +452,10 @@ void main(List<String> args) async {
     out.write("#####################################################\n");
     out.write("${s.prettyPrint()}\n");
     Map<Polline, Tendenza> tend = await tendenza(s, poll);
-    out.write("ALBERI: \n");
+    Inquinamento inq = await Inquinamento.fetch(s.latitude, s.longitude);
+    out.write(tipoMaggiore(Tendenza.getAlberi(tend), Tendenza.getErbe(tend),
+        Tendenza.getSpore(tend), inq.giornaliero(0)));
+    out.write("\nALBERI: \n");
     for (Polline p in Polline.getAlberi(tend.keys)) {
       out.write("    $p ");
       out.write(tend[p]);

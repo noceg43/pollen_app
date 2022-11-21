@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:demo_1/providers/inquinamento.dart';
 import 'package:flutter/material.dart';
 

@@ -1,7 +1,6 @@
 // ignore_for_file: missing_return
 
 import 'dart:convert';
-import 'dart:io';
 import 'dart:math';
 
 import 'package:http/http.dart' as http;
@@ -182,11 +181,4 @@ class Hourly {
     data['ozone'] = ozone;
     return data;
   }
-}
-
-void main() async {
-  num latMo = 44.645958;
-  num lonMo = 10.925529;
-  Inquinamento inq = await Inquinamento.fetch(latMo, lonMo);
-  print(inq.hourly.ozone);
 }
