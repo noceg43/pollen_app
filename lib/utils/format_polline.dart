@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 
 // da posizione restituisce tendenze dei 3 giorni successivi
 // aggiunto controllo su stazione vuota
-Future<List<Map<Polline, String>>> tendenzaDaPos(Posizione p) async {
+Future<List<Map<Polline, Tendenza>>> tendenzaDaPos(Posizione p) async {
   List<Polline> poll = await Polline.fetch();
   List<Stazione> staz = await Stazione.fetch();
   Stazione localizzata = Stazione.localizza(staz, p.lat, p.lon);
@@ -42,19 +42,19 @@ class FormatPolline {
   String nome = "";
   Color valoreColore = Colors.white;
   IconData icona = Icons.height;
-  FormatPolline(Polline poll, String data) {
-    valore = double.parse(data.split("_")[1]);
-    tendenza = data.split("_")[0];
+  FormatPolline(Polline poll, Tendenza data) {
+    valore = data.valore;
+    tendenza = data.freccia;
     nome = poll.partNameI;
 
     Color getValoreColore() {
-      if (poll.partLow < valore && valore <= poll.partMiddle) {
+      if (data.gruppoValore == 1) {
         return Colors.yellow;
       }
-      if (poll.partMiddle < valore && valore <= poll.partHigh) {
+      if (data.gruppoValore == 2) {
         return Colors.orange;
       }
-      if (valore > poll.partHigh) return Colors.red;
+      if (data.gruppoValore == 3) return Colors.red;
       return Colors.white;
     }
 

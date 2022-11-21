@@ -1,0 +1,842 @@
+#####################################################
+1 Bolzano lat:46.499332 lon:11.342099
+ALBERI: 
+    Araliacee 0.12375 3 Diminuzione 
+    Ontano 0.03125 0 Stabile 
+    Carpino nero 0.0625 0 Stabile 
+    Altre Pinacee 0.0625 0 Stabile 
+    Cedro 12.991874999999999 1 Diminuzione 
+    Tiliacee 0.03125 3 Diminuzione 
+    Pollini Non Identificati 0.90125 3 Stabile 
+ERBE: 
+    Assenzio 0.343125 1 Stabile 
+    Euforbiacee 0.03125 0 Stabile 
+    Graminacee 0.0625 0 Stabile 
+    Urticacee 4.62 1 Stabile 
+SPORE: 
+    Alternaria 9.488125 1 Aumento 
+    Epicoccum 1.145625 3 Stabile 
+    Pithomyces 0.5918749999999999 3 Stabile 
+    Pleospora 0.03125 3 Diminuzione 
+    Polythrincium 0.155625 3 Diminuzione 
+    Stemphylium 0.03125 3 Diminuzione 
+    Torula 2.605 3 Stabile 
+#####################################################
+2 Brunico lat:46.800067 lon:11.936946
+ALBERI: 
+ERBE: 
+SPORE: 
+#####################################################
+3 Silandro lat:46.62891 lon:10.778849
+ALBERI: 
+ERBE: 
+SPORE: 
+#####################################################
+104 Treviso lat:45.67083 lon:12.21389
+ALBERI: 
+    Pinacee 0.12062500000000001 0 Stabile 
+ERBE: 
+    Urticacee 0.080625 0 Stabile 
+SPORE: 
+    Alternaria 8.788125 1 Diminuzione 
+#####################################################
+55 Venezia Mestre lat:45.48167 lon:12.24778
+ALBERI: 
+    Cupressacee/Taxacee 0.030625 0 Stabile 
+    Pinacee 0.15187499999999998 0 Stabile 
+    Altri pollini 0.455625 3 Diminuzione 
+    Pollini Non Identificati 0.030625 3 Diminuzione 
+ERBE: 
+    Altre Composite 0.030625 0 Stabile 
+    Graminacee 0.15187499999999998 0 Stabile 
+    Urticacee 0.06125 0 Stabile 
+SPORE: 
+    Alternaria 32.831875 2 Diminuzione 
+#####################################################
+105 Belluno lat:46.13889 lon:12.20139
+ALBERI: 
+ERBE: 
+    Urticacee 0.02 0 Stabile 
+SPORE: 
+    Alternaria 3.51875 1 Stabile 
+    Cladosporium 37.378750000000004 1 Stabile 
+#####################################################
+66 Vicenza lat:45.52639 lon:11.58889
+ALBERI: 
+    Cupressacee/Taxacee 0.121875 0 Stabile 
+    Pinacee 0.33437500000000003 0 Stabile 
+    Altri pollini 0.42499999999999993 3 Diminuzione 
+    Pollini Non Identificati 0.030625 3 Diminuzione 
+ERBE: 
+    Amarantacee 0.18312499999999998 1 Diminuzione 
+    Altre Composite 0.030625 0 Stabile 
+    Graminacee 0.5787499999999999 1 Diminuzione 
+    Urticacee 0.85 0 Stabile 
+SPORE: 
+    Alternaria 36.03125 2 Diminuzione 
+#####################################################
+96 Padova 2 lat:45.41389 lon:11.88583
+ALBERI: 
+ERBE: 
+SPORE: 
+#####################################################
+149 Feltre lat:46.0225 lon:11.90722
+ALBERI: 
+ERBE: 
+    Urticacee 0.10125 0 Stabile 
+SPORE: 
+    Alternaria 2.801875 1 Diminuzione 
+    Cladosporium 20.29875 1 Diminuzione 
+#####################################################
+166 Padova 1 lat:45.40418 lon:11.88799
+ALBERI: 
+ERBE: 
+SPORE: 
+    Alternaria 18.231250000000003 2 Stabile 
+#####################################################
+152 Verona lat:45.40278 lon:10.99639
+ALBERI: 
+    Cupressacee/Taxacee 0.10125 0 Stabile 
+    Pinacee 0.03375 0 Stabile 
+    Pollini Non Identificati 0.0675 3 Diminuzione 
+ERBE: 
+    Altre Composite 0.03375 0 Stabile 
+    Assenzio 0.3375 1 Diminuzione 
+    Graminacee 0.3375 0 Diminuzione 
+    Urticacee 2.7 1 Diminuzione 
+SPORE: 
+    Alternaria 35.815 2 Stabile 
+    Cladosporium 86.82312499999999 1 Stabile 
+#####################################################
+103 Rovigo lat:45.07194 lon:11.81583
+ALBERI: 
+    Cupressacee/Taxacee 0.14625 0 Stabile 
+    Pinacee 0.20375 0 Stabile 
+    Altri pollini 0.468125 3 Stabile 
+ERBE: 
+    Amarantacee 0.058125 0 Diminuzione 
+    Graminacee 0.029375 0 Stabile 
+    Urticacee 0.32125 0 Stabile 
+SPORE: 
+    Alternaria 30.966875 2 Diminuzione 
+#####################################################
+97 Forlì lat:44.21802 lon:12.032782
+ALBERI: 
+    Cupressacee/Taxacee 0.518 0 Stabile 
+    Pinacee 0.43 0 Stabile 
+    Altri pollini 1.302 3 Stabile 
+ERBE: 
+    Graminacee 0.28833333333333333 0 Diminuzione 
+    Urticacee 0.693 0 Stabile 
+SPORE: 
+    Alternaria 7.5425 1 Diminuzione 
+#####################################################
+121 Rimini lat:44.045054 lon:12.591393
+ALBERI: 
+    Cupressacee/Taxacee 1.3499999999999999 0 Stabile 
+    Pinacee 1.125 1 Diminuzione 
+ERBE: 
+    Amarantacee 0.225 1 Diminuzione 
+    Graminacee 0.28928571428571426 0 Diminuzione 
+    Urticacee 0.41250000000000003 0 Stabile 
+SPORE: 
+    Alternaria 3.825 1 Diminuzione 
+#####################################################
+119 San Giovanni in Persiceto lat:44.632076 lon:11.19424
+ALBERI: 
+    Cupressacee/Taxacee 1.1466666666666667 0 Stabile 
+    Pinacee 0.43 0 Stabile 
+    Altri pollini 0.387 3 Diminuzione 
+ERBE: 
+    Amarantacee 0.3225 1 Diminuzione 
+    Graminacee 0.7524999999999998 1 Diminuzione 
+    Urticacee 0.215 0 Stabile 
+SPORE: 
+    Alternaria 27.816875 2 Diminuzione 
+#####################################################
+122 Modena lat:44.650804 lon:10.925505
+ALBERI: 
+    Cupressacee/Taxacee 1.324 0 Stabile 
+    Castagno 0.245 0 Stabile 
+    Pinacee 0.4287500000000001 0 Stabile 
+    Altri pollini 2.9464285714285716 3 Stabile 
+    Pollini Non Identificati 0.4083333333333334 3 Diminuzione 
+ERBE: 
+    Amarantacee 0.245 1 Diminuzione 
+    Ambrosia 0.245 1 Diminuzione 
+    Assenzio 0.245 1 Diminuzione 
+    Graminacee 0.9807142857142858 1 Diminuzione 
+    Urticacee 0.9821428571428571 0 Stabile 
+SPORE: 
+    Alternaria 22.8925 2 Diminuzione 
+#####################################################
+125 Parma lat:44.809182 lon:10.326746
+ALBERI: 
+    Cupressacee/Taxacee 0.685625 0 Stabile 
+    Pinacee 0.40666666666666673 0 Stabile 
+    Altri pollini 0.8637499999999999 3 Stabile 
+    Pollini Non Identificati 0.205 3 Diminuzione 
+ERBE: 
+    Amarantacee 0.205 1 Diminuzione 
+    Altre Composite 0.205 1 Diminuzione 
+    Assenzio 0.205 1 Diminuzione 
+    Graminacee 0.785625 1 Diminuzione 
+    Urticacee 0.5075000000000001 0 Stabile 
+SPORE: 
+    Alternaria 21.649375000000003 2 Diminuzione 
+#####################################################
+126 Ravenna lat:44.410792 lon:12.19079
+ALBERI: 
+    Cupressacee/Taxacee 0.575 0 Stabile 
+    Olivo 0.23 0 Stabile 
+    Pinacee 0.46 0 Stabile 
+    Altri pollini 0.23 3 Diminuzione 
+    Pollini Non Identificati 0.23 3 Diminuzione 
+ERBE: 
+    Graminacee 0.23 0 Stabile 
+    Urticacee 0.3833333333333333 0 Stabile 
+SPORE: 
+    Alternaria 5.457000000000001 1 Diminuzione 
+#####################################################
+118 Bologna lat:44.491441 lon:11.369412
+ALBERI: 
+    Cupressacee/Taxacee 0.48500000000000004 0 Stabile 
+    Pinacee 1.08 1 Diminuzione 
+    Altri pollini 0.54 3 Diminuzione 
+ERBE: 
+    Ambrosia 0.215 1 Diminuzione 
+    Assenzio 0.215 1 Diminuzione 
+    Graminacee 0.215 0 Stabile 
+    Urticacee 0.8275 0 Stabile 
+SPORE: 
+    Alternaria 14.743749999999999 2 Diminuzione 
+#####################################################
+127 Reggio Emilia lat:44.686786 lon:10.666977
+ALBERI: 
+    Cupressacee/Taxacee 1.5540000000000003 0 Stabile 
+    Pinacee 0.2 0 Stabile 
+ERBE: 
+    Graminacee 0.8666666666666667 1 Stabile 
+    Urticacee 0.59875 0 Stabile 
+SPORE: 
+    Alternaria 8.59375 1 Diminuzione 
+#####################################################
+124 Piacenza lat:45.05751 lon:9.677326
+ALBERI: 
+    Cupressacee/Taxacee 0.8009999999999999 0 Stabile 
+    Pinacee 0.425 0 Stabile 
+    Altri pollini 0.6759999999999999 3 Diminuzione 
+    Pollini Non Identificati 0.5641666666666666 3 Diminuzione 
+ERBE: 
+    Amarantacee 0.296 1 Diminuzione 
+    Ambrosia 0.425 1 Diminuzione 
+    Assenzio 0.21 1 Diminuzione 
+    Graminacee 0.6316666666666666 1 Diminuzione 
+    Urticacee 0.9049999999999999 0 Stabile 
+SPORE: 
+    Alternaria 24.331874999999997 2 Diminuzione 
+#####################################################
+120 Ferrara lat:44.81028 lon:11.587577
+ALBERI: 
+    Cupressacee/Taxacee 0.45 0 Stabile 
+    Pinacee 0.3375 0 Stabile 
+    Pioppo 0.225 0 Stabile 
+    Pollini Non Identificati 0.225 3 Diminuzione 
+ERBE: 
+    Amarantacee 0.225 1 Diminuzione 
+    Graminacee 0.9 1 Diminuzione 
+    Urticacee 0.3 0 Stabile 
+SPORE: 
+    Alternaria 9.17 1 Diminuzione 
+#####################################################
+98 Cesena lat:44.134592 lon:12.25875
+ALBERI: 
+    Cupressacee/Taxacee 0.9533333333333333 0 Stabile 
+    Pinacee 0.716 0 Diminuzione 
+    Altri pollini 0.24 3 Diminuzione 
+ERBE: 
+    Urticacee 0.39666666666666667 0 Stabile 
+SPORE: 
+    Alternaria 2.6218749999999997 1 Diminuzione 
+#####################################################
+89 Pescara lat:42.461449 lon:14.217232
+ALBERI: 
+ERBE: 
+SPORE: 
+#####################################################
+155 L'Aquila lat:42.332935 lon:13.46488
+ALBERI: 
+    Pollini Non Identificati 1.49 3 Diminuzione 
+ERBE: 
+    Assenzio 0.425 1 Diminuzione 
+SPORE: 
+    Alternaria 5.115 1 Diminuzione 
+    Epicoccum 1.705 3 Diminuzione 
+    Stemphylium 0.64 3 Diminuzione 
+#####################################################
+67 San Michele all'Adige lat:46.189999 lon:11.134693
+ALBERI: 
+    Nocciolo 0.245 0 Stabile 
+    Pinacee 1.2966666666666669 1 Diminuzione 
+    Altri pollini 0.245 3 Diminuzione 
+    Pollini Non Identificati 0.305 3 Diminuzione 
+ERBE: 
+    Amarantacee 0.245 1 Diminuzione 
+    Assenzio 0.325 1 Diminuzione 
+    Graminacee 0.39 0 Diminuzione 
+    Urticacee 2.215 1 Diminuzione 
+SPORE: 
+    Alternaria 12.879999999999999 2 Stabile 
+#####################################################
+74 Potenza lat:40.630354 lon:15.814347
+ALBERI: 
+ERBE: 
+SPORE: 
+#####################################################
+131 Napoli - Via don Bosco lat:40.866756 lon:14.270781
+ALBERI: 
+    Cupressacee/Taxacee 1.0206250000000001 0 Stabile 
+    Pinacee 0.9400000000000001 0 Aumento 
+    Altri pollini 0.90375 3 Stabile 
+ERBE: 
+    Amarantacee 0.18124999999999997 1 Diminuzione 
+    Assenzio 0.1975 1 Diminuzione 
+    Euforbiacee 1.79375 1 Stabile 
+    Graminacee 0.09875 0 Stabile 
+    Plantaginacee 0.0325 0 Stabile 
+    Urticacee 4.378125 1 Stabile 
+SPORE: 
+    Alternaria 7.59 1 Stabile 
+#####################################################
+137 Benevento - Via Calandra lat:41.129998 lon:14.791077
+ALBERI: 
+    Cupressacee/Taxacee 1.086875 0 Stabile 
+    Castagno 0.09875 0 Stabile 
+    Pinacee 0.361875 0 Stabile 
+    Altri pollini 0.6268750000000001 3 Stabile 
+ERBE: 
+    Amarantacee 0.16500000000000004 1 Diminuzione 
+    Assenzio 0.04875 0 Stabile 
+    Euforbiacee 1.9406249999999998 1 Stabile 
+    Graminacee 0.09875 0 Stabile 
+    Urticacee 2.73125 1 Stabile 
+SPORE: 
+    Alternaria 5.630625 1 Stabile 
+#####################################################
+138 Caserta - Via Arena lat:41.0675 lon:14.354
+ALBERI: 
+    Cupressacee/Taxacee 1.2337500000000001 0 Stabile 
+    Ericacee 0.065625 3 Diminuzione 
+    Pinacee 0.759375 0 Stabile 
+    Altri pollini 0.610625 3 Stabile 
+ERBE: 
+    Amarantacee 0.148125 1 Diminuzione 
+    Assenzio 0.16500000000000004 1 Diminuzione 
+    Euforbiacee 2.453125 1 Stabile 
+    Graminacee 0.01625 0 Stabile 
+    Urticacee 2.7174999999999994 1 Stabile 
+SPORE: 
+    Alternaria 5.975 1 Stabile 
+#####################################################
+84 Trieste lat:45.64053 lon:13.79636
+ALBERI: 
+    Araliacee 0.175 3 Diminuzione 
+    Cupressacee/Taxacee 0.35 0 Stabile 
+    Pinacee 0.175 0 Stabile 
+    Altri pollini 0.525 3 Diminuzione 
+    Pollini Non Identificati 0.175 3 Diminuzione 
+ERBE: 
+    Euforbiacee 0.175 0 Stabile 
+    Urticacee 0.35 0 Stabile 
+SPORE: 
+    Alternaria 1.22 1 Diminuzione 
+#####################################################
+145 Lignano Sabbiadoro lat:45.689165 lon:13.129536
+ALBERI: 
+    Ontano 0.175 0 Stabile 
+    Cupressacee/Taxacee 0.35 0 Stabile 
+    Altri pollini 0.35 3 Stabile 
+ERBE: 
+    Euforbiacee 0.175 0 Stabile 
+SPORE: 
+    Alternaria 3.835 1 Diminuzione 
+#####################################################
+88 Tolmezzo lat:46.405329 lon:13.010574
+ALBERI: 
+    Ontano 0.0175 0 Stabile 
+    Nocciolo 0.052500000000000005 0 Stabile 
+    Cupressacee/Taxacee 0.088125 0 Stabile 
+    Altre Oleacee 0.0175 0 Stabile 
+    Pinacee 0.960625 0 Aumento 
+    Altri pollini 0.052500000000000005 3 Diminuzione 
+ERBE: 
+    Amarantacee 0.035 0 Stabile 
+    Assenzio 0.035 0 Stabile 
+    Graminacee 0.07 0 Stabile 
+    Plantaginacee 0.0175 0 Stabile 
+    Urticacee 0.08750000000000001 0 Stabile 
+SPORE: 
+    Alternaria 3.7131250000000007 1 Stabile 
+#####################################################
+87 Pordenone lat:45.953595 lon:12.681275
+ALBERI: 
+    Araliacee 0.0175 3 Diminuzione 
+    Cupressacee/Taxacee 0.035 0 Stabile 
+    Altre Oleacee 0.0175 0 Stabile 
+    Pinacee 0.035 0 Stabile 
+    Altri pollini 0.15812500000000002 3 Diminuzione 
+ERBE: 
+    Amarantacee 0.052500000000000005 0 Diminuzione 
+    Altre Composite 0.035 0 Stabile 
+    Assenzio 0.0175 0 Stabile 
+    Euforbiacee 0.08812500000000001 0 Stabile 
+    Graminacee 0.3506250000000001 0 Stabile 
+    Urticacee 0.10500000000000001 0 Stabile 
+SPORE: 
+    Alternaria 10.689375 2 Diminuzione 
+#####################################################
+156 Reggio Calabria lat:38.168983 lon:15.668125
+ALBERI: 
+ERBE: 
+SPORE: 
+#####################################################
+90 La Spezia - Arpal Dipartimento di La Spezia lat:44.120754 lon:9.832961
+ALBERI: 
+    Cupressacee/Taxacee 0.12687500000000002 0 Stabile 
+    Pinacee 0.0425 0 Stabile 
+    Altri pollini 0.02125 3 Diminuzione 
+ERBE: 
+    Graminacee 0.02125 0 Stabile 
+    Urticacee 0.21125000000000002 0 Stabile 
+    Vetriola/altre Urticacee 0.21125000000000002 0 Stabile 
+SPORE: 
+    Alternaria 0.629375 0 Stabile 
+#####################################################
+91 Genova - Dipartimento provinciale lat:44.411392 lon:8.884221
+ALBERI: 
+    Cupressacee/Taxacee 0.83875 0 Stabile 
+    Pinacee 0.151875 0 Stabile 
+    Altri pollini 0.07625 3 Diminuzione 
+ERBE: 
+    Euforbiacee 0.038125 0 Stabile 
+    Urticacee 0.190625 0 Stabile 
+SPORE: 
+    Alternaria 1.86125 1 Stabile 
+#####################################################
+101 Savona lat:44.312601 lon:8.447124
+ALBERI: 
+ERBE: 
+SPORE: 
+#####################################################
+102 Imperia - Arpal Dipartimento di Imperia lat:43.872932 lon:8.009715
+ALBERI: 
+ERBE: 
+SPORE: 
+#####################################################
+114 Omegna lat:45.899312 lon:8.417841
+ALBERI: 
+    Ontano 0.1542857142857143 0 Stabile 
+    Cupressacee/Taxacee 0.38571428571428573 0 Stabile 
+    Castagno 0.135 0 Stabile 
+    Cedro 0.03375 0 Stabile 
+    Pollini Non Identificati 1.0462500000000001 3 Stabile 
+ERBE: 
+    Urticacee 0.27 0 Stabile 
+SPORE: 
+    Alternaria 1.9575000000000002 1 Stabile 
+#####################################################
+113 Novara lat:45.440195 lon:8.619762
+ALBERI: 
+    Ontano 0.06125 0 Stabile 
+    Carpino bianco/orientale 0.030625 0 Stabile 
+    Cupressacee/Taxacee 5.683125 1 Aumento 
+    Castagno 0.030625 0 Stabile 
+    Faggio 0.030625 0 Stabile 
+    Ligustro 0.060625 0 Stabile 
+    Cedro 12.0925 1 Diminuzione 
+    Altri pollini 0.24312499999999998 3 Diminuzione 
+    Pollini Non Identificati 0.334375 3 Diminuzione 
+ERBE: 
+    Amarantacee 0.153125 1 Diminuzione 
+    Cannabacee 0.09125 3 Diminuzione 
+    Ambrosia 0.06125 0 Diminuzione 
+    Assenzio 0.1525 1 Diminuzione 
+    Graminacee 1.3356249999999998 1 Stabile 
+    Poligonacee 0.030625 0 Stabile 
+    Rosacee 0.245 3 Diminuzione 
+    Urticacee 0.45562499999999995 0 Stabile 
+SPORE: 
+    Alternaria 16.860625000000002 2 Diminuzione 
+#####################################################
+148 Alessandria lat:44.915234 lon:8.624551
+ALBERI: 
+    Cupressacee/Taxacee 7.265625 1 Aumento 
+    Castagno 0.02875 0 Stabile 
+    Cedro 0.0575 0 Stabile 
+    Altri pollini 0.1725 3 Diminuzione 
+    Pollini Non Identificati 0.716875 3 Diminuzione 
+ERBE: 
+    Amarantacee 0.0575 0 Diminuzione 
+    Altre Composite 0.02875 0 Stabile 
+    Assenzio 0.0575 0 Diminuzione 
+    Graminacee 1.1825 1 Aumento 
+    Urticacee 1.088125 0 Diminuzione 
+SPORE: 
+    Alternaria 25.051250000000003 2 Diminuzione 
+#####################################################
+112 Cuneo lat:44.385641 lon:7.536771
+ALBERI: 
+    Cupressacee/Taxacee 0.11142857142857143 0 Stabile 
+    Cedro 0.14625 0 Stabile 
+    Altri pollini 0.04875 3 Diminuzione 
+    Pollini Non Identificati 0.027857142857142858 3 Diminuzione 
+ERBE: 
+    Ambrosia 0.027857142857142858 0 Stabile 
+    Graminacee 0.31749999999999995 0 Diminuzione 
+    Urticacee 0.268125 0 Stabile 
+SPORE: 
+    Agrocybe 2.94 3 Diminuzione 
+    Alternaria 7.495625 1 Diminuzione 
+#####################################################
+143 Vercelli lat:45.317621 lon:8.412396
+ALBERI: 
+ERBE: 
+SPORE: 
+#####################################################
+139 Castel di Lama lat:42.869001 lon:13.712716
+ALBERI: 
+    Cupressacee/Taxacee 1.075625 0 Stabile 
+    Altre Oleacee 0.495 0 Aumento 
+    Pinacee 1.7400000000000002 1 Diminuzione 
+    Umbellifere 0.0275 3 Diminuzione 
+    Altri pollini 0.193125 3 Diminuzione 
+    Pollini Non Identificati 0.165 3 Diminuzione 
+ERBE: 
+    Amarantacee 0.11 1 Diminuzione 
+    Altre Composite 0.0275 0 Stabile 
+    Assenzio 0.0825 0 Diminuzione 
+    Euforbiacee 0.5800000000000001 0 Diminuzione 
+    Graminacee 0.0275 0 Stabile 
+    Urticacee 1.0493750000000002 0 Stabile 
+SPORE: 
+    Alternaria 13.204375 2 Diminuzione 
+    Epicoccum 1.57375 3 Stabile 
+    Helminthosporium 0.30375 3 Diminuzione 
+    Oidium 0.33125 3 Diminuzione 
+    Pithomyces 0.7999999999999999 3 Stabile 
+    Pleospora 1.961875 3 Stabile 
+    Puccinia 0.496875 3 Diminuzione 
+    Stemphylium 4.2524999999999995 3 Stabile 
+    Torula 0.0825 3 Diminuzione 
+#####################################################
+163 Ancona lat:43.616706 lon:13.518838
+ALBERI: 
+    Cupressacee/Taxacee 0.6900000000000001 0 Stabile 
+    Altre Oleacee 0.0825 0 Stabile 
+    Pinacee 0.165625 0 Stabile 
+    Altri pollini 0.33 3 Stabile 
+    Pollini Non Identificati 0.193125 3 Diminuzione 
+ERBE: 
+    Altre Composite 0.0275 0 Stabile 
+    Assenzio 0.083125 0 Diminuzione 
+    Euforbiacee 0.22125 0 Stabile 
+    Graminacee 0.0825 0 Stabile 
+    Urticacee 0.634375 0 Stabile 
+SPORE: 
+    Alternaria 3.50875 1 Stabile 
+    Epicoccum 0.799375 3 Stabile 
+    Helminthosporium 0.0275 3 Diminuzione 
+    Oidium 0.27625 3 Diminuzione 
+    Pithomyces 0.165 3 Diminuzione 
+    Pleospora 0.0825 3 Diminuzione 
+    Stemphylium 1.07625 3 Stabile 
+    Torula 0.165625 3 Diminuzione 
+#####################################################
+159 Pesaro lat:43.908065 lon:12.912927
+ALBERI: 
+ERBE: 
+SPORE: 
+#####################################################
+117 Campobasso lat:41.557351 lon:14.656749
+ALBERI: 
+    Cupressacee/Taxacee 13.16 1 Aumento 
+    Pinacee 0.13 0 Stabile 
+    Pollini Non Identificati 0.6664285714285713 3 Diminuzione 
+ERBE: 
+    Euforbiacee 0.9742857142857144 0 Diminuzione 
+    Rosacee 0.195 3 Diminuzione 
+    Urticacee 3.3049999999999997 1 Stabile 
+SPORE: 
+    Alternaria 5.055 1 Stabile 
+    Epicoccum 1.1683333333333334 3 Stabile 
+    Helminthosporium 0.24375000000000002 3 Diminuzione 
+    Peronospora 0.195 3 Diminuzione 
+    Pithomyces 0.195 3 Diminuzione 
+    Pleospora 1.0366666666666666 3 Diminuzione 
+    Polythrincium 0.195 3 Diminuzione 
+    Stemphylium 1.055 3 Diminuzione 
+    Torula 1.555 3 Diminuzione 
+#####################################################
+154 Termoli lat:41.989104 lon:14.99213
+ALBERI: 
+    Anacardiacee 0.39 3 Diminuzione 
+    Cupressacee/Taxacee 0.68125 0 Stabile 
+    Pollini Non Identificati 0.48750000000000004 3 Diminuzione 
+ERBE: 
+    Euforbiacee 0.6491666666666666 0 Diminuzione 
+    Graminacee 0.195 0 Stabile 
+    Rosacee 0.2925 3 Diminuzione 
+    Urticacee 1.9164285714285716 0 Diminuzione 
+SPORE: 
+    Alternaria 3.986875 1 Diminuzione 
+    Epicoccum 0.48750000000000004 3 Diminuzione 
+    Helminthosporium 0.195 3 Diminuzione 
+    Peronospora 0.389 3 Diminuzione 
+    Pithomyces 0.195 3 Diminuzione 
+    Pleospora 1.2785714285714285 3 Diminuzione 
+    Stemphylium 3.6099999999999994 3 Diminuzione 
+#####################################################
+129 Isernia lat:41.600905 lon:14.236468
+ALBERI: 
+ERBE: 
+SPORE: 
+#####################################################
+160 Brindisi lat:40.63166 lon:17.93882
+ALBERI: 
+    Cupressacee/Taxacee 0.5675 0 Stabile 
+    Pinacee 0.565 0 Diminuzione 
+    Salice 0.285 0 Stabile 
+    Altri pollini 1.135 3 Stabile 
+    Pollini Non Identificati 0.6499999999999999 3 Stabile 
+ERBE: 
+    Euforbiacee 0.8499999999999999 0 Aumento 
+    Graminacee 0.285 0 Diminuzione 
+    Plantaginacee 0.285 1 Diminuzione 
+    Vetriola/altre Urticacee 1.9814285714285713 0 Diminuzione 
+SPORE: 
+    Alternaria 4.481428571428571 1 Stabile 
+#####################################################
+161 Bari lat:41.11001 lon:16.87808
+ALBERI: 
+ERBE: 
+SPORE: 
+#####################################################
+158 Sassari lat:40.739593 lon:8.537141
+ALBERI: 
+    Cupressacee/Taxacee 9.83375 1 Stabile 
+    Quercia 1.38125 1 Diminuzione 
+    Altre Oleacee 0.36833333333333335 0 Diminuzione 
+    Palme 0.66 3 Stabile 
+    Altri pollini 0.22 3 Diminuzione 
+    Pollini Non Identificati 1.58 3 Stabile 
+ERBE: 
+    Amarantacee 0.22 1 Diminuzione 
+    Altre Composite 0.11 1 Diminuzione 
+    Assenzio 0.22 1 Diminuzione 
+    Euforbiacee 0.29333333333333333 0 Stabile 
+    Graminacee 0.22 0 Stabile 
+    Vetriola/altre Urticacee 1.765 0 Diminuzione 
+SPORE: 
+    Alternaria 8.068125 1 Diminuzione 
+    Epicoccum 1.072142857142857 3 Stabile 
+    Helminthosporium 0.55 3 Stabile 
+    Oidium 0.35300000000000004 3 Diminuzione 
+    Periconia 1.73 3 Stabile 
+    Peronospora 0.515 3 Diminuzione 
+    Pithomyces 0.275 3 Diminuzione 
+    Pleospora 2.3933333333333335 3 Stabile 
+    Polythrincium 0.22 3 Diminuzione 
+    Stemphylium 3.4225000000000003 3 Stabile 
+    Torula 2.3216666666666668 3 Stabile 
+#####################################################
+164 Cagliari lat:39.231183 lon:9.120133
+ALBERI: 
+    Cupressacee/Taxacee 4.78 1 Diminuzione 
+    Quercia 0.22 0 Stabile 
+    Mirtacee 0.22 0 Stabile 
+    Altre Oleacee 0.22 0 Stabile 
+    Pinacee 0.22 0 Stabile 
+    Altri pollini 0.44125000000000003 3 Diminuzione 
+    Pollini Non Identificati 0.8816666666666667 3 Stabile 
+ERBE: 
+    Amarantacee 0.44 1 Diminuzione 
+    Assenzio 0.8833333333333334 1 Diminuzione 
+    Euforbiacee 0.47285714285714286 0 Stabile 
+    Graminacee 0.5516666666666666 1 Diminuzione 
+    Vetriola/altre Urticacee 0.8287500000000001 0 Stabile 
+    Ortica 0.22 0 Stabile 
+SPORE: 
+    Alternaria 13.396875 2 Diminuzione 
+    Epicoccum 0.5508333333333334 3 Diminuzione 
+    Helminthosporium 0.4041666666666666 3 Diminuzione 
+    Oidium 0.49624999999999997 3 Diminuzione 
+    Periconia 0.77 3 Stabile 
+    Peronospora 0.7358333333333333 3 Diminuzione 
+    Pleospora 16.384999999999998 3 Stabile 
+    Polythrincium 0.22 3 Diminuzione 
+    Stemphylium 2.5662499999999997 3 Stabile 
+    Torula 0.663 3 Diminuzione 
+#####################################################
+144 Trapani lat:38.030487 lon:12.547975
+ALBERI: 
+    Cupressacee/Taxacee 1.35 0 Stabile 
+    Quercia 0.18 0 Stabile 
+    Umbellifere 0.18 3 Diminuzione 
+    Altri pollini 1.332 3 Stabile 
+    Pollini Non Identificati 0.21600000000000003 3 Diminuzione 
+ERBE: 
+    Amarantacee 0.27 1 Diminuzione 
+    Altre Composite 0.06 0 Diminuzione 
+    Assenzio 0.99 1 Stabile 
+    Euforbiacee 2.0700000000000003 1 Aumento 
+    Graminacee 0.24 0 Stabile 
+    Urticacee 0.21599999999999997 0 Stabile 
+SPORE: 
+    Alternaria 5.8500000000000005 1 Stabile 
+#####################################################
+165 Siracusa lat:37.085174 lon:15.277605
+ALBERI: 
+    Cupressacee/Taxacee 0.705 0 Stabile 
+    Quercia 0.355 0 Stabile 
+    Pinacee 0.175 0 Stabile 
+    Altri pollini 1.06 3 Stabile 
+    Pollini Non Identificati 0.5291666666666667 3 Stabile 
+ERBE: 
+    Amarantacee 0.6174999999999999 1 Diminuzione 
+    Euforbiacee 3.9483333333333333 1 Aumento 
+    Graminacee 0.53 1 Diminuzione 
+    Urticacee 4.448333333333333 1 Stabile 
+SPORE: 
+    Alternaria 4.4783333333333335 1 Stabile 
+#####################################################
+69 Firenze lat:43.782202 lon:11.232375
+ALBERI: 
+    Cupressacee/Taxacee 1.519375 0 Stabile 
+    Pinacee 0.25 0 Stabile 
+    Altri pollini 0.425 3 Stabile 
+    Pollini Non Identificati 0.19999999999999998 3 Diminuzione 
+ERBE: 
+    Assenzio 0.025 0 Stabile 
+    Euforbiacee 0.52375 0 Diminuzione 
+    Graminacee 0.05 0 Stabile 
+    Urticacee 1.26875 0 Stabile 
+SPORE: 
+    Alternaria 2.7875 1 Stabile 
+#####################################################
+162 Arezzo lat:43.461781 lon:11.865537
+ALBERI: 
+    Cupressacee/Taxacee 2.266875 0 Stabile 
+    Pinacee 0.275 0 Stabile 
+    Umbellifere 0.025 3 Diminuzione 
+    Altri pollini 0.6 3 Stabile 
+    Pollini Non Identificati 0.07500000000000001 3 Diminuzione 
+ERBE: 
+    Altre Composite 0.025 0 Stabile 
+    Euforbiacee 0.5987500000000001 0 Stabile 
+    Graminacee 0.1 0 Stabile 
+    Urticacee 1.2937500000000002 0 Stabile 
+SPORE: 
+    Alternaria 3.638125 1 Stabile 
+#####################################################
+70 Lido di Camaiore lat:43.914286 lon:10.224039
+ALBERI: 
+    Cupressacee/Taxacee 5.9775 1 Diminuzione 
+    Pinacee 0.2 0 Stabile 
+    Altri pollini 0.1 3 Diminuzione 
+    Pollini Non Identificati 0.3 3 Diminuzione 
+ERBE: 
+    Euforbiacee 0.4 0 Stabile 
+    Graminacee 0.1 0 Stabile 
+    Urticacee 1.695 0 Diminuzione 
+SPORE: 
+    Alternaria 3.985 1 Diminuzione 
+#####################################################
+157 Grosseto lat:42.766106 lon:11.115616
+ALBERI: 
+    Cupressacee/Taxacee 1.9925000000000002 0 Stabile 
+    Pinacee 0.325 0 Stabile 
+    Altri pollini 0.3 3 Diminuzione 
+    Pollini Non Identificati 0.324375 3 Diminuzione 
+ERBE: 
+    Amarantacee 0.15 1 Diminuzione 
+    Assenzio 0.1 0 Diminuzione 
+    Euforbiacee 0.37374999999999997 0 Stabile 
+    Graminacee 0.125 0 Stabile 
+    Urticacee 0.47312499999999996 0 Stabile 
+SPORE: 
+    Alternaria 3.1881250000000003 1 Diminuzione 
+#####################################################
+80 Perugia lat:43.101243 lon:12.395921
+ALBERI: 
+    Cupressacee/Taxacee 9.21 1 Aumento 
+    Ericacee 0.23 3 Diminuzione 
+    Olivo 0.23 0 Stabile 
+    Pinacee 0.45999999999999996 0 Stabile 
+    Altri pollini 0.575 3 Diminuzione 
+ERBE: 
+    Amarantacee 0.23 1 Diminuzione 
+    Assenzio 0.69 1 Diminuzione 
+    Euforbiacee 0.5162500000000001 0 Diminuzione 
+    Graminacee 0.45999999999999996 0 Diminuzione 
+    Rosacee 0.23 3 Diminuzione 
+    Urticacee 0.3066666666666667 0 Stabile 
+SPORE: 
+    Alternaria 1.8918750000000002 1 Diminuzione 
+    Peronospora 0.23 3 Diminuzione 
+#####################################################
+141 Città di Castello lat:43.283692 lon:12.151275
+ALBERI: 
+    Ontano 0.23 0 Stabile 
+    Cupressacee/Taxacee 0.6116666666666667 0 Stabile 
+    Castagno 0.23 0 Stabile 
+    Quercia 0.23 0 Stabile 
+    Olivo 0.46 0 Diminuzione 
+    Pinacee 0.45999999999999996 0 Stabile 
+    Altri pollini 0.63125 3 Diminuzione 
+    Pollini Non Identificati 0.46 3 Stabile 
+ERBE: 
+    Amarantacee 0.23 1 Diminuzione 
+    Altre Composite 0.23 1 Diminuzione 
+    Assenzio 0.23 1 Diminuzione 
+    Euforbiacee 2.6535714285714285 1 Stabile 
+    Graminacee 0.805 1 Stabile 
+    Rosacee 0.46 3 Diminuzione 
+    Urticacee 0.6325 0 Stabile 
+SPORE: 
+    Alternaria 5.073125 1 Stabile 
+    Peronospora 2.0321428571428575 3 Stabile 
+#####################################################
+140 Terni lat:42.576185 lon:12.628337
+ALBERI: 
+    Araliacee 0.46 3 Diminuzione 
+    Ontano 0.23 0 Stabile 
+    Cupressacee/Taxacee 0.23 0 Stabile 
+    Ericacee 0.23 3 Diminuzione 
+    Iuglandacee 0.23 3 Diminuzione 
+    Altre Oleacee 0.23 0 Stabile 
+    Olivo 0.23 0 Stabile 
+    Pinacee 0.3066666666666667 0 Stabile 
+    Umbellifere 0.23 3 Diminuzione 
+    Altri pollini 0.40249999999999997 3 Diminuzione 
+    Pollini Non Identificati 0.23 3 Diminuzione 
+ERBE: 
+    Amarantacee 0.23 1 Diminuzione 
+    Cannabacee 0.23 3 Diminuzione 
+    Assenzio 0.23 1 Diminuzione 
+    Euforbiacee 0.6228571428571429 0 Diminuzione 
+    Graminacee 0.40125 0 Diminuzione 
+    Poligonacee 0.23 0 Stabile 
+    Urticacee 0.782 0 Stabile 
+SPORE: 
+    Alternaria 7.596875000000001 1 Diminuzione 
+    Peronospora 0.46 3 Stabile 
+#####################################################
+83 Cogne - Gimillan lat:45.615764 lon:7.356008
+ALBERI: 
+ERBE: 
+SPORE: 
+#####################################################
+82 Aosta - St. Christophe lat:45.742192 lon:7.356984
+ALBERI: 
+ERBE: 
+SPORE: 

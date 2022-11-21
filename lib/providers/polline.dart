@@ -15,7 +15,8 @@ class Polline {
       partNameD,
       partNameE,
       partNameF,
-      partNameL;
+      partNameL,
+      tipo;
   static Future<List<Polline>> fetch() async {
     var urlPolline =
         'http://dati.retecivica.bz.it/services/POLLNET_PARTICLES?format=json';
@@ -31,6 +32,30 @@ class Polline {
     }
   }
 
+  static List<Polline> getAlberi(Iterable<Polline> tutti) {
+    List<Polline> ret = [];
+    for (Polline p in tutti) {
+      if (p.tipo == "Alberi") ret.add(p);
+    }
+    return ret;
+  }
+
+  static List<Polline> getErbe(Iterable<Polline> tutti) {
+    List<Polline> ret = [];
+    for (Polline p in tutti) {
+      if (p.tipo == "Erbe") ret.add(p);
+    }
+    return ret;
+  }
+
+  static List<Polline> getSpore(Iterable<Polline> tutti) {
+    List<Polline> ret = [];
+    for (Polline p in tutti) {
+      if (p.tipo == "Spore") ret.add(p);
+    }
+    return ret;
+  }
+
   const Polline({
     required this.partId,
     required this.parentId,
@@ -44,9 +69,37 @@ class Polline {
     required this.partNameE,
     required this.partNameF,
     required this.partNameL,
+    required this.tipo,
   });
 
   factory Polline.fromJson(Map<String, dynamic> json) {
+    String ottieniTipo() {
+      List<String> erbe = [
+        "Saxifragaceae",
+        "Rubiaceae",
+        "Rosaceae",
+        "Ranunculaceae",
+        "Polygonaceae",
+        "Plantaginaceae",
+        "Papaveraceae",
+        "Juncaceae",
+        "Gramineae",
+        "Euphorbiaceae",
+        "Cyperaceae",
+        "Artemisia",
+        "Amaranthaceae",
+      ];
+      List<String> erbeFamiglia = ["Cannabaceae", "Urticaceae", "Compositae"];
+      if (json['PARENT_NAME_L'] == "Spore") return "Spore";
+      if (erbeFamiglia.contains(json['PARENT_NAME_L']) ||
+          erbe.contains(json['PART_NAME_L']) ||
+          erbeFamiglia.contains(json['PART_NAME_L'])) {
+        return "Erbe";
+      } else {
+        return "Alberi";
+      }
+    }
+
     return Polline(
       partId: json['PART_ID'] ?? 0,
       parentId: json['PARENT_ID'] ?? 0,
@@ -60,6 +113,7 @@ class Polline {
       partNameE: json['PART_NAME_E'] ?? '',
       partNameF: json['PART_NAME_F'] ?? '',
       partNameL: json['PART_NAME_L'] ?? '',
+      tipo: ottieniTipo(),
     );
   }
 
@@ -249,7 +303,29 @@ class Concentrazione {
   int get hashCode => partId.hashCode + remaDate.hashCode;
 }
 
-Future<Map<Polline, String>> tendenza(Stazione s, List<Polline> poll,
+class Tendenza {
+  String freccia = "Stabile";
+  num valore;
+  int gruppoValore = 0;
+  Tendenza(Polline polline, this.valore, this.freccia) {
+    if (polline.partLow < valore && valore <= polline.partMiddle) {
+      gruppoValore = 1;
+    } else if (polline.partMiddle < valore && valore <= polline.partHigh) {
+      gruppoValore = 2;
+    } else if (valore > polline.partHigh) {
+      gruppoValore = 3;
+    } else {
+      gruppoValore = 0;
+    }
+    valore = double.parse(valore.toStringAsFixed(1));
+  }
+  @override
+  String toString() {
+    return "$valore $gruppoValore $freccia ";
+  }
+}
+
+Future<Map<Polline, Tendenza>> tendenza(Stazione s, List<Polline> poll,
     {int offset = 0}) async {
   List<Concentrazione> ultimaConc = await Concentrazione.fetch(s);
 
@@ -284,14 +360,14 @@ Future<Map<Polline, String>> tendenza(Stazione s, List<Polline> poll,
       p: calcolaConcentrazioneMedia(trovaConcentrazione(annoFaConc, p))
   };
 
-  Map<Polline, String> tendenzaFinale = {
+  Map<Polline, Tendenza> tendenzaFinale = {
     for (Polline p in ultimaTend.keys)
       p: _calcoloTendenza(p, annoFaTend[p]!, ultimaTend[p]!)
   };
   return tendenzaFinale;
 }
 
-String _calcoloTendenza(Polline p, num pre, num att) {
+Tendenza _calcoloTendenza(Polline p, num pre, num att) {
   num valore(Polline p, num n) {
     if (p.partLow < n && n <= p.partMiddle) return 1;
     if (p.partMiddle < n && n <= p.partHigh) return 2;
@@ -302,11 +378,35 @@ String _calcoloTendenza(Polline p, num pre, num att) {
   num prePart = valore(p, pre);
   num attPart = valore(p, att);
   //print("pre $pre  att $att");
-  String valoreAttuale = ((att + pre) / 2).toStringAsFixed(2);
-  if (prePart == attPart) return "Stabile_$valoreAttuale";
-  if (prePart < attPart) return "Diminuzione_$valoreAttuale";
-  if (prePart > attPart) return "Aumento_$valoreAttuale";
-  return "Dati non attendibili";
+  num nValoreAttuale = ((att + pre) / 2);
+
+  if (prePart == attPart) {
+    return Tendenza(
+      p,
+      nValoreAttuale,
+      "Stabile",
+    );
+  }
+  if (prePart < attPart) {
+    return Tendenza(
+      p,
+      nValoreAttuale,
+      "Diminuzione",
+    );
+  }
+  if (prePart > attPart) {
+    return Tendenza(
+      p,
+      nValoreAttuale,
+      "Aumento",
+    );
+  }
+
+  return Tendenza(
+    p,
+    nValoreAttuale,
+    "Stabile",
+  );
 }
 
 void main(List<String> args) async {
@@ -325,8 +425,21 @@ void main(List<String> args) async {
   for (Stazione s in staz) {
     out.write("#####################################################\n");
     out.write("${s.prettyPrint()}\n");
-    Map<Polline, String> tend = await tendenza(s, poll);
-    for (Polline p in tend.keys) {
+    Map<Polline, Tendenza> tend = await tendenza(s, poll);
+    out.write("ALBERI: \n");
+    for (Polline p in Polline.getAlberi(tend.keys)) {
+      out.write("    $p ");
+      out.write(tend[p]);
+      out.write("\n");
+    }
+    out.write("ERBE: \n");
+    for (Polline p in Polline.getErbe(tend.keys)) {
+      out.write("    $p ");
+      out.write(tend[p]);
+      out.write("\n");
+    }
+    out.write("SPORE: \n");
+    for (Polline p in Polline.getSpore(tend.keys)) {
       out.write("    $p ");
       out.write(tend[p]);
       out.write("\n");

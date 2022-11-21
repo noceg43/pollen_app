@@ -22,7 +22,7 @@ class ListGiornaliera extends StatelessWidget {
       required this.inq})
       : super(key: ObjectKey(m));
   final FormatMeteo m;
-  final Map<Polline, String> tend;
+  final Map<Polline, Tendenza> tend;
   final List<ParticellaInquinante> inq;
   final void Function() update;
   @override
