@@ -37,3 +37,18 @@ List<String> tipoMaggiore(
       .reversed
       .toList();
 }
+
+int valoreMassimoRaggiunto(dynamic data) {
+  if (data is Map<Polline, Tendenza>) {
+    Map<Polline, Tendenza> poll = data;
+    int sum = 0;
+    for (Tendenza t in poll.values) {
+      sum += t.gruppoValore;
+    }
+    int lunghezza = poll.values.length;
+    if (lunghezza == 0) return 0;
+    return (sum / poll.values.length).truncate();
+  } else {
+    return 3;
+  }
+}
