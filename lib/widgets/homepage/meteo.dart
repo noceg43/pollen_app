@@ -12,63 +12,29 @@ class WidgetMeteo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(children: [
-        Row(
-          children: [
-            Expanded(
-              child: Text(
-                m.pos.pos,
-                style: Theme.of(context).textTheme.headline4,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            const Icon(
-              Icons.location_on,
-              size: 25,
-            )
-          ],
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Spacer(flex: 1),
-            Column(
-              children: [
-                Text(
-                  "${m.temperatura}°",
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text("Max ${m.max}°"),
-                Text("Min ${m.min}°"),
-              ],
-            ),
-            const Spacer(
-              flex: 1,
-            ),
-            Icon(
-              m.iconaMeteo,
-              size: 100,
-            ),
-            const Spacer(flex: 1),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              child: Text(
-                m.stringaMeteo,
-                style: Theme.of(context).textTheme.headline5,
-                textAlign: TextAlign.center,
-              ),
-            )
-          ],
-        ),
-      ]),
+      height: 100,
+      width: 225,
+      child: Row(
+        children: [
+          Icon(
+            m.iconaMeteo,
+            size: 75,
+          ),
+          Spacer(),
+          Text(
+            "${m.temperatura}°",
+            style: Theme.of(context).textTheme.headline4,
+          ),
+          Spacer(),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Max ${m.max}°"),
+              Text("Min ${m.min}°"),
+            ],
+          )
+        ],
+      ),
     );
   }
 }
