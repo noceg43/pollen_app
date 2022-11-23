@@ -47,8 +47,8 @@ int valoreMassimoRaggiunto(dynamic data) {
     }
     int lunghezza = poll.values.length;
     if (lunghezza == 0) return 0;
-    return (sum / poll.values.length).truncate();
+    return (sum / poll.values.length).round();
   } else {
-    return 3;
+    return 1;
   }
 }

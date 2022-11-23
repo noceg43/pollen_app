@@ -15,7 +15,6 @@ class ItemInquinamento extends StatelessWidget {
       height: 50,
       child: Card(
         elevation: 10,
-        color: p.valoreColore,
         child: Row(
           children: [
             const Spacer(

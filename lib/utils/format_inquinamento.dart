@@ -9,10 +9,10 @@ import 'package:flutter/material.dart';
 class FormatInquinamento {
   String tipo = "";
   int val = 0;
-  Color valoreColore = Colors.white;
+  int valoreColore = 0;
   FormatInquinamento(ParticellaInquinante p) {
     tipo = p.tipo;
     val = p.val;
-    if (p.superato) valoreColore = Colors.red;
+    if (p.superato) valoreColore = 3;
   }
 }

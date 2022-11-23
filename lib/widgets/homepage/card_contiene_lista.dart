@@ -1,4 +1,4 @@
-import 'package:demo_1/widgets/homepage/lista_polline.dart';
+import 'package:demo_1/widgets/homepage/lista_particella.dart';
 import 'package:flutter/material.dart';
 
 class CardContenitore extends StatelessWidget {

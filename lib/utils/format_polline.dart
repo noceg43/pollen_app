@@ -40,25 +40,14 @@ class FormatPolline {
   num valore = 0;
   String tendenza = "";
   String nome = "";
-  Color valoreColore = Colors.white;
+  int valoreColore = 0;
   IconData icona = Icons.height;
   FormatPolline(Polline poll, Tendenza data) {
     valore = data.valore;
     tendenza = data.freccia;
     nome = poll.partNameI;
 
-    Color getValoreColore() {
-      if (data.gruppoValore == 1) {
-        return Colors.yellow;
-      }
-      if (data.gruppoValore == 2) {
-        return Colors.orange;
-      }
-      if (data.gruppoValore == 3) return Colors.red;
-      return Colors.white;
-    }
-
-    valoreColore = getValoreColore();
+    valoreColore = data.gruppoValore;
 
     IconData getIcona() {
       if (tendenza == "Diminuzione") {
