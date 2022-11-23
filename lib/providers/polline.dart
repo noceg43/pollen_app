@@ -456,6 +456,7 @@ void main(List<String> args) async {
     out.write("Inquinamento Max ");
     out.write(valoreMassimoRaggiunto(inq.giornaliero(0)));
     out.write("\n");
+    out.write("TIPO MAGGIORE: ");
     out.write(tipoMaggiore(Tendenza.getAlberi(tend), Tendenza.getErbe(tend),
         Tendenza.getSpore(tend), inq.giornaliero(0)));
     out.write("\nALBERI: \n");

@@ -20,12 +20,12 @@ class WidgetMeteo extends StatelessWidget {
             m.iconaMeteo,
             size: 75,
           ),
-          Spacer(),
+          const Spacer(),
           Text(
             "${m.temperatura}°",
             style: Theme.of(context).textTheme.headline4,
           ),
-          Spacer(),
+          const Spacer(),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

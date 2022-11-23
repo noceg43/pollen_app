@@ -3,9 +3,11 @@
 import 'package:demo_1/providers/inquinamento.dart';
 import 'package:demo_1/providers/polline.dart';
 import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
+import 'package:demo_1/utils/format_dati_giornalieri.dart';
 import 'package:demo_1/utils/format_inquinamento.dart';
 import 'package:demo_1/utils/format_meteo.dart';
 import 'package:demo_1/utils/format_polline.dart';
+import 'package:demo_1/widgets/homepage/card_contiene_lista.dart';
 import 'package:demo_1/widgets/homepage/inquinamento.dart';
 import 'package:demo_1/widgets/homepage/meteo.dart';
 import 'package:demo_1/widgets/homepage/polline.dart';
@@ -33,26 +35,14 @@ class ListGiornaliera extends StatelessWidget {
     Map<Polline, Tendenza> erbe = Tendenza.getErbe(tend);
     Map<Polline, Tendenza> spore = Tendenza.getSpore(tend);
     List<String> maggiore = tipoMaggiore(alberi, erbe, spore, inq);
-    print(maggiore);
-    String livello = "Basso";
-    Map<int, String> livelli = {
-      0: "Assente",
-      1: "Basso",
-      2: "Medio",
-      3: "Alto"
+    Map<String, dynamic> totaleParticelle = {
+      "Alberi": alberi,
+      "Erbe": erbe,
+      "Spore": spore,
+      "Inquinamento": inq
     };
-    if (maggiore[0] == "Alberi") {
-      livello = livelli[valoreMassimoRaggiunto(alberi)]!;
-    }
-    if (maggiore[0] == "Erbe") {
-      livello = livelli[valoreMassimoRaggiunto(erbe)]!;
-    }
-    if (maggiore[0] == "Spore") {
-      livello = livelli[valoreMassimoRaggiunto(spore)]!;
-    }
-    if (maggiore[0] == "Inquinamento") {
-      livello = livelli[valoreMassimoRaggiunto(inq)]!;
-    }
+    List<dynamic> data = formatDatiGiornalieri(maggiore, totaleParticelle);
+
     return RefreshIndicator(
       onRefresh: () async {
         update();
@@ -63,18 +53,28 @@ class ListGiornaliera extends StatelessWidget {
           children: [
             Column(
               children: [
+                // Back della schermata
                 Container(
                   height: 300,
-                  color: Colors.green,
+                  color: data[2],
                   child: Row(
                     children: [
                       const Spacer(),
-                      Material(
-                        elevation: 10,
-                        child: Container(
-                          height: 150,
-                          width: 150,
-                          color: Colors.amber,
+                      Container(
+                        width: 150,
+                        height: 150,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.3),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset: const Offset(5, 5),
+                            ),
+                          ],
+                          image:
+                              DecorationImage(image: data[3], fit: BoxFit.fill),
                         ),
                       ),
                       const Spacer(),
@@ -88,10 +88,7 @@ class ListGiornaliera extends StatelessWidget {
                           const Spacer(),
                           Row(
                             children: [
-                              Container(
-                                child: Text(
-                                    "ATTENZIONE \n ${maggiore[0]} \n $livello"),
-                              ),
+                              Text("ATTENZIONE \n ${data[0]} \n ${data[1]}"),
                             ],
                           ),
                           const Spacer()
@@ -102,20 +99,9 @@ class ListGiornaliera extends StatelessWidget {
                 ),
                 Transform.translate(
                   offset: const Offset(0.0, -40.0),
-                  child: Card(
-                    child: Column(
-                      children: [
-                        for (int i = 0; i < 10; i++)
-                          Container(
-                            height: 100,
-                            margin: const EdgeInsets.all(15.0),
-                            padding: const EdgeInsets.all(3.0),
-                            decoration: BoxDecoration(
-                                color: Colors.grey,
-                                border: Border.all(color: Colors.blueAccent)),
-                          )
-                      ],
-                    ),
+                  child: CardContenitore(
+                    ordinato: maggiore,
+                    totaleParticelle: totaleParticelle,
                   ),
                 ),
               ],
@@ -126,69 +112,3 @@ class ListGiornaliera extends StatelessWidget {
     );
   }
 }
-
-/*
-
-            Container(
-              height: 300,
-              color: Colors.green,
-              child: Row(
-                children: [
-                  const Spacer(),
-                  Material(
-                    elevation: 10,
-                    child: Container(
-                      height: 150,
-                      width: 150,
-                      color: Colors.amber,
-                    ),
-                  ),
-                  const Spacer(),
-                  Column(
-                    children: [
-                      Material(
-                        elevation: 10,
-                        child: Container(
-                          height: 100,
-                          width: 225,
-                          color: Colors.red,
-                        ),
-                      ),
-                      const Spacer(),
-                      Row(
-                        children: [
-                          Container(
-                            height: 100,
-                            width: 225,
-                            color: Colors.grey,
-                          ),
-                        ],
-                      ),
-                      const Spacer()
-                    ],
-                  )
-                ],
-              ),
-            ),
-            Positioned(
-              top: 275,
-              left: 0,
-              right: 0,
-              child: Card(
-                child: Column(
-                  children: [
-                    for (int i = 0; i < 10; i++)
-                      Container(
-                        height: 100,
-                        margin: const EdgeInsets.all(15.0),
-                        padding: const EdgeInsets.all(3.0),
-                        decoration: BoxDecoration(
-                            color: Colors.grey,
-                            border: Border.all(color: Colors.blueAccent)),
-                      )
-                  ],
-                ),
-              ),
-            ),
-
-*/
