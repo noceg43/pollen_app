@@ -3,7 +3,7 @@ import 'package:demo_1/providers/polline.dart';
 
 // INPUT: map di polline e tendenza divise in categorie
 // OUTPUT: lista decrescente dell'intensità della famiglia
-List<String> tipoMaggiore(
+List<Map<String, dynamic>> tipoMaggiore(
     Map<Polline, Tendenza> alberi,
     Map<Polline, Tendenza> erbe,
     Map<Polline, Tendenza> spore,
@@ -29,19 +29,34 @@ List<String> tipoMaggiore(
     "Spore": massimo(spore),
     "Inquinamento": maxInq
   };
+
+  List<Map<String, dynamic>> ret = [
+    {"Alberi": alberi},
+    {"Erbe": erbe},
+    {"Spore": spore},
+    {"Inquinamento": inq}
+  ];
+
+  ret.sort(
+      ((a, b) => massimi[b.keys.first]!.compareTo(massimi[a.keys.first]!)));
+  return ret;
+
+  // TUTTO SBAGLIATO STRUTTURA DATI PESSIMA
   // ordinare una map restituendo solo la lista delle key ordinate
+  /*
   return Map.fromEntries(massimi.entries.toList()
         ..sort((e1, e2) => e1.value.compareTo(e2.value)))
       .keys
       .toList()
       .reversed
       .toList();
+      */
 }
 
-int valoreMassimoRaggiunto(dynamic data) {
+int mediaTipologia(dynamic data) {
+  num sum = 0;
   if (data is Map<Polline, Tendenza>) {
     Map<Polline, Tendenza> poll = data;
-    int sum = 0;
     for (Tendenza t in poll.values) {
       sum += t.gruppoValore;
     }
@@ -49,6 +64,20 @@ int valoreMassimoRaggiunto(dynamic data) {
     if (lunghezza == 0) return 0;
     return (sum / poll.values.length).round();
   } else {
-    return 1;
+    List<ParticellaInquinante> inq = data;
+    for (ParticellaInquinante p in inq) {
+      if (p.superato) sum += 3;
+    }
+    return (sum / inq.length).round();
+  }
+}
+
+int lunghezza(dynamic data) {
+  if (data is Map<Polline, Tendenza>) {
+    Map<Polline, Tendenza> poll = data;
+    return poll.values.length;
+  } else {
+    List<ParticellaInquinante> inq = data;
+    return inq.length;
   }
 }

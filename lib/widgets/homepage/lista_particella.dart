@@ -1,32 +1,28 @@
 import 'package:demo_1/providers/inquinamento.dart';
 import 'package:demo_1/providers/polline.dart';
+import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
+import 'package:demo_1/utils/format_dati_giornalieri.dart';
 import 'package:demo_1/widgets/homepage/particella.dart';
 import 'package:flutter/material.dart';
 
 class ListaPolline extends StatelessWidget {
-  const ListaPolline({super.key, required this.data, required this.tipo});
-  final dynamic data;
-  final String tipo;
+  const ListaPolline({super.key, required this.data});
+  final Map<String, dynamic> data;
   @override
   Widget build(BuildContext context) {
     // logica per determinare il tipo da restituire e lunghezza del relativo tipo
-    int lunghezza = 0;
-    if (data is List<ParticellaInquinante>) {
-      List<ParticellaInquinante> data = this.data;
-      lunghezza = data.length;
-    } else {
-      Map<Polline, Tendenza> data = this.data;
-      lunghezza = data.length;
-    }
+    int lungh = lunghezza(data.values.first);
+    FormatTipoGiornaliero formTipo = FormatTipoGiornaliero(data);
+
     // logica per determinare il tipo da restituire all'item polline
     ItemParticella getItemParticella(int index) {
-      if (data is List<ParticellaInquinante>) {
-        List<ParticellaInquinante> data = this.data;
-        return ItemParticella(data: data.elementAt(index));
+      if (data.values.first is List<ParticellaInquinante>) {
+        List<ParticellaInquinante> lista = data.values.first;
+        return ItemParticella(data: lista.elementAt(index));
       } else {
-        Map<Polline, Tendenza> data = this.data;
+        Map<Polline, Tendenza> map = data.values.first;
         return ItemParticella(
-            data: {data.keys.elementAt(index): data.values.elementAt(index)});
+            data: {map.keys.elementAt(index): map.values.elementAt(index)});
       }
     }
 
@@ -57,12 +53,12 @@ class ListaPolline extends StatelessWidget {
                     ),
                   ],
                   image: DecorationImage(
-                      image:
-                          AssetImage('assets/images/${tipo.toLowerCase()}.png'),
+                      image: AssetImage(
+                          'assets/images/${formTipo.tipo.toLowerCase()}.png'),
                       fit: BoxFit.fill),
                 ),
               ),
-              Text(tipo),
+              Text(formTipo.tipo),
               const Spacer(),
               const IconButton(
                 iconSize: 30,
@@ -74,13 +70,13 @@ class ListaPolline extends StatelessWidget {
             ],
           ),
           Expanded(
-            child: lunghezza == 0 // controllo se ci sono dati da mostrare
+            child: lungh == 0 // controllo se ci sono dati da mostrare
                 // se non ce ne sono
                 ? const Text("Nessun dato rilevato")
                 // se ci sono
                 : ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: lunghezza,
+                    itemCount: lungh,
                     itemBuilder: (context, i) {
                       return getItemParticella(i);
                     }),

@@ -34,14 +34,9 @@ class ListGiornaliera extends StatelessWidget {
     Map<Polline, Tendenza> alberi = Tendenza.getAlberi(tend);
     Map<Polline, Tendenza> erbe = Tendenza.getErbe(tend);
     Map<Polline, Tendenza> spore = Tendenza.getSpore(tend);
-    List<String> maggiore = tipoMaggiore(alberi, erbe, spore, inq);
-    Map<String, dynamic> totaleParticelle = {
-      "Alberi": alberi,
-      "Erbe": erbe,
-      "Spore": spore,
-      "Inquinamento": inq
-    };
-    List<dynamic> data = formatDatiGiornalieri(maggiore, totaleParticelle);
+    List<Map<String, dynamic>> maggiore =
+        tipoMaggiore(alberi, erbe, spore, inq);
+    FormatTipoGiornaliero formatTop = FormatTipoGiornaliero(maggiore.first);
 
     return RefreshIndicator(
       onRefresh: () async {
@@ -56,7 +51,7 @@ class ListGiornaliera extends StatelessWidget {
                 // Back della schermata
                 Container(
                   height: 300,
-                  color: data[2],
+                  color: formatTop.col,
                   child: Row(
                     children: [
                       const Spacer(),
@@ -73,8 +68,8 @@ class ListGiornaliera extends StatelessWidget {
                               offset: const Offset(5, 5),
                             ),
                           ],
-                          image:
-                              DecorationImage(image: data[3], fit: BoxFit.fill),
+                          image: DecorationImage(
+                              image: formatTop.img, fit: BoxFit.fill),
                         ),
                       ),
                       const Spacer(),
@@ -88,7 +83,8 @@ class ListGiornaliera extends StatelessWidget {
                           const Spacer(),
                           Row(
                             children: [
-                              Text("ATTENZIONE \n ${data[0]} \n ${data[1]}"),
+                              Text(
+                                  "ATTENZIONE \n ${formatTop.tipo} \n ${formatTop.livello}"),
                             ],
                           ),
                           const Spacer()
@@ -100,8 +96,7 @@ class ListGiornaliera extends StatelessWidget {
                 Transform.translate(
                   offset: const Offset(0.0, -40.0),
                   child: CardContenitore(
-                    ordinato: maggiore,
-                    totaleParticelle: totaleParticelle,
+                    listaOrdinata: maggiore,
                   ),
                 ),
               ],
