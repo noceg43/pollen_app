@@ -1,5 +1,6 @@
 import 'package:demo_1/providers/inquinamento.dart';
 import 'package:demo_1/providers/polline.dart';
+import 'package:demo_1/screens/particella_pagina/scheletro_particella.dart';
 import 'package:demo_1/utils/format_particella.dart';
 import 'package:demo_1/utils/format_polline.dart';
 import 'package:demo_1/utils/format_inquinamento.dart';
@@ -22,27 +23,39 @@ class ItemParticella extends StatelessWidget {
       3: Colors.red
     };
 
-    return SizedBox(
-      height: 150,
-      width: 100,
-      child: Column(children: [
-        Row(
-          children: [
-            Text(p.valore.toString()),
-            Icon(
-              p.icona,
-              size: 25,
-            )
-          ],
-        ),
-        const Spacer(),
-        Container(
-          width: 50,
-          height: ottieniAltezza[p.valColore],
-          color: ottieniColore[p.valColore],
-        ),
-        Text(p.nome),
-      ]),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ScheletroParticella(
+              titolo: p.nome,
+            ),
+          ),
+        );
+      },
+      child: SizedBox(
+        height: 150,
+        width: 100,
+        child: Column(children: [
+          Row(
+            children: [
+              Text(p.valore.toString()),
+              Icon(
+                p.icona,
+                size: 25,
+              )
+            ],
+          ),
+          const Spacer(),
+          Container(
+            width: 50,
+            height: ottieniAltezza[p.valColore],
+            color: ottieniColore[p.valColore],
+          ),
+          Text(p.nome),
+        ]),
+      ),
     );
   }
 }

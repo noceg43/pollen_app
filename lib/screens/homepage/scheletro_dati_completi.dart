@@ -98,11 +98,9 @@ class SchermataDatiCaricamento extends StatelessWidget {
         ),
         body: Center(
             child: errore
-                ? const Expanded(
-                    child: Text(
-                        "Seleziona manualmente la stazione da monitorare dall'icona 🔍 in alto a destra",
-                        textAlign: TextAlign.center),
-                  )
+                ? const Text(
+                    "Seleziona manualmente la stazione da monitorare dall'icona 🔍 in alto a destra",
+                    textAlign: TextAlign.center)
                 : Container()),
       ),
     );
