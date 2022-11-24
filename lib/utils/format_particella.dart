@@ -1,9 +1,10 @@
 import 'package:demo_1/providers/inquinamento.dart';
-import 'package:demo_1/providers/polline.dart';
 import 'package:demo_1/utils/format_inquinamento.dart';
 import 'package:demo_1/utils/format_polline.dart';
 import 'package:flutter/material.dart';
 
+// INPUT: ParticellaInquinante o Map<Polline,Tendenza>
+// OUTPUT: ha la logica per restituire rispettivamente da FormatInquinamento o FormatPolline
 class FormatParticella {
   int lunghezza = 0;
   String nome = "";
@@ -18,7 +19,7 @@ class FormatParticella {
       valore = i.val;
       valColore = i.valoreColore;
     } else {
-      FormatPolline p = FormatPolline(data.keys.first, data.values.first);
+      FormatPolline p = FormatPolline(data);
       nome = p.nome;
       valore = p.valore;
       valColore = p.valoreColore;

@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 
 // Contiene Listview del giorno con WidgetMeteo e WidgetPolline
 
-// INPUT: FormatMeteo e tendenza giornaliera
+// INPUT: FormatMeteo Map<Polline, Tendenza> giornaliera e List<ParticellaInquinante>
 // OUTPUT: Listview con meteo e polline
 class ListGiornaliera extends StatelessWidget {
   ListGiornaliera(
@@ -30,12 +30,15 @@ class ListGiornaliera extends StatelessWidget {
   final void Function() update;
   @override
   Widget build(BuildContext context) {
-    //non devono stare qua
+    // divide la tendenza nelle tipologie
     Map<Polline, Tendenza> alberi = Tendenza.getAlberi(tend);
     Map<Polline, Tendenza> erbe = Tendenza.getErbe(tend);
     Map<Polline, Tendenza> spore = Tendenza.getSpore(tend);
+    // unisce le tipologie + inquinamento in una lista ordinata
     List<Map<String, dynamic>> maggiore =
         tipoMaggiore(alberi, erbe, spore, inq);
+
+    // prende la prima tipologia e la formatta (ottiene i dati da rappresentare)
     FormatTipoGiornaliero formatTop = FormatTipoGiornaliero(maggiore.first);
 
     return RefreshIndicator(

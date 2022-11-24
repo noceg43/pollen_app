@@ -42,12 +42,12 @@ class FormatPolline {
   String nome = "";
   int valoreColore = 0;
   IconData icona = Icons.height;
-  FormatPolline(Polline poll, Tendenza data) {
-    valore = data.valore;
-    tendenza = data.freccia;
-    nome = poll.partNameI;
+  FormatPolline(Map<Polline, Tendenza> data) {
+    valore = data.values.first.valore;
+    tendenza = data.values.first.freccia;
+    nome = data.keys.first.partNameI;
 
-    valoreColore = data.gruppoValore;
+    valoreColore = data.values.first.gruppoValore;
 
     IconData getIcona() {
       if (tendenza == "Diminuzione") {

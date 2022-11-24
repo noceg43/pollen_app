@@ -5,24 +5,46 @@ import 'package:demo_1/utils/format_dati_giornalieri.dart';
 import 'package:demo_1/widgets/homepage/particella.dart';
 import 'package:flutter/material.dart';
 
-class ListaPolline extends StatelessWidget {
-  const ListaPolline({super.key, required this.data});
+// INPUT: Map<String, dynamic> insieme di particelle del tipo
+// OUTPUT: Container decorato con listview riempita da ItemParticella
+class ListaParticella extends StatelessWidget {
+  const ListaParticella({super.key, required this.data});
   final Map<String, dynamic> data;
   @override
   Widget build(BuildContext context) {
-    // logica per determinare il tipo da restituire e lunghezza del relativo tipo
+    // ottengo la lunghezza della Map(se è polline) o List( se è inq) del campo value
     int lungh = lunghezza(data.values.first);
+    // formatto la Map ottentendo i dati da mostrare
     FormatTipoGiornaliero formTipo = FormatTipoGiornaliero(data);
-
-    // logica per determinare il tipo da restituire all'item polline
+    //
+    // PARTE DI LOGICA DENTRO UN WIDGET
+    //
+    // logica per restituire in modo ordinato
+    // la corretta particella/polline in base all'indice
     ItemParticella getItemParticella(int index) {
       if (data.values.first is List<ParticellaInquinante>) {
         List<ParticellaInquinante> lista = data.values.first;
+        // ordinamento inquinamento
+        lista.sort(
+          (a, b) {
+            return (b.superato ? 1 : 0).compareTo(a.superato ? 1 : 0);
+          },
+        );
         return ItemParticella(data: lista.elementAt(index));
       } else {
         Map<Polline, Tendenza> map = data.values.first;
-        return ItemParticella(
-            data: {map.keys.elementAt(index): map.values.elementAt(index)});
+        List<Map<Polline, Tendenza>> lista = [
+          for (int i = 0; i < map.length; i++)
+            {map.keys.elementAt(i): map.values.elementAt(i)}
+        ];
+        // ordinamento polline
+        lista.sort(
+          (a, b) {
+            return b.values.first.gruppoValore
+                .compareTo(a.values.first.gruppoValore);
+          },
+        );
+        return ItemParticella(data: lista.elementAt(index));
       }
     }
 
@@ -52,10 +74,7 @@ class ListaPolline extends StatelessWidget {
                       offset: const Offset(0, 3),
                     ),
                   ],
-                  image: DecorationImage(
-                      image: AssetImage(
-                          'assets/images/${formTipo.tipo.toLowerCase()}.png'),
-                      fit: BoxFit.fill),
+                  image: DecorationImage(image: formTipo.img, fit: BoxFit.fill),
                 ),
               ),
               Text(formTipo.tipo),

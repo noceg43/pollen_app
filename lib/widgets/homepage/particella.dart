@@ -5,6 +5,8 @@ import 'package:demo_1/utils/format_polline.dart';
 import 'package:demo_1/utils/format_inquinamento.dart';
 import 'package:flutter/material.dart';
 
+// INPUT: ParticellaInquinante o Map<Polline,Tendenza>
+// OUTPUT: sized box con colore, grafico, valore, tendenza prese da FormatParticella
 class ItemParticella extends StatelessWidget {
   const ItemParticella({super.key, required this.data});
   final dynamic data;
