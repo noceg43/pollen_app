@@ -1,0 +1,203 @@
+24/11/2022 Nuvoloso
+Alba: 2022-11-24T07:23   Tramonto: 2022-11-24T16:43
+Min: 3.1   Max: 12.7
+## PREVISIONI ORARIE ##
+0:00   Prevalentemente sereno   Temperatura: 5.3   Temperatura percepita: 3.3
+1:00   Prevalentemente sereno   Temperatura: 5.6   Temperatura percepita: 3.5
+2:00   Poco nuvoloso   Temperatura: 5.6   Temperatura percepita: 3.5
+3:00   Poco nuvoloso   Temperatura: 5.6   Temperatura percepita: 3.6
+4:00   Prevalentemente sereno   Temperatura: 5.1   Temperatura percepita: 2.9
+5:00   Soleggiato   Temperatura: 4.8   Temperatura percepita: 2.4
+6:00   Soleggiato   Temperatura: 4.4   Temperatura percepita: 2.0
+7:00   Soleggiato   Temperatura: 3.6   Temperatura percepita: 1.0
+8:00   Soleggiato   Temperatura: 3.1   Temperatura percepita: 0.7
+9:00   Soleggiato   Temperatura: 4.3   Temperatura percepita: 1.9
+10:00   Soleggiato   Temperatura: 7.1   Temperatura percepita: 5.3
+11:00   Soleggiato   Temperatura: 9.2   Temperatura percepita: 7.9
+12:00   Soleggiato   Temperatura: 11.0   Temperatura percepita: 9.3
+13:00   Soleggiato   Temperatura: 12.3   Temperatura percepita: 10.0
+14:00   Soleggiato   Temperatura: 12.6   Temperatura percepita: 10.7
+15:00   Soleggiato   Temperatura: 12.7   Temperatura percepita: 10.9
+16:00   Soleggiato   Temperatura: 12.2   Temperatura percepita: 10.7
+17:00   Soleggiato   Temperatura: 10.8   Temperatura percepita: 9.8
+18:00   Soleggiato   Temperatura: 10.1   Temperatura percepita: 8.7
+19:00   Soleggiato   Temperatura: 8.3   Temperatura percepita: 6.7
+20:00   Soleggiato   Temperatura: 5.9   Temperatura percepita: 4.1
+21:00   Nuvoloso   Temperatura: 6.0   Temperatura percepita: 4.1
+22:00   Poco nuvoloso   Temperatura: 5.7   Temperatura percepita: 3.9
+23:00   Poco nuvoloso   Temperatura: 5.1   Temperatura percepita: 3.0
+
+25/11/2022 Nuvoloso
+Alba: 2022-11-25T07:24   Tramonto: 2022-11-25T16:42
+Min: 4.0   Max: 10.5
+## PREVISIONI ORARIE ##
+0:00   Nuvoloso   Temperatura: 4.5   Temperatura percepita: 2.4
+1:00   Nuvoloso   Temperatura: 4.3   Temperatura percepita: 2.2
+2:00   Nuvoloso   Temperatura: 4.3   Temperatura percepita: 2.3
+3:00   Nuvoloso   Temperatura: 4.7   Temperatura percepita: 2.7
+4:00   Nuvoloso   Temperatura: 4.6   Temperatura percepita: 2.7
+5:00   Nuvoloso   Temperatura: 4.7   Temperatura percepita: 2.4
+6:00   Nuvoloso   Temperatura: 4.2   Temperatura percepita: 2.1
+7:00   Nuvoloso   Temperatura: 4.0   Temperatura percepita: 1.6
+8:00   Nuvoloso   Temperatura: 4.0   Temperatura percepita: 1.7
+9:00   Nuvoloso   Temperatura: 4.7   Temperatura percepita: 2.6
+10:00   Nuvoloso   Temperatura: 6.1   Temperatura percepita: 4.4
+11:00   Nuvoloso   Temperatura: 7.9   Temperatura percepita: 6.0
+12:00   Nuvoloso   Temperatura: 9.2   Temperatura percepita: 7.6
+13:00   Nuvoloso   Temperatura: 10.0   Temperatura percepita: 8.3
+14:00   Nuvoloso   Temperatura: 10.3   Temperatura percepita: 8.8
+15:00   Nuvoloso   Temperatura: 10.5   Temperatura percepita: 9.2
+16:00   Nuvoloso   Temperatura: 10.4   Temperatura percepita: 9.3
+17:00   Nuvoloso   Temperatura: 9.8   Temperatura percepita: 8.6
+18:00   Nuvoloso   Temperatura: 9.0   Temperatura percepita: 7.8
+19:00   Nuvoloso   Temperatura: 8.3   Temperatura percepita: 7.0
+20:00   Nuvoloso   Temperatura: 8.0   Temperatura percepita: 6.6
+21:00   Nuvoloso   Temperatura: 7.5   Temperatura percepita: 6.0
+22:00   Nuvoloso   Temperatura: 7.6   Temperatura percepita: 6.0
+23:00   Nuvoloso   Temperatura: 7.5   Temperatura percepita: 5.6
+
+26/11/2022 Pioggia leggera
+Alba: 2022-11-26T07:25   Tramonto: 2022-11-26T16:41
+Min: 5.3   Max: 11.8
+## PREVISIONI ORARIE ##
+0:00   Nuvoloso   Temperatura: 7.4   Temperatura percepita: 5.4
+1:00   Nuvoloso   Temperatura: 7.5   Temperatura percepita: 5.3
+2:00   Nuvoloso   Temperatura: 7.6   Temperatura percepita: 5.5
+3:00   Nuvoloso   Temperatura: 7.6   Temperatura percepita: 5.3
+4:00   Nuvoloso   Temperatura: 7.6   Temperatura percepita: 5.2
+5:00   Nuvoloso   Temperatura: 7.5   Temperatura percepita: 5.4
+6:00   Nuvoloso   Temperatura: 7.3   Temperatura percepita: 5.1
+7:00   Pioggia leggera   Temperatura: 7.1   Temperatura percepita: 4.9
+8:00   Pioggia leggera   Temperatura: 7.0   Temperatura percepita: 4.3
+9:00   Nuvoloso   Temperatura: 7.2   Temperatura percepita: 4.6
+10:00   Nuvoloso   Temperatura: 7.8   Temperatura percepita: 5.4
+11:00   Nuvoloso   Temperatura: 8.9   Temperatura percepita: 6.5
+12:00   Nuvoloso   Temperatura: 9.8   Temperatura percepita: 7.6
+13:00   Poco nuvoloso   Temperatura: 11.1   Temperatura percepita: 8.6
+14:00   Prevalentemente sereno   Temperatura: 11.7   Temperatura percepita: 9.1
+15:00   Prevalentemente sereno   Temperatura: 11.8   Temperatura percepita: 9.8
+16:00   Soleggiato   Temperatura: 11.2   Temperatura percepita: 9.6
+17:00   Soleggiato   Temperatura: 9.5   Temperatura percepita: 7.9
+18:00   Soleggiato   Temperatura: 8.4   Temperatura percepita: 6.7
+19:00   Soleggiato   Temperatura: 7.5   Temperatura percepita: 5.7
+20:00   Soleggiato   Temperatura: 6.9   Temperatura percepita: 4.7
+21:00   Prevalentemente sereno   Temperatura: 6.4   Temperatura percepita: 4.3
+22:00   Soleggiato   Temperatura: 5.9   Temperatura percepita: 4.1
+23:00   Soleggiato   Temperatura: 5.3   Temperatura percepita: 3.0
+
+27/11/2022 Nebbia
+Alba: 2022-11-27T07:26   Tramonto: 2022-11-27T16:41
+Min: 2.8   Max: 10.9
+## PREVISIONI ORARIE ##
+0:00   Soleggiato   Temperatura: 5.2   Temperatura percepita: 3.0
+1:00   Soleggiato   Temperatura: 4.8   Temperatura percepita: 2.5
+2:00   Soleggiato   Temperatura: 4.5   Temperatura percepita: 2.3
+3:00   Soleggiato   Temperatura: 4.2   Temperatura percepita: 2.0
+4:00   Soleggiato   Temperatura: 3.8   Temperatura percepita: 1.5
+5:00   Soleggiato   Temperatura: 3.5   Temperatura percepita: 1.2
+6:00   Soleggiato   Temperatura: 3.3   Temperatura percepita: 1.0
+7:00   Soleggiato   Temperatura: 2.8   Temperatura percepita: 0.2
+8:00   Prevalentemente sereno   Temperatura: 2.9   Temperatura percepita: 0.5
+9:00   Prevalentemente sereno   Temperatura: 3.8   Temperatura percepita: 1.6
+10:00   Prevalentemente sereno   Temperatura: 6.3   Temperatura percepita: 4.2
+11:00   Soleggiato   Temperatura: 8.3   Temperatura percepita: 6.4
+12:00   Soleggiato   Temperatura: 9.8   Temperatura percepita: 8.1
+13:00   Soleggiato   Temperatura: 10.6   Temperatura percepita: 9.0
+14:00   Prevalentemente sereno   Temperatura: 10.9   Temperatura percepita: 9.2
+15:00   Prevalentemente sereno   Temperatura: 10.8   Temperatura percepita: 9.0
+16:00   Prevalentemente sereno   Temperatura: 10.2   Temperatura percepita: 8.4
+17:00   Prevalentemente sereno   Temperatura: 9.4   Temperatura percepita: 7.8
+18:00   Prevalentemente sereno   Temperatura: 8.4   Temperatura percepita: 6.9
+19:00   Prevalentemente sereno   Temperatura: 7.1   Temperatura percepita: 5.2
+20:00   Nuvoloso   Temperatura: 6.2   Temperatura percepita: 4.3
+21:00   Nuvoloso   Temperatura: 5.4   Temperatura percepita: 3.4
+22:00   Nuvoloso   Temperatura: 4.4   Temperatura percepita: 2.4
+23:00   Nebbia   Temperatura: 3.8   Temperatura percepita: 1.8
+
+28/11/2022 Pioggia leggera
+Alba: 2022-11-28T07:27   Tramonto: 2022-11-28T16:40
+Min: 1.8   Max: 8.1
+## PREVISIONI ORARIE ##
+0:00   Nebbia   Temperatura: 3.2   Temperatura percepita: 1.2
+1:00   Nebbia   Temperatura: 2.6   Temperatura percepita: 0.4
+2:00   Nebbia   Temperatura: 2.2   Temperatura percepita: 0.0
+3:00   Nebbia   Temperatura: 1.9   Temperatura percepita: -0.4
+4:00   Nebbia   Temperatura: 1.8   Temperatura percepita: -0.5
+5:00   Nuvoloso   Temperatura: 1.9   Temperatura percepita: -0.3
+6:00   Nuvoloso   Temperatura: 2.3   Temperatura percepita: 0.2
+7:00   Nuvoloso   Temperatura: 2.9   Temperatura percepita: 0.9
+8:00   Nuvoloso   Temperatura: 3.4   Temperatura percepita: 1.4
+9:00   Nuvoloso   Temperatura: 4.0   Temperatura percepita: 2.0
+10:00   Nuvoloso   Temperatura: 4.9   Temperatura percepita: 3.0
+11:00   Nuvoloso   Temperatura: 5.9   Temperatura percepita: 4.0
+12:00   Nuvoloso   Temperatura: 7.0   Temperatura percepita: 5.0
+13:00   Nuvoloso   Temperatura: 8.0   Temperatura percepita: 5.7
+14:00   Pioggia leggera   Temperatura: 8.1   Temperatura percepita: 5.9
+15:00   Pioggia leggera   Temperatura: 7.9   Temperatura percepita: 5.8
+16:00   Pioggia leggera   Temperatura: 7.4   Temperatura percepita: 5.3
+17:00   Pioggia leggera   Temperatura: 7.1   Temperatura percepita: 5.0
+18:00   Pioggia leggera   Temperatura: 6.6   Temperatura percepita: 4.4
+19:00   Pioggia leggera   Temperatura: 6.1   Temperatura percepita: 3.9
+20:00   Nuvoloso   Temperatura: 5.9   Temperatura percepita: 3.7
+21:00   Nuvoloso   Temperatura: 5.8   Temperatura percepita: 3.6
+22:00   Nuvoloso   Temperatura: 5.6   Temperatura percepita: 3.5
+23:00   Nuvoloso   Temperatura: 5.5   Temperatura percepita: 3.4
+
+29/11/2022 Nebbia
+Alba: 2022-11-29T07:29   Tramonto: 2022-11-29T16:40
+Min: 2.9   Max: 8.6
+## PREVISIONI ORARIE ##
+0:00   Nuvoloso   Temperatura: 5.4   Temperatura percepita: 3.2
+1:00   Nuvoloso   Temperatura: 5.2   Temperatura percepita: 3.1
+2:00   Prevalentemente sereno   Temperatura: 5.1   Temperatura percepita: 3.2
+3:00   Prevalentemente sereno   Temperatura: 5.1   Temperatura percepita: 3.4
+4:00   Prevalentemente sereno   Temperatura: 4.8   Temperatura percepita: 2.9
+5:00   Soleggiato   Temperatura: 4.3   Temperatura percepita: 2.3
+6:00   Soleggiato   Temperatura: 3.6   Temperatura percepita: 1.5
+7:00   Soleggiato   Temperatura: 2.9   Temperatura percepita: 0.7
+8:00   Nuvoloso   Temperatura: 6.3   Temperatura percepita: 4.5
+9:00   Nuvoloso   Temperatura: 6.6   Temperatura percepita: 4.8
+10:00   Nuvoloso   Temperatura: 7.0   Temperatura percepita: 5.2
+11:00   Nuvoloso   Temperatura: 7.4   Temperatura percepita: 5.5
+12:00   Nuvoloso   Temperatura: 7.8   Temperatura percepita: 5.8
+13:00   Nuvoloso   Temperatura: 8.2   Temperatura percepita: 6.2
+14:00   Nuvoloso   Temperatura: 8.4   Temperatura percepita: 6.5
+15:00   Nuvoloso   Temperatura: 8.6   Temperatura percepita: 6.8
+16:00   Nuvoloso   Temperatura: 8.5   Temperatura percepita: 6.8
+17:00   Nuvoloso   Temperatura: 8.2   Temperatura percepita: 6.4
+18:00   Nuvoloso   Temperatura: 7.7   Temperatura percepita: 5.9
+19:00   Nuvoloso   Temperatura: 6.8   Temperatura percepita: 4.9
+20:00   Poco nuvoloso   Temperatura: 6.0   Temperatura percepita: 4.0
+21:00   Poco nuvoloso   Temperatura: 5.1   Temperatura percepita: 3.0
+22:00   Poco nuvoloso   Temperatura: 4.0   Temperatura percepita: 1.7
+23:00   Nebbia   Temperatura: 3.4   Temperatura percepita: 1.1
+
+30/11/2022 Pioggia leggera
+Alba: 2022-11-30T07:30   Tramonto: 2022-11-30T16:39
+Min: 1.2   Max: 7.8
+## PREVISIONI ORARIE ##
+0:00   Nebbia   Temperatura: 3.0   Temperatura percepita: 0.5
+1:00   Nebbia   Temperatura: 2.5   Temperatura percepita: -0.0
+2:00   Nebbia   Temperatura: 2.2   Temperatura percepita: -0.4
+3:00   Nebbia   Temperatura: 1.9   Temperatura percepita: -0.7
+4:00   Nebbia   Temperatura: 1.7   Temperatura percepita: -1.0
+5:00   Nebbia   Temperatura: 1.4   Temperatura percepita: -1.3
+6:00   Nebbia   Temperatura: 1.2   Temperatura percepita: -1.5
+7:00   Nebbia   Temperatura: 1.4   Temperatura percepita: -1.2
+8:00   Poco nuvoloso   Temperatura: 2.2   Temperatura percepita: -0.2
+9:00   Poco nuvoloso   Temperatura: 3.4   Temperatura percepita: 1.2
+10:00   Poco nuvoloso   Temperatura: 4.9   Temperatura percepita: 2.9
+11:00   Poco nuvoloso   Temperatura: 5.9   Temperatura percepita: 4.0
+12:00   Poco nuvoloso   Temperatura: 6.7   Temperatura percepita: 4.9
+13:00   Poco nuvoloso   Temperatura: 7.6   Temperatura percepita: 5.7
+14:00   Nuvoloso   Temperatura: 7.8   Temperatura percepita: 6.0
+15:00   Nuvoloso   Temperatura: 7.8   Temperatura percepita: 5.9
+16:00   Nuvoloso   Temperatura: 7.6   Temperatura percepita: 5.9
+17:00   Nuvoloso   Temperatura: 7.3   Temperatura percepita: 5.7
+18:00   Nuvoloso   Temperatura: 6.8   Temperatura percepita: 5.4
+19:00   Nuvoloso   Temperatura: 6.3   Temperatura percepita: 5.0
+20:00   Nuvoloso   Temperatura: 6.1   Temperatura percepita: 4.8
+21:00   Nuvoloso   Temperatura: 5.9   Temperatura percepita: 4.6
+22:00   Nuvoloso   Temperatura: 5.8   Temperatura percepita: 4.4
+23:00   Pioggia leggera   Temperatura: 5.6   Temperatura percepita: 4.3
+

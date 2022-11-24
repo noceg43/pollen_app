@@ -21,9 +21,21 @@ class WidgetMeteo extends StatelessWidget {
             size: 75,
           ),
           const Spacer(),
-          Text(
-            "${m.temperatura}°",
-            style: Theme.of(context).textTheme.headline4,
+          Column(
+            children: [
+              const Spacer(),
+              Text(
+                "${m.temperatura}°",
+                style: Theme.of(context).textTheme.headline4,
+              ),
+              Row(
+                children: [
+                  const Icon(Icons.wind_power),
+                  Text("${m.vento}km/h")
+                ],
+              ),
+              const Spacer(),
+            ],
           ),
           const Spacer(),
           Column(

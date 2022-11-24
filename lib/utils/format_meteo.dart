@@ -9,27 +9,38 @@ import 'package:flutter/material.dart';
 class FormatMeteo {
   String max = "";
   String min = "";
-  String stringaMeteo = "";
   String temperatura = "";
+  String vento = "";
   IconData iconaMeteo = Icons.cloud;
   Posizione pos;
   FormatMeteo(Meteo m, int day, this.pos) {
     final oraMeteo = DateTime.now().hour + 24 * day;
-    max = m.daily.temperature_2mMax[day].toStringAsFixed(0);
-    min = m.daily.temperature_2mMin[day].toStringAsFixed(0);
+    max = m.daily.temperature2MMax[day].toStringAsFixed(0);
+    min = m.daily.temperature2MMin[day].toStringAsFixed(0);
     String getTemperatura() {
       if (day == 0) {
         return m.hourly.apparentTemperature[oraMeteo].toStringAsFixed(1);
       } else {
         List<num> l =
             m.hourly.apparentTemperature.sublist(24 * (day), 24 * (day + 1));
-
         return (l.reduce((a, b) => a + b) / l.length).toStringAsFixed(1);
       }
     }
 
     temperatura = getTemperatura();
 
+    String getVento() {
+      if (day == 0) {
+        return m.hourly.windspeed10M[oraMeteo].toStringAsFixed(1);
+      } else {
+        List<num> l = m.hourly.windspeed10M.sublist(24 * (day), 24 * (day + 1));
+
+        return (l.reduce((a, b) => a + b) / l.length).toStringAsFixed(1);
+      }
+    }
+
+    vento = getVento();
+    /*
     String getStringaMeteo() {
       Map<num, String> mapStringaMeteo = {
         0: "Sereno",
@@ -67,9 +78,10 @@ class FormatMeteo {
         return mapStringaMeteo[m.daily.weathercode[day]]!;
       }
     }
-
+    
     stringaMeteo = getStringaMeteo();
-
+    
+    */
     IconData getIconaMeteo() {
       final orario = DateTime.now();
       num code = m.daily.weathercode[day];
