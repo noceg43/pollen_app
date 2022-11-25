@@ -22,11 +22,13 @@ class ListGiornaliera extends StatelessWidget {
       {required this.m,
       required this.tend,
       required this.update,
-      required this.inq})
+      required this.inq,
+      required this.s})
       : super(key: ObjectKey(m));
   final FormatMeteo m;
   final Map<Polline, Tendenza> tend;
   final List<ParticellaInquinante> inq;
+  final Stazione s;
   final void Function() update;
   @override
   Widget build(BuildContext context) {
@@ -100,6 +102,7 @@ class ListGiornaliera extends StatelessWidget {
                   offset: const Offset(0.0, -40.0),
                   child: CardContenitore(
                     listaOrdinata: maggiore,
+                    staz: s,
                   ),
                 ),
               ],

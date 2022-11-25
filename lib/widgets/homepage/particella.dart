@@ -9,9 +9,9 @@ import 'package:flutter/material.dart';
 // INPUT: ParticellaInquinante o Map<Polline,Tendenza>
 // OUTPUT: sized box con colore, grafico, valore, tendenza prese da FormatParticella
 class ItemParticella extends StatelessWidget {
-  const ItemParticella({super.key, required this.data});
+  const ItemParticella({super.key, required this.data, required this.s});
   final dynamic data;
-
+  final Stazione s;
   @override
   Widget build(BuildContext context) {
     FormatParticella p = FormatParticella(data);
@@ -29,7 +29,8 @@ class ItemParticella extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => ScheletroParticella(
-              titolo: p.nome,
+              s: s,
+              p: p.data,
             ),
           ),
         );

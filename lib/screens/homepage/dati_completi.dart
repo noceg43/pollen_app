@@ -27,6 +27,7 @@ class DatiCompleti extends StatelessWidget {
           Meteo.fetch(dataPos.lat, dataPos.lon),
           tendenzaDaPos(dataPos),
           Inquinamento.fetch(dataPos.lat, dataPos.lon),
+          trovaStaz(dataPos)
         ],
       ),
       builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
@@ -44,22 +45,26 @@ class DatiCompleti extends StatelessWidget {
             i.giornaliero(1),
             i.giornaliero(2)
           ];
+          Stazione s = snapshot.data![3];
           return TabBarView(
             children: [
               ListGiornaliera(
                   m: meteoList[0],
                   tend: tendList[0],
                   inq: formInq[0],
+                  s: s,
                   update: update),
               ListGiornaliera(
                   m: meteoList[1],
                   tend: tendList[1],
                   inq: formInq[1],
+                  s: s,
                   update: update),
               ListGiornaliera(
                   m: meteoList[2],
                   tend: tendList[2],
                   inq: formInq[2],
+                  s: s,
                   update: update),
             ],
           );

@@ -1,14 +1,16 @@
+import 'package:demo_1/providers/polline.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class ScheletroParticella extends StatelessWidget {
-  const ScheletroParticella({super.key, required this.titolo});
-  final String titolo;
+  const ScheletroParticella({super.key, required this.p, required this.s});
+  final Polline p;
+  final Stazione s;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(titolo),
+        title: Text(p.partNameI),
         leading: const BackButton(),
       ),
       body: const LineChartSample2(),

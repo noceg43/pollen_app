@@ -11,16 +11,29 @@ import 'package:flutter/material.dart';
 // aggiunto controllo su stazione vuota
 Future<List<Map<Polline, Tendenza>>> tendenzaDaPos(Posizione p) async {
   List<Polline> poll = await Polline.fetch();
+
+  Stazione trovata = await trovaStaz(p);
+
+  return [
+    await tendenza(trovata, poll, offset: 0),
+    await tendenza(trovata, poll, offset: 1),
+    await tendenza(trovata, poll, offset: 2)
+  ];
+}
+
+// trovare stazione
+Future<Stazione> trovaStaz(Posizione p) async {
   List<Stazione> staz = await Stazione.fetch();
   Stazione localizzata = Stazione.localizza(staz, p.lat, p.lon);
+
+  num maxIterazioni = staz.length;
+
+  Stazione trovata = localizzata;
   Future<bool> checkStazione(Stazione s) async {
     List<Concentrazione> c = await Concentrazione.fetch(s);
     if (c.isEmpty) return false;
     return true;
   }
-
-  num maxIterazioni = staz.length;
-  Stazione trovata = localizzata;
 
   for (num i = 0; i < maxIterazioni; i++) {
     bool check = await checkStazione(trovata);
@@ -28,12 +41,7 @@ Future<List<Map<Polline, Tendenza>>> tendenzaDaPos(Posizione p) async {
     staz.remove(trovata);
     trovata = Stazione.localizza(staz, p.lat, p.lon);
   }
-
-  return [
-    await tendenza(trovata, poll, offset: 0),
-    await tendenza(trovata, poll, offset: 1),
-    await tendenza(trovata, poll, offset: 2)
-  ];
+  return trovata;
 }
 
 class FormatPolline {

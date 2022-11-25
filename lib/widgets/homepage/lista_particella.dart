@@ -8,8 +8,9 @@ import 'package:flutter/material.dart';
 // INPUT: Map<String, dynamic> insieme di particelle del tipo
 // OUTPUT: Container decorato con listview riempita da ItemParticella
 class ListaParticella extends StatelessWidget {
-  const ListaParticella({super.key, required this.data});
+  const ListaParticella({super.key, required this.data, required this.s});
   final Map<String, dynamic> data;
+  final Stazione s;
   @override
   Widget build(BuildContext context) {
     // ottengo la lunghezza della Map(se è polline) o List( se è inq) del campo value
@@ -30,7 +31,10 @@ class ListaParticella extends StatelessWidget {
             return (b.superato ? 1 : 0).compareTo(a.superato ? 1 : 0);
           },
         );
-        return ItemParticella(data: lista.elementAt(index));
+        return ItemParticella(
+          data: lista.elementAt(index),
+          s: s,
+        );
       } else {
         Map<Polline, Tendenza> map = data.values.first;
         List<Map<Polline, Tendenza>> lista = [
@@ -44,7 +48,10 @@ class ListaParticella extends StatelessWidget {
                 .compareTo(a.values.first.gruppoValore);
           },
         );
-        return ItemParticella(data: lista.elementAt(index));
+        return ItemParticella(
+          data: lista.elementAt(index),
+          s: s,
+        );
       }
     }
 
