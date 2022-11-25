@@ -1,3 +1,4 @@
+import 'package:demo_1/providers/per_polline.dart';
 import 'package:demo_1/providers/polline.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -13,13 +14,29 @@ class ScheletroParticella extends StatelessWidget {
         title: Text(p.partNameI),
         leading: const BackButton(),
       ),
-      body: const LineChartSample2(),
+      body: FutureBuilder<List<num>>(
+          future: PerPolline.fetch(s, p),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return LineChartSample2(
+                p: p,
+                s: s,
+                listVal: snapshot.data!,
+              );
+            } else {
+              return Container();
+            }
+          }),
     );
   }
 }
 
 class LineChartSample2 extends StatefulWidget {
-  const LineChartSample2({super.key});
+  const LineChartSample2(
+      {super.key, required this.p, required this.s, required this.listVal});
+  final Polline p;
+  final Stazione s;
+  final List<num> listVal;
 
   @override
   State<LineChartSample2> createState() => _LineChartSample2State();
@@ -35,6 +52,12 @@ class _LineChartSample2State extends State<LineChartSample2> {
 
   @override
   Widget build(BuildContext context) {
+    // calcolo valore massimo y
+    num maxVal = 0;
+    for (num i in widget.listVal) {
+      if (i > maxVal) maxVal = i;
+    }
+    num max = (widget.p.partHigh > maxVal) ? widget.p.partHigh : maxVal;
     return Stack(
       children: <Widget>[
         AspectRatio(
@@ -54,7 +77,12 @@ class _LineChartSample2State extends State<LineChartSample2> {
                 bottom: 12,
               ),
               child: LineChart(
-                showAvg ? avgData() : mainData(),
+                showAvg
+                    ? avgData(
+                        widget.listVal,
+                        max,
+                      )
+                    : mainData(widget.listVal, max),
               ),
             ),
           ),
@@ -87,20 +115,12 @@ class _LineChartSample2State extends State<LineChartSample2> {
       fontWeight: FontWeight.bold,
       fontSize: 16,
     );
+    //                                                              asse x nomi
     Widget text;
-    switch (value.toInt()) {
-      case 2:
-        text = const Text('MAR', style: style);
-        break;
-      case 5:
-        text = const Text('JUN', style: style);
-        break;
-      case 8:
-        text = const Text('SEP', style: style);
-        break;
-      default:
-        text = const Text('', style: style);
-        break;
+    if (value == value.toInt()) {
+      text = Text("$value");
+    } else {
+      text = const Text("");
     }
 
     return SideTitleWidget(
@@ -109,31 +129,37 @@ class _LineChartSample2State extends State<LineChartSample2> {
     );
   }
 
-  Widget leftTitleWidgets(double value, TitleMeta meta) {
+  Widget leftTitleWidgets(
+    double value,
+    TitleMeta meta,
+  ) {
     const style = TextStyle(
       color: Color(0xff67727d),
       fontWeight: FontWeight.bold,
-      fontSize: 15,
+      fontSize: 10,
     );
+    //                                                              asse y nomi
     String text;
-    switch (value.toInt()) {
-      case 1:
-        text = '10K';
-        break;
-      case 3:
-        text = '30k';
-        break;
-      case 5:
-        text = '50k';
-        break;
-      default:
-        return Container();
+    if (value == widget.p.partLow.toInt()) {
+      text = "basso";
+    } else if (value == widget.p.partMiddle.toInt()) {
+      text = "medio";
+    } else if (value == widget.p.partHigh.toInt()) {
+      text = "alto";
+    } else {
+      return Container();
     }
 
     return Text(text, style: style, textAlign: TextAlign.left);
   }
 
-  LineChartData mainData() {
+  LineChartData mainData(List<num> listVal, num maxY) {
+    //                                                                creare punti grafo
+    List<FlSpot> listaPunti = [];
+    for (double i = 0; i < listVal.length; i++) {
+      listaPunti.add(FlSpot(i, listVal[i.toInt()].toDouble()));
+      print("X: $i Y: ${i.toDouble()}");
+    }
     return LineChartData(
       gridData: FlGridData(
         show: true,
@@ -183,20 +209,12 @@ class _LineChartSample2State extends State<LineChartSample2> {
         border: Border.all(color: const Color(0xff37434d)),
       ),
       minX: 0,
-      maxX: 11,
+      maxX: listVal.length.toDouble() - 1,
       minY: 0,
-      maxY: 6,
+      maxY: maxY.toDouble(),
       lineBarsData: [
         LineChartBarData(
-          spots: const [
-            FlSpot(0, 3),
-            FlSpot(2.6, 2),
-            FlSpot(4.9, 5),
-            FlSpot(6.8, 3.1),
-            FlSpot(8, 4),
-            FlSpot(9.5, 3),
-            FlSpot(11, 4),
-          ],
+          spots: listaPunti,
           isCurved: true,
           gradient: LinearGradient(
             colors: gradientColors,
@@ -219,7 +237,18 @@ class _LineChartSample2State extends State<LineChartSample2> {
     );
   }
 
-  LineChartData avgData() {
+  LineChartData avgData(List<num> listVal, num maxY) {
+    // media
+    List<FlSpot> valoriY = [];
+    double media = 0;
+    if (listVal.length == 1) {
+      media = listVal.first.toDouble();
+    } else {
+      media = listVal.reduce((a, b) => a + b) / listVal.length;
+    }
+    for (double i = 0; i < listVal.length; i++) {
+      valoriY.add(FlSpot(i, media));
+    }
     return LineChartData(
       lineTouchData: LineTouchData(enabled: false),
       gridData: FlGridData(
@@ -270,20 +299,12 @@ class _LineChartSample2State extends State<LineChartSample2> {
         border: Border.all(color: const Color(0xff37434d)),
       ),
       minX: 0,
-      maxX: 11,
+      maxX: listVal.length.toDouble() - 1,
       minY: 0,
-      maxY: 6,
+      maxY: maxY.toDouble(),
       lineBarsData: [
         LineChartBarData(
-          spots: const [
-            FlSpot(0, 3.44),
-            FlSpot(2.6, 3.44),
-            FlSpot(4.9, 3.44),
-            FlSpot(6.8, 3.44),
-            FlSpot(8, 3.44),
-            FlSpot(9.5, 3.44),
-            FlSpot(11, 3.44),
-          ],
+          spots: valoriY,
           isCurved: true,
           gradient: LinearGradient(
             colors: [
