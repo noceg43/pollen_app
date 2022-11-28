@@ -14,7 +14,7 @@ class ScheletroParticella extends StatelessWidget {
         title: Text(p.partNameI),
         leading: const BackButton(),
       ),
-      body: FutureBuilder<List<num>>(
+      body: FutureBuilder<Map<DateTime, num>>(
           future: PerPolline.fetch(s, p),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
@@ -36,7 +36,7 @@ class LineChartSample2 extends StatefulWidget {
       {super.key, required this.p, required this.s, required this.listVal});
   final Polline p;
   final Stazione s;
-  final List<num> listVal;
+  final Map<DateTime, num> listVal;
 
   @override
   State<LineChartSample2> createState() => _LineChartSample2State();
@@ -54,14 +54,14 @@ class _LineChartSample2State extends State<LineChartSample2> {
   Widget build(BuildContext context) {
     // calcolo valore massimo y
     num maxVal = 0;
-    for (num i in widget.listVal) {
+    for (num i in widget.listVal.values) {
       if (i > maxVal) maxVal = i;
     }
     num max = (widget.p.partHigh > maxVal) ? widget.p.partHigh : maxVal;
     return Stack(
       children: <Widget>[
         AspectRatio(
-          aspectRatio: 1.70,
+          aspectRatio: 1,
           child: DecoratedBox(
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(
@@ -79,10 +79,10 @@ class _LineChartSample2State extends State<LineChartSample2> {
               child: LineChart(
                 showAvg
                     ? avgData(
-                        widget.listVal,
+                        widget.listVal.values.toList(),
                         max,
                       )
-                    : mainData(widget.listVal, max),
+                    : mainData(widget.listVal.values.toList(), max),
               ),
             ),
           ),
@@ -91,13 +91,18 @@ class _LineChartSample2State extends State<LineChartSample2> {
           width: 60,
           height: 34,
           child: TextButton(
+            style: TextButton.styleFrom(
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.all(16.0),
+              textStyle: const TextStyle(fontSize: 20),
+            ),
             onPressed: () {
               setState(() {
                 showAvg = !showAvg;
               });
             },
             child: Text(
-              'avg',
+              'media',
               style: TextStyle(
                 fontSize: 12,
                 color: showAvg ? Colors.white.withOpacity(0.5) : Colors.white,
@@ -118,7 +123,10 @@ class _LineChartSample2State extends State<LineChartSample2> {
     //                                                              asse x nomi
     Widget text;
     if (value == value.toInt()) {
-      text = Text("$value");
+      text = Text(
+        "${widget.listVal.keys.elementAt(value.toInt()).day}/${widget.listVal.keys.elementAt(value.toInt()).month}",
+        style: style,
+      );
     } else {
       text = const Text("");
     }
@@ -214,8 +222,9 @@ class _LineChartSample2State extends State<LineChartSample2> {
       maxY: maxY.toDouble(),
       lineBarsData: [
         LineChartBarData(
+          isStepLineChart: false,
           spots: listaPunti,
-          isCurved: true,
+          isCurved: false,
           gradient: LinearGradient(
             colors: gradientColors,
           ),
@@ -305,7 +314,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
       lineBarsData: [
         LineChartBarData(
           spots: valoriY,
-          isCurved: true,
+          isCurved: false,
           gradient: LinearGradient(
             colors: [
               ColorTween(begin: gradientColors[0], end: gradientColors[1])

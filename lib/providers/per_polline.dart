@@ -60,7 +60,7 @@ class PerPolline {
     return data;
   }
 
-  static Future<List<num>> fetch(Stazione s, Polline p) async {
+  static Future<Map<DateTime, num>> fetch(Stazione s, Polline p) async {
     var urlPolline =
         'http://dati.retecivica.bz.it/services/POLLNET_REMARKS?format=json&PART_ID=${p.partId}&STAT_ID=${s.statId}';
     final response = await http.get(Uri.parse(urlPolline));
@@ -70,7 +70,10 @@ class PerPolline {
       List<PerPolline> poll =
           List<PerPolline>.from(p.map((model) => PerPolline.fromJson(model)));
 
-      return [for (PerPolline p in poll) p.rEMACONCENTRATION];
+      return {
+        for (PerPolline p in poll)
+          DateTime.parse(p.rEMADATE): p.rEMACONCENTRATION
+      };
     } else {
       throw Exception('Failed to load PerPolline');
     }
@@ -90,7 +93,7 @@ void main(List<String> args) async {
     for (Polline p in tend.keys) {
       Stopwatch stopwatch = Stopwatch()..start();
 
-      List<num> per = await PerPolline.fetch(s, p);
+      Map<DateTime, num> per = await PerPolline.fetch(s, p);
       out.write(p.partNameI);
       out.write(": $per ");
       print('doSomething() executed in ${stopwatch.elapsed}');
