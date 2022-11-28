@@ -1,5 +1,3 @@
-// ignore_for_file: missing_return
-
 import 'dart:convert';
 import 'dart:math';
 
@@ -69,22 +67,22 @@ class Inquinamento {
   List<ParticellaInquinante> giornaliero(int day) {
     List<ParticellaInquinante> ret = [];
     ret.add(ParticellaInquinante(
-        "CO",
+        "carbon_monoxide",
         hourly.carbonMonoxide.sublist(24 * (day), 24 * (day + 1)).reduce(max),
         4000));
     ret.add(ParticellaInquinante(
-        "SO2",
+        "sulphur_dioxide",
         hourly.sulphurDioxide.sublist(24 * (day), 24 * (day + 1)).reduce(max),
         40));
     ret.add(ParticellaInquinante(
-        "NO2",
+        "nitrogen_dioxide",
         hourly.nitrogenDioxide.sublist(24 * (day), 24 * (day + 1)).reduce(max),
         25));
-    ret.add(ParticellaInquinante("O3",
+    ret.add(ParticellaInquinante("ozone",
         hourly.ozone.sublist(24 * (day), 24 * (day + 1)).reduce(max), 100));
-    ret.add(ParticellaInquinante("PM10",
+    ret.add(ParticellaInquinante("pm10",
         hourly.pm10.sublist(24 * (day), 24 * (day + 1)).reduce(max), 45));
-    ret.add(ParticellaInquinante("PM25",
+    ret.add(ParticellaInquinante("pm2_5",
         hourly.pm25.sublist(24 * (day), 24 * (day + 1)).reduce(max), 15));
 
     return ret;

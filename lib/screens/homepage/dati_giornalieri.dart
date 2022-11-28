@@ -2,6 +2,7 @@
 
 import 'package:demo_1/providers/inquinamento.dart';
 import 'package:demo_1/providers/polline.dart';
+import 'package:demo_1/providers/position.dart';
 import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
 import 'package:demo_1/utils/format_dati_giornalieri.dart';
 import 'package:demo_1/utils/format_inquinamento.dart';
@@ -23,12 +24,14 @@ class ListGiornaliera extends StatelessWidget {
       required this.tend,
       required this.update,
       required this.inq,
-      required this.s})
+      required this.s,
+      required this.p})
       : super(key: ObjectKey(m));
   final FormatMeteo m;
   final Map<Polline, Tendenza> tend;
   final List<ParticellaInquinante> inq;
   final Stazione s;
+  final Posizione p;
   final void Function() update;
   @override
   Widget build(BuildContext context) {
@@ -103,6 +106,7 @@ class ListGiornaliera extends StatelessWidget {
                   child: CardContenitore(
                     listaOrdinata: maggiore,
                     staz: s,
+                    p: p,
                   ),
                 ),
               ],

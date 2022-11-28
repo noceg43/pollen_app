@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 class ItemParticella extends StatelessWidget {
   const ItemParticella({super.key, required this.data, required this.s});
   final dynamic data;
-  final Stazione s;
+  final dynamic s;
   @override
   Widget build(BuildContext context) {
     FormatParticella p = FormatParticella(data);

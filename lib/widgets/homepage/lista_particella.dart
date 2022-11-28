@@ -1,5 +1,6 @@
 import 'package:demo_1/providers/inquinamento.dart';
 import 'package:demo_1/providers/polline.dart';
+import 'package:demo_1/providers/position.dart';
 import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
 import 'package:demo_1/utils/format_dati_giornalieri.dart';
 import 'package:demo_1/widgets/homepage/particella.dart';
@@ -8,9 +9,11 @@ import 'package:flutter/material.dart';
 // INPUT: Map<String, dynamic> insieme di particelle del tipo
 // OUTPUT: Container decorato con listview riempita da ItemParticella
 class ListaParticella extends StatelessWidget {
-  const ListaParticella({super.key, required this.data, required this.s});
+  const ListaParticella(
+      {super.key, required this.data, required this.s, required this.p});
   final Map<String, dynamic> data;
   final Stazione s;
+  final Posizione p;
   @override
   Widget build(BuildContext context) {
     // ottengo la lunghezza della Map(se è polline) o List( se è inq) del campo value
@@ -33,7 +36,7 @@ class ListaParticella extends StatelessWidget {
         );
         return ItemParticella(
           data: lista.elementAt(index),
-          s: s,
+          s: p,
         );
       } else {
         Map<Polline, Tendenza> map = data.values.first;

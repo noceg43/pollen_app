@@ -1,29 +1,40 @@
+import 'package:demo_1/providers/inquinamento.dart';
+import 'package:demo_1/providers/per_inquinamento.dart';
 import 'package:demo_1/providers/per_polline.dart';
 import 'package:demo_1/providers/polline.dart';
+import 'package:demo_1/providers/position.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class ScheletroParticella extends StatelessWidget {
   const ScheletroParticella({super.key, required this.p, required this.s});
-  final Polline p;
-  final Stazione s;
+  final dynamic p;
+  final dynamic s;
   @override
   Widget build(BuildContext context) {
+    Future<Map<DateTime, num>> futura;
+
+    if (p is ParticellaInquinante && s is Posizione) {
+      futura = PerInquinamento.fetch(s.lat, s.lon, p);
+    } else {
+      futura = PerPolline.fetch(s, p);
+    }
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(p.partNameI),
+        //title: Text(p.partNameI),
         leading: const BackButton(),
       ),
       body: FutureBuilder<Map<DateTime, num>>(
-          future: PerPolline.fetch(s, p),
+          future: futura,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return LineChartSample2(
                 p: p,
-                s: s,
                 listVal: snapshot.data!,
               );
             } else {
+              print(snapshot.error);
               return Container();
             }
           }),
@@ -32,10 +43,8 @@ class ScheletroParticella extends StatelessWidget {
 }
 
 class LineChartSample2 extends StatefulWidget {
-  const LineChartSample2(
-      {super.key, required this.p, required this.s, required this.listVal});
-  final Polline p;
-  final Stazione s;
+  const LineChartSample2({super.key, required this.p, required this.listVal});
+  final dynamic p;
   final Map<DateTime, num> listVal;
 
   @override
@@ -52,12 +61,23 @@ class _LineChartSample2State extends State<LineChartSample2> {
 
   @override
   Widget build(BuildContext context) {
+    List<double> valori =
+        (widget.p is ParticellaInquinante && widget.p.tipo == "carbon_monoxide")
+            ? widget.listVal.values.map((e) => e.toDouble()).toList()
+            : widget.listVal.values.map((e) => (e / 10).toDouble()).toList();
+
     // calcolo valore massimo y
     num maxVal = 0;
-    for (num i in widget.listVal.values) {
+    for (num i in valori) {
       if (i > maxVal) maxVal = i;
     }
-    num max = (widget.p.partHigh > maxVal) ? widget.p.partHigh : maxVal;
+    num max = 0;
+    if (widget.p is Polline) {
+      max = (widget.p.partHigh > maxVal) ? widget.p.partHigh : maxVal;
+    } else {
+      max = (widget.p.lim > maxVal) ? widget.p.lim : maxVal;
+      if (widget.p.tipo == "carbon_monoxide") max = max / 10;
+    }
     return Stack(
       children: <Widget>[
         AspectRatio(
@@ -79,10 +99,10 @@ class _LineChartSample2State extends State<LineChartSample2> {
               child: LineChart(
                 showAvg
                     ? avgData(
-                        widget.listVal.values.toList(),
+                        valori,
                         max,
                       )
-                    : mainData(widget.listVal.values.toList(), max),
+                    : mainData(valori, max),
               ),
             ),
           ),
@@ -148,20 +168,28 @@ class _LineChartSample2State extends State<LineChartSample2> {
     );
     //                                                              asse y nomi
     String text;
-    if (value == widget.p.partLow.toInt()) {
-      text = "basso";
-    } else if (value == widget.p.partMiddle.toInt()) {
-      text = "medio";
-    } else if (value == widget.p.partHigh.toInt()) {
-      text = "alto";
+    if (widget.p is Polline) {
+      if (value == widget.p.partLow.toInt()) {
+        text = "basso";
+      } else if (value == widget.p.partMiddle.toInt()) {
+        text = "medio";
+      } else if (value == widget.p.partHigh.toInt()) {
+        text = "alto";
+      } else {
+        return Container();
+      }
     } else {
-      return Container();
+      if (value == widget.p.lim.toInt()) {
+        text = "alto";
+      } else {
+        return Container();
+      }
     }
 
     return Text(text, style: style, textAlign: TextAlign.left);
   }
 
-  LineChartData mainData(List<num> listVal, num maxY) {
+  LineChartData mainData(List<double> listVal, num maxY) {
     //                                                                creare punti grafo
     List<FlSpot> listaPunti = [];
     for (double i = 0; i < listVal.length; i++) {
@@ -246,7 +274,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
     );
   }
 
-  LineChartData avgData(List<num> listVal, num maxY) {
+  LineChartData avgData(List<double> listVal, num maxY) {
     // media
     List<FlSpot> valoriY = [];
     double media = 0;

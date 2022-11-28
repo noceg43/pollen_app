@@ -19,7 +19,8 @@ class FormatParticella {
       nome = i.tipo;
       valore = i.val;
       valColore = i.valoreColore;
-      this.data = data;
+      ParticellaInquinante p = data;
+      this.data = p;
     } else {
       FormatPolline p = FormatPolline(data);
       nome = p.nome;

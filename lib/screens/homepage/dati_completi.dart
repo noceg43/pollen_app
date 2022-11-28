@@ -53,18 +53,21 @@ class DatiCompleti extends StatelessWidget {
                   tend: tendList[0],
                   inq: formInq[0],
                   s: s,
+                  p: dataPos,
                   update: update),
               ListGiornaliera(
                   m: meteoList[1],
                   tend: tendList[1],
                   inq: formInq[1],
                   s: s,
+                  p: dataPos,
                   update: update),
               ListGiornaliera(
                   m: meteoList[2],
                   tend: tendList[2],
                   inq: formInq[2],
                   s: s,
+                  p: dataPos,
                   update: update),
             ],
           );
