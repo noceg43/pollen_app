@@ -24,7 +24,6 @@ class PerInquinamento {
       // then parse the JSON.
       PerInquinamento p =
           PerInquinamento.fromJson(jsonDecode(response.body), particella.tipo);
-
       return {
         for (int day = 0; day < (24 * 5); day = day + 24)
           DateTime.parse(p.hourly.time[day]):

@@ -63,8 +63,8 @@ class _LineChartSample2State extends State<LineChartSample2> {
   Widget build(BuildContext context) {
     List<double> valori =
         (widget.p is ParticellaInquinante && widget.p.tipo == "carbon_monoxide")
-            ? widget.listVal.values.map((e) => e.toDouble()).toList()
-            : widget.listVal.values.map((e) => (e / 10).toDouble()).toList();
+            ? widget.listVal.values.map((e) => (e / 10).toDouble()).toList()
+            : widget.listVal.values.map((e) => e.toDouble()).toList();
 
     // calcolo valore massimo y
     num maxVal = 0;
@@ -78,6 +78,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
       max = (widget.p.lim > maxVal) ? widget.p.lim : maxVal;
       if (widget.p.tipo == "carbon_monoxide") max = max / 10;
     }
+    print(max);
     return Stack(
       children: <Widget>[
         AspectRatio(
