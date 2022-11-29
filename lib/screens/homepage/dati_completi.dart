@@ -29,7 +29,7 @@ class DatiCompleti extends StatelessWidget {
           Meteo.fetch(dataPos.lat, dataPos.lon),
           tendenzaDaPos(dataPos),
           Inquinamento.fetch(dataPos.lat, dataPos.lon),
-          trovaStaz(dataPos)
+          Stazione.trovaStaz(dataPos)
         ],
       ),
       builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {

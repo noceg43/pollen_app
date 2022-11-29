@@ -6,6 +6,7 @@ import 'dart:math';
 
 import 'package:demo_1/providers/cache.dart';
 import 'package:demo_1/providers/inquinamento.dart';
+import 'package:demo_1/providers/position.dart';
 import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:http/http.dart' as http;
@@ -29,6 +30,9 @@ class Polline {
     Iterable p = jsonDecode(await file.readAsString());
     List<Polline> poll =
         List<Polline>.from(p.map((model) => Polline.fromJson(model)));
+    // rimuove pollini dei quali non si conoscono i valori soglia
+    poll.removeWhere((p) => p.partMiddle == 0);
+
     return poll;
     /*
     if (response.statusCode == 200) {
@@ -151,8 +155,6 @@ class Stazione {
   final num latitude, longitude, regiId, statId;
   final String regiNameD, regiNameI, statCode, statNameD, statenameI;
   static Future<List<Stazione>> fetch() async {
-    Stopwatch stopwatch = new Stopwatch()..start();
-
     var urlStazione =
         'http://dati.retecivica.bz.it/services/POLLNET_STATIONS?format=json';
     //final response = await http.get(Uri.parse(urlStazione));
@@ -177,7 +179,29 @@ class Stazione {
     */
   }
 
-  static Stazione localizza(List<Stazione> s, num lat, num lon) {
+  static Future<Stazione> trovaStaz(Posizione p) async {
+    List<Stazione> staz = await Stazione.fetch();
+    Stazione localizzata = Stazione._localizza(staz, p.lat, p.lon);
+
+    num maxIterazioni = staz.length;
+
+    Stazione trovata = localizzata;
+    Future<bool> checkStazione(Stazione s) async {
+      List<Concentrazione> c = await Concentrazione.fetch(s);
+      if (c.isEmpty) return false;
+      return true;
+    }
+
+    for (num i = 0; i < maxIterazioni; i++) {
+      bool check = await checkStazione(trovata);
+      if (check) break;
+      staz.remove(trovata);
+      trovata = Stazione._localizza(staz, p.lat, p.lon);
+    }
+    return trovata;
+  }
+
+  static Stazione _localizza(List<Stazione> s, num lat, num lon) {
     num formula(lat1, lon1, lat2, lon2) {
       num p = 0.017453292519943295;
       num hav = 0.5 -
