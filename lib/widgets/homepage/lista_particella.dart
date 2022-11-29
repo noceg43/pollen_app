@@ -1,8 +1,10 @@
 import 'package:demo_1/providers/inquinamento.dart';
 import 'package:demo_1/providers/polline.dart';
 import 'package:demo_1/providers/position.dart';
+import 'package:demo_1/screens/tipo_schermata/tipo_schermata.dart';
 import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
 import 'package:demo_1/utils/format_dati_giornalieri.dart';
+import 'package:demo_1/utils/logica_ordine_particella.dart';
 import 'package:demo_1/widgets/homepage/particella.dart';
 import 'package:flutter/material.dart';
 
@@ -25,32 +27,14 @@ class ListaParticella extends StatelessWidget {
     //
     // logica per restituire in modo ordinato
     // la corretta particella/polline in base all'indice
+    List<dynamic> lista = getListaOrdinata(data);
     ItemParticella getItemParticella(int index) {
       if (data.values.first is List<ParticellaInquinante>) {
-        List<ParticellaInquinante> lista = data.values.first;
-        // ordinamento inquinamento
-        lista.sort(
-          (a, b) {
-            return (b.superato ? 1 : 0).compareTo(a.superato ? 1 : 0);
-          },
-        );
         return ItemParticella(
           data: lista.elementAt(index),
           s: p,
         );
       } else {
-        Map<Polline, Tendenza> map = data.values.first;
-        List<Map<Polline, Tendenza>> lista = [
-          for (int i = 0; i < map.length; i++)
-            {map.keys.elementAt(i): map.values.elementAt(i)}
-        ];
-        // ordinamento polline
-        lista.sort(
-          (a, b) {
-            return b.values.first.gruppoValore
-                .compareTo(a.values.first.gruppoValore);
-          },
-        );
         return ItemParticella(
           data: lista.elementAt(index),
           s: s,
@@ -89,12 +73,28 @@ class ListaParticella extends StatelessWidget {
               ),
               Text(formTipo.tipo),
               const Spacer(),
-              const IconButton(
+              IconButton(
                 iconSize: 30,
-                icon: Icon(
+                icon: const Icon(
                   Icons.navigate_next,
                 ),
-                onPressed: null,
+                onPressed:
+                    (lungh == 0) // se lista vuota non permettere il click
+                        ? null
+                        : () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => TipoSchermata(
+                                    lista: lista,
+                                    s: (data.values.first is List<
+                                            ParticellaInquinante>) // se particella inquinante allora restituisci posizione
+                                        ? p
+                                        : s,
+                                    formTipo: formTipo),
+                              ),
+                            );
+                          },
               ),
             ],
           ),
