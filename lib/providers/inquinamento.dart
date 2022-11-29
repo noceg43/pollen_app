@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:demo_1/providers/cache.dart';
 import 'package:http/http.dart' as http;
 
 class Inquinamento {
@@ -13,9 +14,14 @@ class Inquinamento {
   late final HourlyUnits hourlyUnits;
   late final Hourly hourly;
   static Future<Inquinamento> fetch(num lat, num lon) async {
-    final response = await http.get(Uri.parse(
-        'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=$lat&longitude=$lon&hourly=pm10,pm2_5,carbon_monoxide,nitrogen_dioxide,sulphur_dioxide,ozone'));
+    String urlInquinamento =
+        'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=$lat&longitude=$lon&hourly=pm10,pm2_5,carbon_monoxide,nitrogen_dioxide,sulphur_dioxide,ozone';
+    //final response = await http.get(Uri.parse(urlInquinamento));
+    var file =
+        await GiornalieraCacheManager.instance.getSingleFile(urlInquinamento);
 
+    return Inquinamento.fromJson(jsonDecode(await file.readAsString()));
+    /*
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
@@ -25,6 +31,7 @@ class Inquinamento {
       // then throw an exception.
       throw Exception('Failed to load album');
     }
+    */
   }
 
   Inquinamento(

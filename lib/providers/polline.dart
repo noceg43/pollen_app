@@ -4,8 +4,10 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
+import 'package:demo_1/providers/cache.dart';
 import 'package:demo_1/providers/inquinamento.dart';
 import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:http/http.dart' as http;
 
 // valori se non presenti = 0 o se stringhe = '' tranne per il parentNameL
@@ -22,8 +24,13 @@ class Polline {
   static Future<List<Polline>> fetch() async {
     var urlPolline =
         'http://dati.retecivica.bz.it/services/POLLNET_PARTICLES?format=json';
-    final response = await http.get(Uri.parse(urlPolline));
-
+    //final response = await http.get(Uri.parse(urlPolline));
+    var file = await GiornalieraCacheManager.instance.getSingleFile(urlPolline);
+    Iterable p = jsonDecode(await file.readAsString());
+    List<Polline> poll =
+        List<Polline>.from(p.map((model) => Polline.fromJson(model)));
+    return poll;
+    /*
     if (response.statusCode == 200) {
       Iterable p = jsonDecode(response.body);
       List<Polline> poll =
@@ -32,6 +39,7 @@ class Polline {
     } else {
       throw Exception('Failed to load polline');
     }
+    */
   }
 
   static List<Polline> getAlberi(Iterable<Polline> tutti) {
@@ -143,18 +151,30 @@ class Stazione {
   final num latitude, longitude, regiId, statId;
   final String regiNameD, regiNameI, statCode, statNameD, statenameI;
   static Future<List<Stazione>> fetch() async {
+    Stopwatch stopwatch = new Stopwatch()..start();
+
     var urlStazione =
         'http://dati.retecivica.bz.it/services/POLLNET_STATIONS?format=json';
-    final response = await http.get(Uri.parse(urlStazione));
+    //final response = await http.get(Uri.parse(urlStazione));
 
+    var file =
+        await GiornalieraCacheManager.instance.getSingleFile(urlStazione);
+    Iterable p = jsonDecode(await file.readAsString());
+    List<Stazione> staz =
+        List<Stazione>.from(p.map((model) => Stazione.fromJson(model)));
+
+    return staz;
+    /*
     if (response.statusCode == 200) {
       Iterable p = jsonDecode(response.body);
       List<Stazione> staz =
           List<Stazione>.from(p.map((model) => Stazione.fromJson(model)));
+
       return staz;
     } else {
       throw Exception('Failed to load stazioni');
     }
+    */
   }
 
   static Stazione localizza(List<Stazione> s, num lat, num lon) {
@@ -241,8 +261,14 @@ class Concentrazione {
       urlConcentrazione =
           'http://dati.retecivica.bz.it/services/POLLNET_REMARKS?format=json&from=$giornoS&to=$giornoS&STAT_ID=$staz';
     }
-    final response = await http.get(Uri.parse(urlConcentrazione));
-
+    //final response = await http.get(Uri.parse(urlConcentrazione));
+    var file =
+        await GiornalieraCacheManager.instance.getSingleFile(urlConcentrazione);
+    Iterable p = jsonDecode(await file.readAsString());
+    List<Concentrazione> conc = List<Concentrazione>.from(
+        p.map((model) => Concentrazione.fromJson(model)));
+    return conc;
+    /*
     if (response.statusCode == 200) {
       Iterable p = jsonDecode(response.body);
       List<Concentrazione> conc = List<Concentrazione>.from(
@@ -251,6 +277,7 @@ class Concentrazione {
     } else {
       throw Exception('Failed to load stazioni');
     }
+    */
   }
 
   Concentrazione({

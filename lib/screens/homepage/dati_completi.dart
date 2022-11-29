@@ -21,6 +21,8 @@ class DatiCompleti extends StatelessWidget {
   final void Function() update;
   @override
   Widget build(BuildContext context) {
+    Stopwatch stopwatch = new Stopwatch()..start();
+
     return FutureBuilder<List<dynamic>>(
       future: Future.wait(
         [
@@ -46,6 +48,8 @@ class DatiCompleti extends StatelessWidget {
             i.giornaliero(2)
           ];
           Stazione s = snapshot.data![3];
+          print('doSomething() executed in ${stopwatch.elapsed}');
+
           return TabBarView(
             children: [
               ListGiornaliera(
