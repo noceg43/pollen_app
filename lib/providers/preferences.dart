@@ -1,20 +1,50 @@
+import 'package:demo_1/providers/inquinamento.dart';
+import 'package:demo_1/providers/polline.dart';
+import 'package:demo_1/providers/position.dart';
+import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
+import 'package:demo_1/utils/format_polline.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Peso {
   double p = 0;
   String codice = "";
-  static Future<Peso> getContatore(String cod) async {
+  static Future<List<Peso>> getContatore(Posizione pos) async {
     final preferences = await SharedPreferences.getInstance();
-    final virgolato = preferences.getDouble(cod) ?? 0;
+    List lista = await chiAumentare(pos);
+    List<Peso> pesi = [];
+    for (String s in lista) {
+      final virgolato = preferences.getDouble(s) ?? 0;
+      pesi.add(Peso(s, virgolato));
+    }
+    print(pesi);
+    return pesi;
+  }
 
-    return Peso(cod, virgolato);
+  static Future<List> chiAumentare(Posizione pos) async {
+    Map<Polline, Tendenza> tend = (await tendenzaDaPos(pos)).first;
+    List<ParticellaInquinante> inq =
+        (await Inquinamento.fetch(pos.lat, pos.lon)).giornaliero(0);
+    List lista = massimiTipologia(tipoMaggiore(Tendenza.getAlberi(tend),
+            Tendenza.getErbe(tend), Tendenza.getSpore(tend), inq)
+        .first
+        .values
+        .first);
+    List<String> ret = [for (dynamic d in lista) d.toString()];
+    return ret;
   }
 
   Peso(this.codice, this.p);
-  Future<void> aumenta() async {
+  Future<void> _aumentaSingolo() async {
     final prefs = await SharedPreferences.getInstance();
-    p = p + 0.3;
+    p = 0;
     await prefs.setDouble(codice, p);
+
     print("$codice $p");
+  }
+
+  static Future<void> aumentaMultipli(List<Peso> pesi) async {
+    for (Peso p in pesi) {
+      p._aumentaSingolo();
+    }
   }
 }

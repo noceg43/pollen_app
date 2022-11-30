@@ -1,5 +1,6 @@
 import 'package:demo_1/providers/position.dart';
 import 'package:demo_1/providers/preferences.dart';
+import 'package:demo_1/screens/diario/diario.dart';
 import 'package:demo_1/screens/homepage/dati_completi.dart';
 import 'package:demo_1/screens/scelta_manuale/schermata_scelta_stazione.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,12 @@ class SchermataDatiCompleti extends StatelessWidget {
           title: Text(dataPos.pos),
           leading: IconButton(
               onPressed: () {
-                update();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const DiarioSchermata(),
+                  ),
+                );
               },
               icon: const Icon(Icons.settings)),
           actions: [
@@ -60,12 +66,13 @@ class SchermataDatiCompleti extends StatelessWidget {
           update: update,
         ),
         floatingActionButton: (homepage)
-            ? FutureBuilder<Peso>(
-                future: Peso.getContatore("contatore 1"),
+            ? FutureBuilder<List<Peso>>(
+                future: Peso.getContatore(dataPos),
                 builder: (context, snapshot) {
                   return FloatingActionButton(
-                    onPressed: (() =>
-                        (snapshot.hasData) ? snapshot.data!.aumenta() : null),
+                    onPressed: (() => (snapshot.hasData)
+                        ? Peso.aumentaMultipli(snapshot.data!)
+                        : null),
                     backgroundColor: Colors.green,
                     child: const Icon(Icons.navigation),
                   );

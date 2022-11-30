@@ -65,7 +65,7 @@ List<dynamic> massimiTipologia(dynamic data) {
   int massimo(Map<Polline, Tendenza> poll) {
     int ret = 0;
     for (var i in [for (Polline p in poll.keys) poll[p]!.gruppoValore]) {
-      ret += i;
+      if (i > ret) ret = i;
     }
     return ret;
   }
@@ -77,18 +77,12 @@ List<dynamic> massimiTipologia(dynamic data) {
 
     max = massimo(poll);
     poll.removeWhere((key, value) => value.gruppoValore != max);
-    return poll.values.toList();
+    return poll.keys.toList();
   } else {
     List<ParticellaInquinante> inq = data;
-    List<int> listMaxInq = [
-      for (ParticellaInquinante i in inq) i.superato ? 3 : 0
-    ];
-    for (var element in listMaxInq) {
-      max += element;
-    }
-    inq.removeWhere((e) => !e.superato);
 
-    return inq;
+    inq.removeWhere((e) => !e.superato);
+    return [for (ParticellaInquinante i in inq) i.tipo];
   }
 }
 
