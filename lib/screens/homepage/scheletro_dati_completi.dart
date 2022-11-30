@@ -1,4 +1,5 @@
 import 'package:demo_1/providers/position.dart';
+import 'package:demo_1/providers/preferences.dart';
 import 'package:demo_1/screens/homepage/dati_completi.dart';
 import 'package:demo_1/screens/scelta_manuale/schermata_scelta_stazione.dart';
 import 'package:flutter/material.dart';
@@ -9,9 +10,13 @@ import 'package:flutter/material.dart';
 // OUTPUT: Scaffold con nome posizione e le 3 schermate giorno
 class SchermataDatiCompleti extends StatelessWidget {
   const SchermataDatiCompleti(
-      {super.key, required this.dataPos, required this.update});
+      {super.key,
+      required this.dataPos,
+      required this.update,
+      required this.homepage});
   final Posizione dataPos;
   final void Function() update;
+  final bool homepage;
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -54,6 +59,18 @@ class SchermataDatiCompleti extends StatelessWidget {
           dataPos: dataPos,
           update: update,
         ),
+        floatingActionButton: (homepage)
+            ? FutureBuilder<Peso>(
+                future: Peso.getContatore("contatore 1"),
+                builder: (context, snapshot) {
+                  return FloatingActionButton(
+                    onPressed: (() =>
+                        (snapshot.hasData) ? snapshot.data!.aumenta() : null),
+                    backgroundColor: Colors.green,
+                    child: const Icon(Icons.navigation),
+                  );
+                })
+            : null,
       ),
     );
   }

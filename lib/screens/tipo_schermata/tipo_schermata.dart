@@ -35,11 +35,11 @@ class TipoSchermata extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          SizedBox(
+          Container(
             height: 100,
+            color: Colors.green,
           ),
           Card(
-            color: Colors.green,
             child: Column(
               children: [
                 Row(

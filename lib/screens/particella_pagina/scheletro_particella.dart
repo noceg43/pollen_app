@@ -19,7 +19,6 @@ class ScheletroParticella extends StatelessWidget {
       futura = PerInquinamento.fetch(s.lat, s.lon, p);
     } else {
       futura = PerPolline.fetch(s, p);
-      print(p.partMiddle);
     }
 
     return Scaffold(
@@ -36,6 +35,9 @@ class ScheletroParticella extends StatelessWidget {
                 listVal: snapshot.data!,
               );
             } else {
+              if (snapshot.hasError) {
+                print(snapshot.error);
+              }
               return Container();
             }
           }),

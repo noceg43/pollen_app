@@ -40,17 +40,6 @@ List<Map<String, dynamic>> tipoMaggiore(
   ret.sort(
       ((a, b) => massimi[b.keys.first]!.compareTo(massimi[a.keys.first]!)));
   return ret;
-
-  // TUTTO SBAGLIATO STRUTTURA DATI PESSIMA
-  // ordinare una map restituendo solo la lista delle key ordinate
-  /*
-  return Map.fromEntries(massimi.entries.toList()
-        ..sort((e1, e2) => e1.value.compareTo(e2.value)))
-      .keys
-      .toList()
-      .reversed
-      .toList();
-      */
 }
 
 int mediaTipologia(dynamic data) {
@@ -69,6 +58,37 @@ int mediaTipologia(dynamic data) {
       if (p.superato) sum += 3;
     }
     return (sum / inq.length).round();
+  }
+}
+
+List<dynamic> massimiTipologia(dynamic data) {
+  int massimo(Map<Polline, Tendenza> poll) {
+    int ret = 0;
+    for (var i in [for (Polline p in poll.keys) poll[p]!.gruppoValore]) {
+      ret += i;
+    }
+    return ret;
+  }
+
+  int max = 0;
+
+  if (data is Map<Polline, Tendenza>) {
+    Map<Polline, Tendenza> poll = data;
+
+    max = massimo(poll);
+    poll.removeWhere((key, value) => value.gruppoValore != max);
+    return poll.values.toList();
+  } else {
+    List<ParticellaInquinante> inq = data;
+    List<int> listMaxInq = [
+      for (ParticellaInquinante i in inq) i.superato ? 3 : 0
+    ];
+    for (var element in listMaxInq) {
+      max += element;
+    }
+    inq.removeWhere((e) => !e.superato);
+
+    return inq;
   }
 }
 

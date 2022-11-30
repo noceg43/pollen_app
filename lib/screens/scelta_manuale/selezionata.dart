@@ -51,7 +51,10 @@ class _SelezionataState extends State<Selezionata> {
               );
             } else if (snapshot.hasData) {
               return SchermataDatiCompleti(
-                  dataPos: snapshot.data!, update: update);
+                dataPos: snapshot.data!,
+                update: update,
+                homepage: false,
+              );
             } else {
               return const SchermataDatiCaricamento(errore: false);
             }
