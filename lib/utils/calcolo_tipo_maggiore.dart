@@ -8,8 +8,8 @@ List<Map<String, dynamic>> tipoMaggiore(
     Map<Polline, Tendenza> erbe,
     Map<Polline, Tendenza> spore,
     List<ParticellaInquinante> inq) {
-  int massimo(Map<Polline, Tendenza> poll) {
-    int ret = 0;
+  num massimo(Map<Polline, Tendenza> poll) {
+    num ret = 0;
     for (var i in [for (Polline p in poll.keys) poll[p]!.gruppoValore]) {
       ret += i;
     }
@@ -23,7 +23,7 @@ List<Map<String, dynamic>> tipoMaggiore(
   for (var element in listMaxInq) {
     maxInq += element;
   }
-  Map<String, int> massimi = {
+  Map<String, num> massimi = {
     "Alberi": massimo(alberi),
     "Erbe": massimo(erbe),
     "Spore": massimo(spore),
@@ -62,7 +62,7 @@ int mediaTipologia(dynamic data) {
 }
 
 List<dynamic> massimiTipologia(dynamic data) {
-  int massimo(Map<Polline, Tendenza> poll) {
+  num massimo(Map<Polline, Tendenza> poll) {
     int ret = 0;
     for (var i in [for (Polline p in poll.keys) poll[p]!.gruppoValore]) {
       if (i > ret) ret = i;
@@ -70,7 +70,7 @@ List<dynamic> massimiTipologia(dynamic data) {
     return ret;
   }
 
-  int max = 0;
+  num max = 0;
 
   if (data is Map<Polline, Tendenza>) {
     Map<Polline, Tendenza> poll = data;

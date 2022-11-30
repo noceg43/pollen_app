@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Peso {
   double p = 0;
   String codice = "";
+
   static Future<List<Peso>> getContatore(Posizione pos) async {
     final preferences = await SharedPreferences.getInstance();
     List lista = await chiAumentare(pos);
@@ -16,7 +17,6 @@ class Peso {
       final virgolato = preferences.getDouble(s) ?? 0;
       pesi.add(Peso(s, virgolato));
     }
-    print(pesi);
     return pesi;
   }
 
@@ -34,17 +34,40 @@ class Peso {
   }
 
   Peso(this.codice, this.p);
-  Future<void> _aumentaSingolo() async {
+  Future<void> _aumentaSingolo(double peso) async {
     final prefs = await SharedPreferences.getInstance();
-    p = 0;
+    p = p + peso;
     await prefs.setDouble(codice, p);
-
-    print("$codice $p");
   }
 
-  static Future<void> aumentaMultipli(List<Peso> pesi) async {
-    for (Peso p in pesi) {
-      p._aumentaSingolo();
+  // usare questa
+  static Future<void> aumentaMultipli(Posizione pos, double peso) async {
+    final preferences = await SharedPreferences.getInstance();
+    List lista = await chiAumentare(pos);
+    List<Peso> pesi = [];
+    for (String s in lista) {
+      final virgolato = preferences.getDouble(s) ?? 0;
+      pesi.add(Peso(s, virgolato));
     }
+
+    for (Peso p in pesi) {
+      p._aumentaSingolo(peso);
+    }
+  }
+
+  static Future<Map<String, String>> stampa() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    print({for (String i in prefs.getKeys()) i: prefs.get(i).toString()});
+    return {for (String i in prefs.getKeys()) i: prefs.get(i).toString()};
+  }
+
+  static Future<void> elimina() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.clear();
+  }
+
+  static Future<double> getPeso(String cod) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getDouble(cod) ?? 0;
   }
 }

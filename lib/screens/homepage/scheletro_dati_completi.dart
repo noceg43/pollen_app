@@ -27,12 +27,8 @@ class SchermataDatiCompleti extends StatelessWidget {
           title: Text(dataPos.pos),
           leading: IconButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const DiarioSchermata(),
-                  ),
-                );
+                Peso.stampa();
+                //Peso.elimina();
               },
               icon: const Icon(Icons.settings)),
           actions: [
@@ -71,7 +67,14 @@ class SchermataDatiCompleti extends StatelessWidget {
                 builder: (context, snapshot) {
                   return FloatingActionButton(
                     onPressed: (() => (snapshot.hasData)
-                        ? Peso.aumentaMultipli(snapshot.data!)
+                        ? Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DiarioSchermata(
+                                pos: dataPos,
+                              ),
+                            ),
+                          )
                         : null),
                     backgroundColor: Colors.green,
                     child: const Icon(Icons.navigation),
