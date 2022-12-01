@@ -104,6 +104,11 @@ class ParticellaInquinante {
   ParticellaInquinante(this.tipo, this.val, this.lim) {
     superato = (val >= lim);
   }
+  @override
+  String toString() {
+    // TODO: implement toString
+    return tipo;
+  }
 }
 
 class HourlyUnits {

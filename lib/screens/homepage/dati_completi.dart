@@ -1,5 +1,6 @@
 import 'package:demo_1/providers/inquinamento.dart';
 import 'package:demo_1/providers/meteo.dart';
+import 'package:demo_1/providers/notifications.dart';
 import 'package:demo_1/providers/polline.dart';
 import 'package:demo_1/providers/position.dart';
 import 'package:demo_1/screens/homepage/dati_giornalieri.dart';
@@ -48,7 +49,8 @@ class DatiCompleti extends StatelessWidget {
             i.giornaliero(2)
           ];
           Stazione s = snapshot.data![3];
-          print('doSomething() executed in ${stopwatch.elapsed}');
+          Noti.ottieniParticelle(tendList, formInq);
+          //print('doSomething() executed in ${stopwatch.elapsed}');
 
           return TabBarView(
             children: [

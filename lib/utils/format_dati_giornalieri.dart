@@ -14,7 +14,7 @@ class FormatTipoGiornaliero {
   AssetImage img = const AssetImage('assets/images/alberi.png');
   FormatTipoGiornaliero(Map<String, dynamic> data) {
     Map<int, String> livelli = {
-      0: "Assente",
+      0: "Molto Basso",
       1: "Basso",
       2: "Medio",
       3: "Alto"
@@ -27,7 +27,7 @@ class FormatTipoGiornaliero {
       3: Colors.red
     };
     tipo = data.keys.first;
-    int valoreMedio = mediaTipologia(data.values.first);
+    int valoreMedio = Tipologia.media(data.values.first);
     livello = livelli[valoreMedio]!;
     col = livColori[valoreMedio]!;
     img = AssetImage('assets/images/${tipo.toLowerCase()}.png');

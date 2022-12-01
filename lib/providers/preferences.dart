@@ -24,7 +24,7 @@ class Peso {
     Map<Polline, Tendenza> tend = (await tendenzaDaPos(pos)).first;
     List<ParticellaInquinante> inq =
         (await Inquinamento.fetch(pos.lat, pos.lon)).giornaliero(0);
-    List lista = massimiTipologia(tipoMaggiore(Tendenza.getAlberi(tend),
+    List lista = Tipologia.maxParticelle(tipoMaggiore(Tendenza.getAlberi(tend),
             Tendenza.getErbe(tend), Tendenza.getSpore(tend), inq)
         .first
         .values

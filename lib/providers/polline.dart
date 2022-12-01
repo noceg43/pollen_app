@@ -505,14 +505,14 @@ void main(List<String> args) async {
     Map<Polline, Tendenza> tend = await tendenza(s, poll);
     Inquinamento inq = await Inquinamento.fetch(s.latitude, s.longitude);
     out.write("Inquinamento Max ");
-    out.write(mediaTipologia(inq.giornaliero(0)));
+    out.write(Tipologia.media(inq.giornaliero(0)));
     out.write("\n");
     out.write("TIPO MAGGIORE: ");
     out.write(tipoMaggiore(Tendenza.getAlberi(tend), Tendenza.getErbe(tend),
         Tendenza.getSpore(tend), inq.giornaliero(0)));
     out.write("\nALBERI: \n");
     out.write("Alberi Max ");
-    out.write(mediaTipologia(Tendenza.getAlberi(tend)));
+    out.write(Tipologia.media(Tendenza.getAlberi(tend)));
     out.write("\n");
     for (Polline p in Polline.getAlberi(tend.keys)) {
       out.write("    $p ");
@@ -520,7 +520,7 @@ void main(List<String> args) async {
       out.write("\n");
     }
     out.write("Erbe Max ");
-    out.write(mediaTipologia(Tendenza.getErbe(tend)));
+    out.write(Tipologia.media(Tendenza.getErbe(tend)));
     out.write("\n");
     out.write("ERBE: \n");
     for (Polline p in Polline.getErbe(tend.keys)) {
@@ -529,7 +529,7 @@ void main(List<String> args) async {
       out.write("\n");
     }
     out.write("Spore Max ");
-    out.write(mediaTipologia(Tendenza.getSpore(tend)));
+    out.write(Tipologia.media(Tendenza.getSpore(tend)));
     out.write("\n");
     out.write("SPORE: \n");
     for (Polline p in Polline.getSpore(tend.keys)) {

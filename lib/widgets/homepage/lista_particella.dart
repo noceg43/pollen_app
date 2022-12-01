@@ -19,7 +19,7 @@ class ListaParticella extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // ottengo la lunghezza della Map(se è polline) o List( se è inq) del campo value
-    int lungh = lunghezza(data.values.first);
+    int lungh = Tipologia.lunghezza(data.values.first);
     // formatto la Map ottentendo i dati da mostrare
     FormatTipoGiornaliero formTipo = FormatTipoGiornaliero(data);
     //
