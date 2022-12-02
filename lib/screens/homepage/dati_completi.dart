@@ -1,3 +1,5 @@
+import 'package:demo_1/main.dart';
+import 'package:demo_1/providers/dati_notifiche.dart';
 import 'package:demo_1/providers/inquinamento.dart';
 import 'package:demo_1/providers/meteo.dart';
 import 'package:demo_1/providers/notifications.dart';
@@ -49,7 +51,16 @@ class DatiCompleti extends StatelessWidget {
             i.giornaliero(2)
           ];
           Stazione s = snapshot.data![3];
-          Noti.ottieniParticelle(tendList, formInq);
+
+          Noti.initialize(flutterLocalNotificationsPlugin);
+          DatiNotifiche? d = DatiNotifiche.ottieni(tendList, formInq);
+          if (d != null) {
+            Noti.showBigTextNotification(
+                title: d.particella,
+                body: d.livello,
+                fln: flutterLocalNotificationsPlugin);
+          }
+
           //print('doSomething() executed in ${stopwatch.elapsed}');
 
           return TabBarView(

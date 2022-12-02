@@ -82,9 +82,13 @@ class Tipologia {
       return poll.keys.toList();
     } else {
       List<ParticellaInquinante> inq = tipologiaGiornaliera;
-
-      inq.removeWhere((e) => !e.superato);
-      return inq;
+      List<ParticellaInquinante> ret = [];
+      for (ParticellaInquinante p in inq) {
+        if (p.superato) {
+          ret.add(p);
+        }
+      }
+      return ret;
     }
   }
 

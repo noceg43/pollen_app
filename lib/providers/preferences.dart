@@ -34,7 +34,7 @@ class Peso {
   }
 
   Peso(this.codice, this.p);
-  Future<void> _aumentaSingolo(double peso) async {
+  Future<void> aumentaSingolo(double peso) async {
     final prefs = await SharedPreferences.getInstance();
     p = p + peso;
     await prefs.setDouble(codice, p);
@@ -51,7 +51,7 @@ class Peso {
     }
 
     for (Peso p in pesi) {
-      p._aumentaSingolo(peso);
+      p.aumentaSingolo(peso);
     }
   }
 

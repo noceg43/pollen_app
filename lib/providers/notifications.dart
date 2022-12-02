@@ -34,10 +34,4 @@ class Noti {
         android: androidPlatformChannelSpecifics, iOS: null);
     await fln.show(0, title, body, not);
   }
-
-  static void ottieniParticelle(
-      List<Map<Polline, Tendenza>> poll, List<List<ParticellaInquinante>> inq) {
-// se la particella massima della tipologia massima passa da oggi-basso/assente -> domani-medio || oggi-assente/basso/medio -> domani-alto
-// se rilevate più particelle scrivere --> "aumento di diverse particelle sensibili"
-  }
 }
