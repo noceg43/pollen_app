@@ -1,8 +1,5 @@
-import 'package:demo_1/providers/inquinamento.dart';
 import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
 import 'package:flutter/material.dart';
-
-import '../providers/polline.dart';
 
 // INPUT: una tipologia Map{String,dynamic}
 // OUTPUT tipo, livello, colore, icona AssetImage
@@ -12,22 +9,25 @@ class FormatTipoGiornaliero {
   String livello = "Basso";
   Color col = Colors.yellow;
   AssetImage img = const AssetImage('assets/images/alberi.png');
-  FormatTipoGiornaliero(Map<String, dynamic> data) {
+
+  FormatTipoGiornaliero(Tipologia data) {
     Map<int, String> livelli = {
       0: "Molto Basso",
       1: "Basso",
-      2: "Medio",
-      3: "Alto"
+      20: "Medio",
+      30: "Alto"
     };
 
     Map<int, Color> livColori = {
       0: Colors.white,
       1: Colors.yellow,
-      2: Colors.orange,
-      3: Colors.red
+      20: Colors.orange,
+      30: Colors.red
     };
-    tipo = data.keys.first;
-    int valoreMedio = Tipologia.media(data.values.first);
+    tipo = data.nome;
+    int valoreMedio = data.mediaNuova();
+    if (valoreMedio < 20 && valoreMedio > 1) valoreMedio = 20;
+    if (valoreMedio < 30 && valoreMedio > 20) valoreMedio = 30;
     livello = livelli[valoreMedio]!;
     col = livColori[valoreMedio]!;
     img = AssetImage('assets/images/${tipo.toLowerCase()}.png');

@@ -8,8 +8,6 @@ import 'package:demo_1/providers/cache.dart';
 import 'package:demo_1/providers/inquinamento.dart';
 import 'package:demo_1/providers/position.dart';
 import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:http/http.dart' as http;
 
 // valori se non presenti = 0 o se stringhe = '' tranne per il parentNameL
 class Polline {
@@ -364,9 +362,9 @@ class Tendenza {
     if (polline.partLow < valore && valore <= polline.partMiddle) {
       gruppoValore = 1;
     } else if (polline.partMiddle < valore && valore <= polline.partHigh) {
-      gruppoValore = 2;
+      gruppoValore = 20;
     } else if (valore > polline.partHigh) {
-      gruppoValore = 3;
+      gruppoValore = 30;
     } else {
       gruppoValore = 0;
     }
@@ -503,7 +501,8 @@ void main(List<String> args) async {
     out.write("#####################################################\n");
     out.write("${s.prettyPrint()}\n");
     Map<Polline, Tendenza> tend = await tendenza(s, poll);
-    Inquinamento inq = await Inquinamento.fetch(s.latitude, s.longitude);
+    Inquinamento inq = await Inquinamento.fetch(
+        Posizione(s.latitude, s.longitude, s.statenameI));
     out.write("Inquinamento Max ");
     out.write(Tipologia.media(inq.giornaliero(0)));
     out.write("\n");

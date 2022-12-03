@@ -1,5 +1,3 @@
-import 'package:demo_1/providers/notifications.dart';
-import 'package:demo_1/providers/preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 

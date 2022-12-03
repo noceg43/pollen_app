@@ -1,5 +1,6 @@
 import 'package:demo_1/providers/polline.dart';
 import 'package:demo_1/providers/position.dart';
+import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
 import 'package:demo_1/widgets/homepage/lista_particella.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,7 @@ class CardContenitore extends StatelessWidget {
       required this.listaOrdinata,
       required this.staz,
       required this.p});
-  final List<Map<String, dynamic>> listaOrdinata;
+  final List<Tipologia> listaOrdinata;
   final Stazione staz;
   final Posizione p;
   @override
@@ -20,7 +21,7 @@ class CardContenitore extends StatelessWidget {
       child: Column(
         children: [
           const Text("Indici rilevati:"),
-          for (Map<String, dynamic> s in listaOrdinata)
+          for (Tipologia s in listaOrdinata)
             ListaParticella(
               data: s,
               s: staz,

@@ -1,7 +1,10 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:demo_1/providers/polline.dart';
+import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
 import 'package:http/http.dart' as http;
 
 class PerPolline {
@@ -60,9 +63,9 @@ class PerPolline {
     return data;
   }
 
-  static Future<Map<DateTime, num>> fetch(Stazione s, Polline p) async {
+  static Future<Map<DateTime, num>> fetch(Stazione s, Particella p) async {
     var urlPolline =
-        'http://dati.retecivica.bz.it/services/POLLNET_REMARKS?format=json&PART_ID=${p.partId}&STAT_ID=${s.statId}';
+        'http://dati.retecivica.bz.it/services/POLLNET_REMARKS?format=json&PART_ID=${p.nome}&STAT_ID=${s.statId}';
     final response = await http.get(Uri.parse(urlPolline));
 
     if (response.statusCode == 200) {
@@ -93,7 +96,10 @@ void main(List<String> args) async {
     for (Polline p in tend.keys) {
       Stopwatch stopwatch = Stopwatch()..start();
 
-      Map<DateTime, num> per = await PerPolline.fetch(s, p);
+      Map<DateTime, num> per = await PerPolline.fetch(
+          s,
+          Particella(
+              p.partNameI, [p.partLow, p.partMiddle, p.partHigh], p.tipo));
       out.write(p.partNameI);
       out.write(": $per ");
       print('doSomething() executed in ${stopwatch.elapsed}');

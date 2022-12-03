@@ -1,7 +1,3 @@
-import 'package:demo_1/providers/inquinamento.dart';
-import 'package:demo_1/providers/polline.dart';
-import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class Noti {

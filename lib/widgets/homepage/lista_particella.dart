@@ -1,10 +1,8 @@
-import 'package:demo_1/providers/inquinamento.dart';
 import 'package:demo_1/providers/polline.dart';
 import 'package:demo_1/providers/position.dart';
 import 'package:demo_1/screens/tipo_schermata/tipo_schermata.dart';
 import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
 import 'package:demo_1/utils/format_dati_giornalieri.dart';
-import 'package:demo_1/utils/logica_ordine_particella.dart';
 import 'package:demo_1/widgets/homepage/particella.dart';
 import 'package:flutter/material.dart';
 
@@ -13,13 +11,13 @@ import 'package:flutter/material.dart';
 class ListaParticella extends StatelessWidget {
   const ListaParticella(
       {super.key, required this.data, required this.s, required this.p});
-  final Map<String, dynamic> data;
+  final Tipologia data;
   final Stazione s;
   final Posizione p;
   @override
   Widget build(BuildContext context) {
     // ottengo la lunghezza della Map(se è polline) o List( se è inq) del campo value
-    int lungh = Tipologia.lunghezza(data.values.first);
+    int lungh = data.lenght();
     // formatto la Map ottentendo i dati da mostrare
     FormatTipoGiornaliero formTipo = FormatTipoGiornaliero(data);
     //
@@ -27,16 +25,15 @@ class ListaParticella extends StatelessWidget {
     //
     // logica per restituire in modo ordinato
     // la corretta particella/polline in base all'indice
-    List<dynamic> lista = getListaOrdinata(data);
     ItemParticella getItemParticella(int index) {
-      if (data.values.first is List<ParticellaInquinante>) {
+      if (data.nome == "Inquinamento") {
         return ItemParticella(
-          data: lista.elementAt(index),
+          data: data.lista.elementAt(index),
           s: p,
         );
       } else {
         return ItemParticella(
-          data: lista.elementAt(index),
+          data: data.lista.elementAt(index),
           s: s,
         );
       }
@@ -86,9 +83,9 @@ class ListaParticella extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => TipoSchermata(
-                                    lista: lista,
-                                    s: (data.values.first is List<
-                                            ParticellaInquinante>) // se particella inquinante allora restituisci posizione
+                                    tipologia: data,
+                                    s: (data.nome ==
+                                            "Inquinamento") // se particella inquinante allora restituisci posizione
                                         ? p
                                         : s,
                                     formTipo: formTipo),

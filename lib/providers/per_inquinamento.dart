@@ -1,7 +1,10 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'dart:math';
 
-import 'package:demo_1/providers/inquinamento.dart';
+import 'package:demo_1/providers/position.dart';
+import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
 import 'package:http/http.dart' as http;
 
 // TOGLIERE NEL FETCH LAT E LON, SOSTITUIRE CON POSIZIONE
@@ -15,15 +18,16 @@ class PerInquinamento {
   late final HourlyUnits hourlyUnits;
   late final Hourly hourly;
   static Future<Map<DateTime, num>> fetch(
-      num lat, num lon, ParticellaInquinante particella) async {
+      Posizione p, Particella particella) async {
     final response = await http.get(Uri.parse(
-        'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&hourly=${particella.tipo}'));
+        'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${p.lat}&longitude=${p.lon}&hourly=${particella.nome}'));
 
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
       PerInquinamento p =
-          PerInquinamento.fromJson(jsonDecode(response.body), particella.tipo);
+          PerInquinamento.fromJson(jsonDecode(response.body), particella.nome);
+
       return {
         for (int day = 0; day < (24 * 5); day = day + 24)
           DateTime.parse(p.hourly.time[day]):
@@ -118,6 +122,7 @@ void main(List<String> args) async {
   // ignore: unused_local_variable
   num lonMo = 10.925529;
   Map<DateTime, num> p = await PerInquinamento.fetch(
-      latMo, lonMo, ParticellaInquinante("pm10", 10, 25));
+      Posizione(latMo, lonMo, "Modena"),
+      Particella("pm10", [10], "Inquinamento"));
   print(p);
 }

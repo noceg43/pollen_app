@@ -1,29 +1,23 @@
-import 'package:demo_1/providers/inquinamento.dart';
-import 'package:demo_1/providers/per_inquinamento.dart';
-import 'package:demo_1/providers/per_polline.dart';
-import 'package:demo_1/providers/polline.dart';
 import 'package:demo_1/providers/position.dart';
+import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
 import 'package:demo_1/utils/format_dati_giornalieri.dart';
-import 'package:demo_1/widgets/particella_pagina/grafo_particella.dart';
 import 'package:demo_1/widgets/tipo_schermata/particella.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 
 class TipoSchermata extends StatelessWidget {
   const TipoSchermata(
       {super.key,
-      required this.lista,
+      required this.tipologia,
       required this.s,
       required this.formTipo});
-  final List<dynamic>
-      lista; // Lista di particella inquinante oppure di map polline-tendenza
+  final Tipologia
+      tipologia; // Lista di particella inquinante oppure di map polline-tendenza
   final dynamic s; // posizione oppure stazione
   final FormatTipoGiornaliero formTipo;
   @override
   Widget build(BuildContext context) {
     String posizione;
-    if (lista.first is ParticellaInquinante && s is Posizione) {
+    if (tipologia.nome == "Inquinamento" && s is Posizione) {
       posizione = s.pos;
     } else {
       posizione = s.statenameI;
@@ -67,7 +61,7 @@ class TipoSchermata extends StatelessWidget {
                     Text(posizione)
                   ],
                 ),
-                for (dynamic el in lista)
+                for (Map<Particella, ValoreDelGiorno> el in tipologia.lista)
                   ItemParticellaDaTipo(
                     data: el,
                     s: s,

@@ -1,17 +1,12 @@
 // contiene listview del giorno, widget meteo e polline
 
-import 'package:demo_1/providers/inquinamento.dart';
 import 'package:demo_1/providers/polline.dart';
 import 'package:demo_1/providers/position.dart';
 import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
 import 'package:demo_1/utils/format_dati_giornalieri.dart';
-import 'package:demo_1/utils/format_inquinamento.dart';
 import 'package:demo_1/utils/format_meteo.dart';
-import 'package:demo_1/utils/format_polline.dart';
 import 'package:demo_1/widgets/homepage/card_contiene_lista.dart';
-import 'package:demo_1/widgets/homepage/inquinamento.dart';
 import 'package:demo_1/widgets/homepage/meteo.dart';
-import 'package:demo_1/widgets/homepage/polline.dart';
 import 'package:flutter/material.dart';
 
 // Contiene Listview del giorno con WidgetMeteo e WidgetPolline
@@ -21,30 +16,20 @@ import 'package:flutter/material.dart';
 class ListGiornaliera extends StatelessWidget {
   ListGiornaliera(
       {required this.m,
-      required this.tend,
+      required this.tipologie,
       required this.update,
-      required this.inq,
       required this.s,
       required this.p})
       : super(key: ObjectKey(m));
   final FormatMeteo m;
-  final Map<Polline, Tendenza> tend;
-  final List<ParticellaInquinante> inq;
+  final List<Tipologia> tipologie;
   final Stazione s;
   final Posizione p;
   final void Function() update;
   @override
   Widget build(BuildContext context) {
-    // divide la tendenza nelle tipologie
-    Map<Polline, Tendenza> alberi = Tendenza.getAlberi(tend);
-    Map<Polline, Tendenza> erbe = Tendenza.getErbe(tend);
-    Map<Polline, Tendenza> spore = Tendenza.getSpore(tend);
-    // unisce le tipologie + inquinamento in una lista ordinata
-    List<Map<String, dynamic>> maggiore =
-        tipoMaggiore(alberi, erbe, spore, inq);
-
     // prende la prima tipologia e la formatta (ottiene i dati da rappresentare)
-    FormatTipoGiornaliero formatTop = FormatTipoGiornaliero(maggiore.first);
+    FormatTipoGiornaliero formatTop = FormatTipoGiornaliero(tipologie.first);
 
     return RefreshIndicator(
       onRefresh: () async {
@@ -101,10 +86,11 @@ class ListGiornaliera extends StatelessWidget {
                     ],
                   ),
                 ),
+
                 Transform.translate(
                   offset: const Offset(0.0, -40.0),
                   child: CardContenitore(
-                    listaOrdinata: maggiore,
+                    listaOrdinata: tipologie,
                     staz: s,
                     p: p,
                   ),

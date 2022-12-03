@@ -1,11 +1,10 @@
-import 'package:demo_1/providers/inquinamento.dart';
-import 'package:demo_1/providers/polline.dart';
+import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class LineChartSample2 extends StatefulWidget {
   const LineChartSample2({super.key, required this.p, required this.listVal});
-  final dynamic p;
+  final Particella p;
   final Map<DateTime, num> listVal;
 
   @override
@@ -23,21 +22,20 @@ class _LineChartSample2State extends State<LineChartSample2> {
   @override
   Widget build(BuildContext context) {
     List<double> valori =
-        (widget.p is ParticellaInquinante && widget.p.tipo == "carbon_monoxide")
+        (widget.p.limite.length == 1 && widget.p.limite.first >= 100)
             ? widget.listVal.values.map((e) => (e / 10).toDouble()).toList()
             : widget.listVal.values.map((e) => e.toDouble()).toList();
-
     // calcolo valore massimo y
     num maxVal = 0;
     for (num i in valori) {
       if (i > maxVal) maxVal = i;
     }
     num max = 0;
-    if (widget.p is Polline) {
-      max = (widget.p.partHigh > maxVal) ? widget.p.partHigh : maxVal;
+    if (widget.p.limite.length > 1) {
+      max = (widget.p.limite.last > maxVal) ? widget.p.limite.last : maxVal;
     } else {
-      max = (widget.p.lim > maxVal) ? widget.p.lim : maxVal;
-      if (widget.p.tipo == "carbon_monoxide") max = max / 10;
+      max = (widget.p.limite.first > maxVal) ? widget.p.limite.first : maxVal;
+      if (max >= 100) max = max / 10;
     }
     return Stack(
       children: <Widget>[
@@ -129,18 +127,18 @@ class _LineChartSample2State extends State<LineChartSample2> {
     );
     //                                                              asse y nomi
     String text;
-    if (widget.p is Polline) {
-      if (value == widget.p.partLow.toInt()) {
+    if (widget.p.limite.length > 1) {
+      if (value == widget.p.limite[0].toInt()) {
         text = "basso";
-      } else if (value == widget.p.partMiddle.toInt()) {
+      } else if (value == widget.p.limite[1].toInt()) {
         text = "medio";
-      } else if (value == widget.p.partHigh.toInt()) {
+      } else if (value == widget.p.limite[2].toInt()) {
         text = "alto";
       } else {
         return Container();
       }
     } else {
-      if (value == widget.p.lim.toInt()) {
+      if (value == widget.p.limite.first.toInt()) {
         text = "alto";
       } else {
         return Container();

@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:demo_1/providers/cache.dart';
-import 'package:http/http.dart' as http;
 
 class Meteo {
   Meteo({

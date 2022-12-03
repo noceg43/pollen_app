@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:demo_1/providers/inquinamento.dart';
 import 'package:demo_1/providers/polline.dart';
 import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';

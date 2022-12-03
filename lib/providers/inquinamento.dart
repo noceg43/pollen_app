@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:demo_1/providers/cache.dart';
-import 'package:http/http.dart' as http;
+import 'package:demo_1/providers/position.dart';
 
 class Inquinamento {
   late final double latitude;
@@ -13,9 +13,9 @@ class Inquinamento {
   late final String timezoneAbbreviation;
   late final HourlyUnits hourlyUnits;
   late final Hourly hourly;
-  static Future<Inquinamento> fetch(num lat, num lon) async {
+  static Future<Inquinamento> fetch(Posizione p) async {
     String urlInquinamento =
-        'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=$lat&longitude=$lon&hourly=pm10,pm2_5,carbon_monoxide,nitrogen_dioxide,sulphur_dioxide,ozone';
+        'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${p.lat}&longitude=${p.lon}&hourly=pm10,pm2_5,carbon_monoxide,nitrogen_dioxide,sulphur_dioxide,ozone';
     //final response = await http.get(Uri.parse(urlInquinamento));
     var file =
         await GiornalieraCacheManager.instance.getSingleFile(urlInquinamento);
@@ -106,7 +106,6 @@ class ParticellaInquinante {
   }
   @override
   String toString() {
-    // TODO: implement toString
     return tipo;
   }
 }

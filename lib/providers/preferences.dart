@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:demo_1/providers/inquinamento.dart';
 import 'package:demo_1/providers/polline.dart';
 import 'package:demo_1/providers/position.dart';
@@ -23,7 +25,7 @@ class Peso {
   static Future<List> chiAumentare(Posizione pos) async {
     Map<Polline, Tendenza> tend = (await tendenzaDaPos(pos)).first;
     List<ParticellaInquinante> inq =
-        (await Inquinamento.fetch(pos.lat, pos.lon)).giornaliero(0);
+        (await Inquinamento.fetch(pos)).giornaliero(0);
     List lista = Tipologia.maxParticelle(tipoMaggiore(Tendenza.getAlberi(tend),
             Tendenza.getErbe(tend), Tendenza.getSpore(tend), inq)
         .first

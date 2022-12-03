@@ -1,13 +1,9 @@
-import 'package:demo_1/main.dart';
-import 'package:demo_1/providers/dati_notifiche.dart';
-import 'package:demo_1/providers/inquinamento.dart';
 import 'package:demo_1/providers/meteo.dart';
-import 'package:demo_1/providers/notifications.dart';
 import 'package:demo_1/providers/polline.dart';
 import 'package:demo_1/providers/position.dart';
 import 'package:demo_1/screens/homepage/dati_giornalieri.dart';
+import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
 import 'package:demo_1/utils/format_meteo.dart';
-import 'package:demo_1/utils/format_polline.dart';
 import 'package:flutter/material.dart';
 
 // Contiene: TabBarView di 3 elementi e funzione tendenzaDaPos
@@ -24,15 +20,14 @@ class DatiCompleti extends StatelessWidget {
   final void Function() update;
   @override
   Widget build(BuildContext context) {
-    Stopwatch stopwatch = new Stopwatch()..start();
-
     return FutureBuilder<List<dynamic>>(
       future: Future.wait(
         [
           Meteo.fetch(dataPos.lat, dataPos.lon),
-          tendenzaDaPos(dataPos),
-          Inquinamento.fetch(dataPos.lat, dataPos.lon),
-          Stazione.trovaStaz(dataPos)
+          Stazione.trovaStaz(dataPos),
+          Tipologia.daPosizione(dataPos, 0),
+          Tipologia.daPosizione(dataPos, 1),
+          Tipologia.daPosizione(dataPos, 2)
         ],
       ),
       builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
@@ -43,15 +38,12 @@ class DatiCompleti extends StatelessWidget {
             FormatMeteo(m, 1, dataPos),
             FormatMeteo(m, 2, dataPos)
           ];
-          List<Map<Polline, Tendenza>> tendList = snapshot.data![1];
-          Inquinamento i = snapshot.data![2];
-          List<List<ParticellaInquinante>> formInq = [
-            i.giornaliero(0),
-            i.giornaliero(1),
-            i.giornaliero(2)
-          ];
-          Stazione s = snapshot.data![3];
+          Stazione s = snapshot.data![1];
+          List<Tipologia> oggi = snapshot.data![2];
+          List<Tipologia> domani = snapshot.data![3];
+          List<Tipologia> dopoDomani = snapshot.data![4];
 
+          /*
           Noti.initialize(flutterLocalNotificationsPlugin);
           DatiNotifiche? d = DatiNotifiche.ottieni(tendList, formInq);
           if (d != null) {
@@ -60,29 +52,25 @@ class DatiCompleti extends StatelessWidget {
                 body: d.livello,
                 fln: flutterLocalNotificationsPlugin);
           }
-
-          //print('doSomething() executed in ${stopwatch.elapsed}');
+          */
 
           return TabBarView(
             children: [
               ListGiornaliera(
                   m: meteoList[0],
-                  tend: tendList[0],
-                  inq: formInq[0],
+                  tipologie: oggi,
                   s: s,
                   p: dataPos,
                   update: update),
               ListGiornaliera(
                   m: meteoList[1],
-                  tend: tendList[1],
-                  inq: formInq[1],
+                  tipologie: domani,
                   s: s,
                   p: dataPos,
                   update: update),
               ListGiornaliera(
                   m: meteoList[2],
-                  tend: tendList[2],
-                  inq: formInq[2],
+                  tipologie: dopoDomani,
                   s: s,
                   p: dataPos,
                   update: update),
