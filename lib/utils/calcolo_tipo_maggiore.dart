@@ -206,13 +206,16 @@ class Tipologia {
 
   //                                                                            ottenere lista delle particelle che superano il 20
   //                                                                            della tipologia più presente
-  static List<Particella>? massimi(List<Tipologia> t) {
+  static List<Map<Particella, ValoreDelGiorno>>? massimi(List<Tipologia> t,
+      {num soglia = 20}) {
     List<Map<Particella, ValoreDelGiorno>> top = t.first.lista;
     int valMax = top.first.values.first.gruppoValore;
-    if (valMax < 20) return null;
-    List<Particella> ret = [];
+    if (valMax < soglia) return null;
+    List<Map<Particella, ValoreDelGiorno>> ret = [];
     for (Map<Particella, ValoreDelGiorno> p in top) {
-      if (p.values.first.gruppoValore == valMax) ret.add(p.keys.first);
+      if (p.values.first.gruppoValore == valMax) {
+        ret.add({p.keys.first: p.values.first});
+      }
     }
     return ret;
   }

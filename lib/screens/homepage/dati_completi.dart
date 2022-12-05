@@ -1,10 +1,14 @@
+import 'package:demo_1/providers/dati_notifica.dart';
 import 'package:demo_1/providers/meteo.dart';
+import 'package:demo_1/providers/notifications.dart';
 import 'package:demo_1/providers/polline.dart';
 import 'package:demo_1/providers/position.dart';
 import 'package:demo_1/screens/homepage/dati_giornalieri.dart';
 import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
 import 'package:demo_1/utils/format_meteo.dart';
 import 'package:flutter/material.dart';
+
+import '../../main.dart';
 
 // Contiene: TabBarView di 3 elementi e funzione tendenzaDaPos
 
@@ -43,16 +47,14 @@ class DatiCompleti extends StatelessWidget {
           List<Tipologia> domani = snapshot.data![3];
           List<Tipologia> dopoDomani = snapshot.data![4];
 
-          /*
           Noti.initialize(flutterLocalNotificationsPlugin);
-          DatiNotifiche? d = DatiNotifiche.ottieni(tendList, formInq);
+          DatiNotifica? d = DatiNotifica.ottieni(oggi, domani);
           if (d != null) {
             Noti.showBigTextNotification(
-                title: d.particella,
-                body: d.livello,
+                title: d.stampaNomi,
+                body: d.stampaLivello,
                 fln: flutterLocalNotificationsPlugin);
           }
-          */
 
           return TabBarView(
             children: [

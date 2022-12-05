@@ -95,8 +95,9 @@ class SchermataDatiCaricamento extends StatelessWidget {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          leading:
-              IconButton(onPressed: () => {}, icon: const Icon(Icons.settings)),
+          leading: IconButton(
+              onPressed: () => {Peso.stampa()},
+              icon: const Icon(Icons.settings)),
           actions: [
             IconButton(
                 onPressed: () => {

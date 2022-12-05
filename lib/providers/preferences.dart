@@ -1,10 +1,7 @@
 // ignore_for_file: avoid_print
 
-import 'package:demo_1/providers/inquinamento.dart';
-import 'package:demo_1/providers/polline.dart';
 import 'package:demo_1/providers/position.dart';
 import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
-import 'package:demo_1/utils/format_polline.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Peso {
@@ -22,17 +19,14 @@ class Peso {
     return pesi;
   }
 
-  static Future<List> chiAumentare(Posizione pos) async {
-    Map<Polline, Tendenza> tend = (await tendenzaDaPos(pos)).first;
-    List<ParticellaInquinante> inq =
-        (await Inquinamento.fetch(pos)).giornaliero(0);
-    List lista = Tipologia.maxParticelle(tipoMaggiore(Tendenza.getAlberi(tend),
-            Tendenza.getErbe(tend), Tendenza.getSpore(tend), inq)
-        .first
-        .values
-        .first);
-    List<String> ret = [for (dynamic d in lista) d.toString()];
-    return ret;
+  static Future<List<String>> chiAumentare(Posizione pos) async {
+    List<Tipologia> listaTip = await Tipologia.daPosizione(pos, 0);
+    List<String> tip = [
+      for (Map<Particella, ValoreDelGiorno> p
+          in Tipologia.massimi(listaTip) ?? [])
+        p.keys.first.nome
+    ];
+    return tip;
   }
 
   Peso(this.codice, this.p);

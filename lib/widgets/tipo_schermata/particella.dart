@@ -1,3 +1,4 @@
+import 'package:demo_1/screens/particella_pagina/scheletro_particella.dart';
 import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
 import 'package:demo_1/utils/format_particella.dart';
 import 'package:flutter/material.dart';
@@ -20,17 +21,15 @@ class ItemParticellaDaTipo extends StatelessWidget {
         style: ElevatedButton.styleFrom(
             backgroundColor: ottieniColore[p.valColore]),
         onPressed: () {
-          /*
           Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => ScheletroParticella(
                 s: s,
-                p: data,
+                p: data.keys.first,
               ),
             ),
           );
-          */
         },
         child: SizedBox(
           height: 100,

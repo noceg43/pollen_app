@@ -10,7 +10,7 @@ class ScheletroParticella extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        //title: Text(p.partNameI),
+        title: Text(p.nome),
         leading: const BackButton(),
       ),
       body: FutureBuilder<Map<DateTime, num>>(
