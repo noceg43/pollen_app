@@ -57,8 +57,6 @@ class _DiarioSchermataState extends State<DiarioSchermata> {
               onPressed: (() {
                 // ignore: avoid_print
                 print("${calcolaPeso()} $oraValore $statoFisicoValore ");
-                // ignore: avoid_print
-                print(widget.pos.pos);
                 Peso.aumentaMultipli(widget.pos, calcolaPeso());
               }),
               child: const Text("Conferma"))

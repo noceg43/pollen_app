@@ -24,6 +24,37 @@ class DatiCompleti extends StatelessWidget {
   final void Function() update;
   @override
   Widget build(BuildContext context) {
+    void generaNotifica(List<Tipologia> oggi, List<Tipologia> domani) async {
+      NotiParticelle.initialize(flutterLocalNotificationsPluginParticelle);
+      DatiNotifica? d = await DatiNotifica.ottieni(oggi, domani);
+      // il true sarà il check sul se abilitare le notifiche inquinamento
+      if (d != null) {
+        NotiParticelle.showBigTextNotification(
+            title: d.stampaNomi,
+            body: d.stampaLivello,
+            fln: flutterLocalNotificationsPluginParticelle);
+      }
+
+      NotiParticelle.showBigTextNotification(
+          title: "blbllb",
+          body: "prova",
+          fln: flutterLocalNotificationsPluginParticelle);
+
+      NotiParticelle.showBigTextNotification(
+          title: "blbllb",
+          body: "prova",
+          fln: flutterLocalNotificationsPluginParticelle);
+
+      NotiInquinamento.initialize(flutterLocalNotificationsPluginInquinamento);
+      DatiNotifica? i = DatiNotifica.ottieniInquinamento(oggi, domani);
+      if (i != null) {
+        NotiParticelle.showBigTextNotification(
+            title: i.stampaNomi,
+            body: i.stampaLivello,
+            fln: flutterLocalNotificationsPluginParticelle);
+      }
+    }
+
     return FutureBuilder<List<dynamic>>(
       future: Future.wait(
         [
@@ -46,16 +77,7 @@ class DatiCompleti extends StatelessWidget {
           List<Tipologia> oggi = snapshot.data![2];
           List<Tipologia> domani = snapshot.data![3];
           List<Tipologia> dopoDomani = snapshot.data![4];
-
-          Noti.initialize(flutterLocalNotificationsPlugin);
-          DatiNotifica? d = DatiNotifica.ottieni(oggi, domani);
-          if (d != null) {
-            Noti.showBigTextNotification(
-                title: d.stampaNomi,
-                body: d.stampaLivello,
-                fln: flutterLocalNotificationsPlugin);
-          }
-
+          generaNotifica(oggi, domani);
           return TabBarView(
             children: [
               ListGiornaliera(

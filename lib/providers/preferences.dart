@@ -19,6 +19,7 @@ class Peso {
     return pesi;
   }
 
+  //                 DA QUALE VALORE INZIARE AD INSERIRE NEL DIARIO LE PARTICELLE
   static Future<List<String>> chiAumentare(Posizione pos) async {
     List<Tipologia> listaTip = await Tipologia.daPosizione(pos, 0);
     List<String> tip = [
