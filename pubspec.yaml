@@ -46,6 +46,7 @@ dependencies:
   awesome_notifications: ^0.7.4+1
   android_alarm_manager_plus: ^2.1.0
   notification_channel_manager: ^0.1.1+1
+  json_theme: ^4.0.3+1
 
 dev_dependencies:
   flutter_test:
@@ -75,6 +76,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/images/
+    - assets/theme/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

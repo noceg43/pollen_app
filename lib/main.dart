@@ -1,12 +1,16 @@
+import 'dart:convert';
 import 'dart:isolate';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:demo_1/providers/cache.dart';
 import 'package:demo_1/providers/dati_notifica.dart';
 import 'package:demo_1/providers/notifications.dart';
 import 'package:demo_1/providers/position.dart';
 import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:json_theme/json_theme.dart';
 //import 'package:notification_channel_manager/notification_channel_manager.dart';
 
 import 'screens/app.dart';
@@ -24,12 +28,22 @@ void lavoroInquinamento() async {
 }
 
 Future<void> main() async {
-  runApp(const MyApp());
+  // ottenere il tema
+  WidgetsFlutterBinding.ensureInitialized();
+  final themeStr =
+      await rootBundle.loadString("assets/theme/appainter_theme.json");
+  final themeJson = jsonDecode(themeStr);
+  final theme = ThemeDecoder.decodeThemeData(themeJson)!;
+
+  runApp(MyApp(theme: theme));
+
   // elimina i canali
   //NotificationChannelManager.deleteAllChannels();
 
-  // creare i canali
+  // pulisce la cache
+  //GiornalieraCacheManager.instance.emptyCache;
 
+  // creare i canali
   AwesomeNotifications().initialize(null, [
     NotificationChannel(
         channelKey: 'notifica_particella',
@@ -56,7 +70,7 @@ Future<void> main() async {
     /*
     const Duration(days: 1),
     startAt: DateTime(
-        DateTime.now().year, DateTime.now().month, DateTime.now().day, 19, 0),
+        DateTime.now().year, DateTime.now().month, DateTime.now().day + 1, 19, 0),
         */
   );
 }

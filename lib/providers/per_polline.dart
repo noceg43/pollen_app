@@ -65,18 +65,25 @@ class PerPolline {
 
   static Future<Map<DateTime, num>> fetch(Stazione s, Particella p) async {
     var urlPolline =
-        'http://dati.retecivica.bz.it/services/POLLNET_REMARKS?format=json&PART_ID=${p.nome}&STAT_ID=${s.statId}';
+        'http://dati.retecivica.bz.it/services/POLLNET_REMARKS?format=json&PART_ID=${p.idPolline}&STAT_ID=${s.statId}';
     final response = await http.get(Uri.parse(urlPolline));
-
+    print(urlPolline);
     if (response.statusCode == 200) {
       Iterable p = jsonDecode(response.body);
       List<PerPolline> poll =
           List<PerPolline>.from(p.map((model) => PerPolline.fromJson(model)));
 
-      return {
+      List<Map<DateTime, num>> ordinata = [
         for (PerPolline p in poll)
-          DateTime.parse(p.rEMADATE): p.rEMACONCENTRATION
-      };
+          {DateTime.parse(p.rEMADATE): p.rEMACONCENTRATION}
+      ];
+      ordinata.sort(((a, b) => a.keys.first.compareTo(b.keys.first)));
+      ordinata = (ordinata.length > 7) ? ordinata.sublist(7) : ordinata;
+      Map<DateTime, num> ret = {};
+      for (Map<DateTime, num> p in ordinata) {
+        ret[p.keys.first] = p.values.first;
+      }
+      return ret;
     } else {
       throw Exception('Failed to load PerPolline');
     }

@@ -49,13 +49,15 @@ class Particella {
   String nome = "";
   List<num> limite = [];
   String tipo = "";
+  num? idPolline;
 
-  Particella(this.nome, this.limite, this.tipo);
+  Particella(this.nome, this.limite, this.tipo, {this.idPolline});
 
   static List<Particella> daPolline(List<Polline> poll, String tipo) {
     return [
       for (Polline p in poll)
-        Particella(p.partNameI, [p.partLow, p.partMiddle, p.partHigh], tipo)
+        Particella(p.partNameI, [p.partLow, p.partMiddle, p.partHigh], tipo,
+            idPolline: p.partId)
     ];
   }
 

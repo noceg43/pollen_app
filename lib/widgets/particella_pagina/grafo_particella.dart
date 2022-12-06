@@ -66,14 +66,14 @@ class _LineChartSample2State extends State<LineChartSample2> {
             ),
           ),
         ),
+        /*
         SizedBox(
           width: 60,
           height: 34,
           child: TextButton(
             style: TextButton.styleFrom(
               foregroundColor: Colors.white,
-              padding: const EdgeInsets.all(16.0),
-              textStyle: const TextStyle(fontSize: 20),
+              textStyle: const TextStyle(fontSize: 10),
             ),
             onPressed: () {
               setState(() {
@@ -89,6 +89,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
             ),
           ),
         ),
+        */
       ],
     );
   }
@@ -97,7 +98,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
     const style = TextStyle(
       color: Color(0xff68737d),
       fontWeight: FontWeight.bold,
-      fontSize: 16,
+      fontSize: 14,
     );
     //                                                              asse x nomi
     Widget text;

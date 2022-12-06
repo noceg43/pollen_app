@@ -284,16 +284,16 @@ class Concentrazione {
       urlConcentrazione =
           'http://dati.retecivica.bz.it/services/POLLNET_REMARKS?format=json&from=$giornoS&to=$giornoS&STAT_ID=$staz';
     }
-    final response = await http.get(Uri.parse(urlConcentrazione));
-    /*
+    //final response = await http.get(Uri.parse(urlConcentrazione));
+
     var file =
         await GiornalieraCacheManager.instance.getSingleFile(urlConcentrazione);
     Iterable p = jsonDecode(await file.readAsString());
     List<Concentrazione> conc = List<Concentrazione>.from(
         p.map((model) => Concentrazione.fromJson(model)));
     return conc;
-    */
 
+/*
     if (response.statusCode == 200) {
       Iterable p = jsonDecode(response.body);
       List<Concentrazione> conc = List<Concentrazione>.from(
@@ -302,6 +302,7 @@ class Concentrazione {
     } else {
       throw Exception('Failed to load stazioni');
     }
+    */
   }
 
   Concentrazione({
