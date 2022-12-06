@@ -80,8 +80,8 @@ class DatiNotifica {
       nomi = "diverse particelle di ${chiAumentato.first.keys.first.tipo}";
     }
 
-    Map<int, String> livello = {20: "medio", 30: "alto"};
-
+    Map<int, String> livello = {1: "basso", 20: "medio", 30: "alto"};
+    print(maxDomani.first.values.first.gruppoValore);
     return DatiNotifica(
         nomi, livello[maxDomani.first.values.first.gruppoValore]!);
   }
@@ -135,16 +135,19 @@ class DatiNotifica {
         List<String> aggiunte = [];
 
         if (aumentateDomani.length > aumentateOggi.length) {
-          for (String s in aumentateOggi) {
-            if (!aumentateDomani.contains(s)) aggiunte.add(s);
+          for (String s in aumentateDomani) {
+            if (!aumentateOggi.contains(s)) {
+              aggiunte.add(s);
+            }
           }
+
           String body = aggiunte.first;
           if (aggiunte.length > 1) body = "diverse particelle";
           return DatiNotifica(
               "domani qualità dell'aria peggiore rispetto ad oggi", body);
         } else {
-          for (String s in aumentateDomani) {
-            if (!aumentateOggi.contains(s)) aggiunte.add(s);
+          for (String s in aumentateOggi) {
+            if (!aumentateDomani.contains(s)) aggiunte.add(s);
           }
           String body = aggiunte.first;
           if (aggiunte.length > 1) body = "diverse particelle";

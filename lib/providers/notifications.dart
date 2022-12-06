@@ -1,67 +1,29 @@
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'dart:math';
 
-// aggiungere all'xml il channel name
+import 'package:awesome_notifications/awesome_notifications.dart';
 
-class NotiParticelle {
-  static Future initialize(
-      FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin) async {
-    var androidInitialize =
-        const AndroidInitializationSettings('mipmap/ic_launcher');
-    var initializationsSettings =
-        InitializationSettings(android: androidInitialize, iOS: null);
-    await flutterLocalNotificationsPlugin.initialize(initializationsSettings);
-  }
-
-  static Future showBigTextNotification(
-      {var id = 0,
-      required String title,
-      required String body,
-      var payload,
-      required FlutterLocalNotificationsPlugin fln}) async {
-    AndroidNotificationDetails androidPlatformChannelSpecifics =
-        const AndroidNotificationDetails(
-      'ID_del_canale',
-      'channel_name',
-      largeIcon: DrawableResourceAndroidBitmap('mipmap/ic_launcher'),
-      playSound: false,
-      importance: Importance.max,
-      priority: Priority.high,
+class NotificaParticella {
+  static Future<bool> instantNotify(String title, String body) async {
+    final AwesomeNotifications awesomeNotifications = AwesomeNotifications();
+    return awesomeNotifications.createNotification(
+      content: NotificationContent(
+          id: Random().nextInt(100),
+          title: title,
+          body: body,
+          channelKey: 'notifica_particella'),
     );
-
-    var not = NotificationDetails(
-        android: androidPlatformChannelSpecifics, iOS: null);
-    await fln.show(0, title, body, not);
   }
 }
 
-class NotiInquinamento {
-  static Future initialize(
-      FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin) async {
-    var androidInitialize =
-        const AndroidInitializationSettings('mipmap/ic_launcher');
-    var initializationsSettings =
-        InitializationSettings(android: androidInitialize, iOS: null);
-    await flutterLocalNotificationsPlugin.initialize(initializationsSettings);
-  }
-
-  static Future showBigTextNotification(
-      {var id = 1,
-      required String title,
-      required String body,
-      var payload,
-      required FlutterLocalNotificationsPlugin fln}) async {
-    AndroidNotificationDetails androidPlatformChannelSpecifics =
-        const AndroidNotificationDetails(
-      'ID_del_canale',
-      'inquinamento',
-      largeIcon: DrawableResourceAndroidBitmap('mipmap/ic_launcher'),
-      playSound: false,
-      importance: Importance.max,
-      priority: Priority.high,
+class NotificaInquinamento {
+  static Future<bool> instantNotify(String title, String body) async {
+    final AwesomeNotifications awesomeNotifications = AwesomeNotifications();
+    return awesomeNotifications.createNotification(
+      content: NotificationContent(
+          id: Random().nextInt(100),
+          title: title,
+          body: body,
+          channelKey: 'notifica_inquinamento'),
     );
-
-    var not = NotificationDetails(
-        android: androidPlatformChannelSpecifics, iOS: null);
-    await fln.show(1, title, body, not);
   }
 }

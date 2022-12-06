@@ -8,8 +8,6 @@ import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
 import 'package:demo_1/utils/format_meteo.dart';
 import 'package:flutter/material.dart';
 
-import '../../main.dart';
-
 // Contiene: TabBarView di 3 elementi e funzione tendenzaDaPos
 
 // INPUT: Posizione
@@ -25,33 +23,10 @@ class DatiCompleti extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void generaNotifica(List<Tipologia> oggi, List<Tipologia> domani) async {
-      NotiParticelle.initialize(flutterLocalNotificationsPluginParticelle);
       DatiNotifica? d = await DatiNotifica.ottieni(oggi, domani);
       // il true sarà il check sul se abilitare le notifiche inquinamento
       if (d != null) {
-        NotiParticelle.showBigTextNotification(
-            title: d.stampaNomi,
-            body: d.stampaLivello,
-            fln: flutterLocalNotificationsPluginParticelle);
-      }
-
-      NotiParticelle.showBigTextNotification(
-          title: "blbllb",
-          body: "prova",
-          fln: flutterLocalNotificationsPluginParticelle);
-
-      NotiParticelle.showBigTextNotification(
-          title: "blbllb",
-          body: "prova",
-          fln: flutterLocalNotificationsPluginParticelle);
-
-      NotiInquinamento.initialize(flutterLocalNotificationsPluginInquinamento);
-      DatiNotifica? i = DatiNotifica.ottieniInquinamento(oggi, domani);
-      if (i != null) {
-        NotiParticelle.showBigTextNotification(
-            title: i.stampaNomi,
-            body: i.stampaLivello,
-            fln: flutterLocalNotificationsPluginParticelle);
+        NotificaParticella.instantNotify(d.stampaNomi, d.stampaLivello);
       }
     }
 

@@ -43,7 +43,9 @@ dependencies:
   fl_chart: ^0.55.2
   flutter_cache_manager: ^3.3.0
   shared_preferences: ^2.0.15
-  flutter_local_notifications: ^12.0.4
+  awesome_notifications: ^0.7.4+1
+  android_alarm_manager_plus: ^2.1.0
+  notification_channel_manager: ^0.1.1+1
 
 dev_dependencies:
   flutter_test:

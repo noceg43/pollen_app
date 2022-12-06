@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:demo_1/providers/cache.dart';
+import 'package:http/http.dart' as http;
 
 class Meteo {
   Meteo({
@@ -23,12 +24,12 @@ class Meteo {
   static Future<Meteo> fetch(num lat, num lon) async {
     String urlMeteo =
         'https://api.open-meteo.com/v1/forecast?latitude=$lat&longitude=$lon&hourly=weathercode,temperature_2m,apparent_temperature,windspeed_10m&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset&timezone=auto';
-    //final response = await http.get(Uri.parse(urlMeteo));
-
+    final response = await http.get(Uri.parse(urlMeteo));
+    /*
     var file = await GiornalieraCacheManager.instance.getSingleFile(urlMeteo);
     return Meteo.fromJson(jsonDecode(await file.readAsString()));
+    */
 
-    /*
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
@@ -38,7 +39,6 @@ class Meteo {
       // then throw an exception.
       throw Exception('Failed to load album');
     }
-    */
   }
 
   late final num latitude;
