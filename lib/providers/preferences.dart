@@ -2,7 +2,22 @@
 
 import 'package:demo_1/providers/position.dart';
 import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+class UltimaPosizione {
+  static Future<void> salva(Posizione p) async {
+    final preferences = await SharedPreferences.getInstance();
+    preferences.setStringList(
+        "posizione", [p.lat.toString(), p.lon.toString(), p.pos]);
+  }
+
+  static Future<Posizione> ottieni() async {
+    final preferences = await SharedPreferences.getInstance();
+    List<String> lista = preferences.getStringList("posizione")!;
+    return Posizione(double.parse(lista[0]), double.parse(lista[1]), lista[2]);
+  }
+}
 
 class Peso {
   double p = 0;
@@ -52,9 +67,16 @@ class Peso {
     }
   }
 
-  static Future<Map<String, String>> stampa() async {
+  static Future<Map<String, String>> stampa(BuildContext context) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     print({for (String i in prefs.getKeys()) i: prefs.get(i).toString()});
+    final snackBar = SnackBar(
+      content: Text({
+        for (String i in prefs.getKeys()) i: prefs.get(i).toString()
+      }.toString()),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
     return {for (String i in prefs.getKeys()) i: prefs.get(i).toString()};
   }
 

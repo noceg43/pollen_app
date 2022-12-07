@@ -43,8 +43,14 @@ class WidgetMeteo extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("Max ${m.max}°"),
-              Text("Min ${m.min}°"),
+              Text(
+                "Max ${m.max}°",
+                style: TextStyle(fontSize: 13),
+              ),
+              Text(
+                "Min ${m.min}°",
+                style: TextStyle(fontSize: 13),
+              ),
             ],
           )
         ],

@@ -6,6 +6,7 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:demo_1/providers/dati_notifica.dart';
 import 'package:demo_1/providers/notifications.dart';
 import 'package:demo_1/providers/position.dart';
+import 'package:demo_1/providers/preferences.dart';
 import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,14 +17,19 @@ import 'screens/app.dart';
 
 void lavoroInquinamento() async {
   final DateTime now = DateTime.now();
-  Posizione p = await Posizione.localizza();
+  print("inizio alle $now");
+
+  Posizione p = await UltimaPosizione.ottieni();
+  print(p.pos);
   final int isolateId = Isolate.current.hashCode;
   DatiNotifica? i = DatiNotifica.ottieniInquinamento(
       await Tipologia.daPosizione(p, 0), await Tipologia.daPosizione(p, 1));
   if (i != null) {
     NotificaInquinamento.instantNotify(i.stampaNomi, i.stampaLivello);
+  } else {
+    NotificaInquinamento.instantNotify(
+        "tutto normale", "confermo tutto normale");
   }
-  print("[$now] Hello, world! isolate=$isolateId");
 }
 
 Future<void> main() async {
@@ -61,15 +67,22 @@ Future<void> main() async {
 
   await AndroidAlarmManager.initialize();
   int helloAlarmID = 0;
+
   await AndroidAlarmManager.periodic(
-    //const Duration(seconds: 10),
-    const Duration(days: 1),
+    const Duration(seconds: 10),
+    //const Duration(days: 1),
+    exact: true,
+    allowWhileIdle: true,
+
+    wakeup: true,
+    rescheduleOnReboot: true,
 
     helloAlarmID,
     lavoroInquinamento,
     // inviare una notifica ogni giorno a quell'ora
-
+    /*
     startAt: DateTime(DateTime.now().year, DateTime.now().month,
         DateTime.now().day + 1, 19, 0),
+        */
   );
 }

@@ -27,7 +27,7 @@ class SchermataDatiCompleti extends StatelessWidget {
           title: Text(dataPos.pos),
           leading: IconButton(
               onPressed: () {
-                Peso.stampa();
+                Peso.stampa(context);
                 //Peso.elimina();
               },
               icon: const Icon(Icons.settings)),
@@ -45,7 +45,7 @@ class SchermataDatiCompleti extends StatelessWidget {
           ],
           bottom: TabBar(
             isScrollable: false,
-            labelStyle: Theme.of(context).textTheme.bodyMedium,
+            labelStyle: Theme.of(context).textTheme.bodySmall,
             tabs: const [
               Tab(
                 text: "OGGI",
@@ -98,7 +98,7 @@ class SchermataDatiCaricamento extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
-              onPressed: () => {Peso.stampa()},
+              onPressed: () => {Peso.stampa(context)},
               icon: const Icon(Icons.settings)),
           actions: [
             IconButton(
@@ -112,8 +112,9 @@ class SchermataDatiCaricamento extends StatelessWidget {
                     },
                 icon: const Icon(Icons.search)),
           ],
-          bottom: const TabBar(
-            tabs: [
+          bottom: TabBar(
+            labelStyle: Theme.of(context).textTheme.bodySmall,
+            tabs: const [
               Tab(
                 text: "OGGI",
               ),

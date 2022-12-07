@@ -1,3 +1,4 @@
+import 'package:demo_1/providers/preferences.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 
@@ -11,7 +12,7 @@ class Posizione {
     List<dynamic> l = await _determinePosition();
 
     var component = Posizione(l[0], l[1], l[2]);
-
+    UltimaPosizione.salva(component);
     return component;
   }
 }

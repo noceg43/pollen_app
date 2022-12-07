@@ -19,8 +19,8 @@ class FormatTipoGiornaliero {
     };
 
     Map<int, Color> livColori = {
-      0: Colors.grey,
-      1: const Color(0xFFF2EA1D),
+      0: const Color(0xFFD2D7DF),
+      1: const Color(0xFFFFF275),
       20: const Color(0xFFFBAF55),
       30: const Color(0xFFD74040),
     };
