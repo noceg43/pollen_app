@@ -1,6 +1,7 @@
 import 'package:demo_1/providers/preferences.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class Posizione {
   String pos;
@@ -27,6 +28,7 @@ Future<List<dynamic>> _determinePosition() async {
   }
 
   permission = await Geolocator.checkPermission();
+  var status = await Permission.ignoreBatteryOptimizations.request();
   if (permission == LocationPermission.denied) {
     permission = await Geolocator.requestPermission();
     if (permission == LocationPermission.denied) {

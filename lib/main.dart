@@ -69,7 +69,7 @@ Future<void> main() async {
   int helloAlarmID = 0;
 
   await AndroidAlarmManager.periodic(
-    const Duration(seconds: 10),
+    const Duration(minutes: 20),
     //const Duration(days: 1),
     exact: true,
     allowWhileIdle: true,

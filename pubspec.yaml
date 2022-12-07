@@ -47,6 +47,7 @@ dependencies:
   android_alarm_manager_plus: ^2.1.0
   notification_channel_manager: ^0.1.1+1
   json_theme: ^4.0.3+1
+  permission_handler: ^10.2.0
 
 dev_dependencies:
   flutter_test:
