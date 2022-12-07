@@ -3,7 +3,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
-import 'package:http/http.dart' as http;
 
 import 'package:demo_1/providers/cache.dart';
 import 'package:demo_1/providers/inquinamento.dart';

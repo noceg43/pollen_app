@@ -3,7 +3,6 @@ import 'dart:math';
 
 import 'package:demo_1/providers/cache.dart';
 import 'package:demo_1/providers/position.dart';
-import 'package:http/http.dart' as http;
 
 class Inquinamento {
   late final double latitude;

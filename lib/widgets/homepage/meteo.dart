@@ -1,7 +1,7 @@
 import 'package:demo_1/utils/format_meteo.dart';
 import 'package:flutter/material.dart';
 
-// Contiene Container 300x250
+// Contiene Container 205x100
 
 // INPUT: FormatMeteo del giorno richiesto
 // OUTPUT: Container con dati rappresentati nel modo corretto
@@ -11,14 +11,16 @@ class WidgetMeteo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      color: const Color(0xFFE8F5E9),
       height: 100,
-      width: 225,
+      width: 205,
+      padding: const EdgeInsets.all(5),
       child: Row(
         children: [
           Icon(
             m.iconaMeteo,
-            size: 75,
+            size: 60,
           ),
           const Spacer(),
           Column(

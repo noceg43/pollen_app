@@ -3,7 +3,6 @@ import 'dart:isolate';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:demo_1/providers/cache.dart';
 import 'package:demo_1/providers/dati_notifica.dart';
 import 'package:demo_1/providers/notifications.dart';
 import 'package:demo_1/providers/position.dart';
@@ -63,14 +62,14 @@ Future<void> main() async {
   await AndroidAlarmManager.initialize();
   int helloAlarmID = 0;
   await AndroidAlarmManager.periodic(
-    const Duration(seconds: 10),
+    //const Duration(seconds: 10),
+    const Duration(days: 1),
+
     helloAlarmID,
     lavoroInquinamento,
     // inviare una notifica ogni giorno a quell'ora
-    /*
-    const Duration(days: 1),
-    startAt: DateTime(
-        DateTime.now().year, DateTime.now().month, DateTime.now().day + 1, 19, 0),
-        */
+
+    startAt: DateTime(DateTime.now().year, DateTime.now().month,
+        DateTime.now().day + 1, 19, 0),
   );
 }

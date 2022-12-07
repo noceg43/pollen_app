@@ -43,8 +43,10 @@ class SchermataDatiCompleti extends StatelessWidget {
                     },
                 icon: const Icon(Icons.search)),
           ],
-          bottom: const TabBar(
-            tabs: [
+          bottom: TabBar(
+            isScrollable: false,
+            labelStyle: Theme.of(context).textTheme.bodyMedium,
+            tabs: const [
               Tab(
                 text: "OGGI",
               ),

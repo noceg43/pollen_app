@@ -40,8 +40,8 @@ class ListaParticella extends StatelessWidget {
     }
 
     return Container(
-      height: 200,
-      padding: const EdgeInsets.all(3.0),
+      height: 250,
+      padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
       decoration: const BoxDecoration(
         border: Border(
           top: BorderSide(color: Colors.grey),
@@ -52,6 +52,9 @@ class ListaParticella extends StatelessWidget {
         children: [
           Row(
             children: [
+              Container(
+                width: 10,
+              ),
               Container(
                 width: 50,
                 height: 50,
@@ -68,7 +71,13 @@ class ListaParticella extends StatelessWidget {
                   image: DecorationImage(image: formTipo.img, fit: BoxFit.fill),
                 ),
               ),
-              Text(formTipo.tipo),
+              Container(
+                width: 7,
+              ),
+              Text(
+                formTipo.tipo,
+                style: Theme.of(context).textTheme.subtitle1,
+              ),
               const Spacer(),
               IconButton(
                 iconSize: 30,

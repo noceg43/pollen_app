@@ -43,7 +43,7 @@ class ListGiornaliera extends StatelessWidget {
               children: [
                 // Back della schermata
                 Container(
-                  height: 300,
+                  height: 275,
                   color: formatTop.col,
                   child: Row(
                     children: [
@@ -56,9 +56,9 @@ class ListGiornaliera extends StatelessWidget {
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black.withOpacity(0.3),
-                              spreadRadius: 5,
-                              blurRadius: 7,
-                              offset: const Offset(5, 5),
+                              spreadRadius: 1,
+                              blurRadius: 10,
+                              offset: const Offset(5, 8),
                             ),
                           ],
                           image: DecorationImage(
@@ -67,6 +67,7 @@ class ListGiornaliera extends StatelessWidget {
                       ),
                       const Spacer(),
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Material(
                               elevation: 10,
@@ -74,11 +75,29 @@ class ListGiornaliera extends StatelessWidget {
                                 m: m,
                               )),
                           const Spacer(),
-                          Row(
-                            children: [
-                              Text(
-                                  "ATTENZIONE \n ${formatTop.tipo} \n ${formatTop.livello}"),
-                            ],
+                          Container(
+                            padding: const EdgeInsets.fromLTRB(20, 0, 0, 40),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text("ATTENZIONE:",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                    )),
+                                Text(formatTop.tipo,
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold)),
+                                Text(
+                                    "Il livello è ${formatTop.livello.toLowerCase()}",
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                    )),
+                              ],
+                            ),
                           ),
                           const Spacer()
                         ],

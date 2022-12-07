@@ -19,10 +19,10 @@ class FormatTipoGiornaliero {
     };
 
     Map<int, Color> livColori = {
-      0: Colors.white,
-      1: Colors.yellow,
-      20: Colors.orange,
-      30: Colors.red
+      0: Colors.grey,
+      1: const Color(0xFFF2EA1D),
+      20: const Color(0xFFFBAF55),
+      30: const Color(0xFFD74040),
     };
     tipo = data.nome;
     int valoreMedio = data.mediaNuova();

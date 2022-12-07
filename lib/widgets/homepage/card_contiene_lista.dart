@@ -18,9 +18,17 @@ class CardContenitore extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: const Color(0xFFE8F5E9),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text("Indici rilevati:"),
+          Container(
+            padding: const EdgeInsets.fromLTRB(15, 10, 0, 10),
+            child: Text(
+              "Indici rilevati:",
+              style: Theme.of(context).textTheme.headline6,
+            ),
+          ),
           for (Tipologia s in listaOrdinata)
             ListaParticella(
               data: s,
