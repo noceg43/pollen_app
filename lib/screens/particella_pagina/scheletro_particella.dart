@@ -17,9 +17,21 @@ class ScheletroParticella extends StatelessWidget {
           future: Tipologia.daParticella(s, p),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return LineChartSample2(
-                p: p,
-                listVal: snapshot.data!,
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(2),
+                    child: Text(
+                      "Ultimi dati rilevati:",
+                      style: Theme.of(context).textTheme.headline5,
+                    ),
+                  ),
+                  LineChartSample2(
+                    p: p,
+                    listVal: snapshot.data!,
+                  ),
+                ],
               );
             } else {
               if (snapshot.hasError) {

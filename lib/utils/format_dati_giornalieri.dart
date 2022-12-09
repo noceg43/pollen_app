@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class FormatTipoGiornaliero {
   String tipo = "Alberi";
   String livello = "Basso";
-  Color col = Colors.yellow;
+  Color col = const Color(0xFFFFF275);
   AssetImage img = const AssetImage('assets/images/alberi.png');
 
   FormatTipoGiornaliero(Tipologia data) {
@@ -22,7 +22,7 @@ class FormatTipoGiornaliero {
       0: const Color(0xFFD2D7DF),
       1: const Color(0xFFFFF275),
       20: const Color(0xFFFBAF55),
-      30: const Color(0xFFD74040),
+      30: const Color(0xFFD33C3C),
     };
     tipo = data.nome;
     int valoreMedio = data.mediaNuova();
