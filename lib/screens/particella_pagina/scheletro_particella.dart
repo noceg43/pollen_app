@@ -1,5 +1,6 @@
 import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
 import 'package:demo_1/widgets/particella_pagina/grafo_particella.dart';
+import 'package:demo_1/widgets/particella_pagina/scheda_info.dart';
 import 'package:flutter/material.dart';
 
 class ScheletroParticella extends StatelessWidget {
@@ -17,20 +18,37 @@ class ScheletroParticella extends StatelessWidget {
           future: Tipologia.daParticella(s, p),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              return ListView(
                 children: [
+                  const SizedBox(
+                    height: 10,
+                  ),
                   Container(
                     padding: const EdgeInsets.all(2),
-                    child: Text(
-                      "Ultimi dati rilevati:",
-                      style: Theme.of(context).textTheme.headline5,
+                    child: Row(
+                      children: [
+                        Text(
+                          "Ultimi dati disponibili:",
+                          style: Theme.of(context).textTheme.headline5,
+                        ),
+                        const Spacer(),
+                        Text(
+                          (p.tipo == "Inquinamento")
+                              ? "(µg/m³)"
+                              : "(granuli/m³)",
+                          style: Theme.of(context).textTheme.subtitle2,
+                        ),
+                      ],
                     ),
                   ),
-                  LineChartSample2(
+                  Grafico(
                     p: p,
                     listVal: snapshot.data!,
                   ),
+                  const SizedBox(
+                    height: 60,
+                  ),
+                  SchedaInfoParticella(p: p)
                 ],
               );
             } else {

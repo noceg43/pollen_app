@@ -20,7 +20,7 @@ class WidgetMeteo extends StatelessWidget {
         children: [
           Icon(
             m.iconaMeteo,
-            size: 60,
+            size: 56,
           ),
           const Spacer(),
           Column(
@@ -45,11 +45,11 @@ class WidgetMeteo extends StatelessWidget {
             children: [
               Text(
                 "Max ${m.max}°",
-                style: TextStyle(fontSize: 13),
+                style: const TextStyle(fontSize: 13),
               ),
               Text(
                 "Min ${m.min}°",
-                style: TextStyle(fontSize: 13),
+                style: const TextStyle(fontSize: 13),
               ),
             ],
           )

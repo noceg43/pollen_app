@@ -92,12 +92,14 @@ class ListaParticella extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => TipoSchermata(
-                                    tipologia: data,
-                                    s: (data.nome ==
-                                            "Inquinamento") // se particella inquinante allora restituisci posizione
-                                        ? p
-                                        : s,
-                                    formTipo: formTipo),
+                                  tipologia: data,
+                                  s: (data.nome ==
+                                          "Inquinamento") // se particella inquinante allora restituisci posizione
+                                      ? p
+                                      : s,
+                                  formTipo: formTipo,
+                                  localizzato: p,
+                                ),
                               ),
                             );
                           },

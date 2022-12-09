@@ -2,89 +2,45 @@ import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-class LineChartSample2 extends StatefulWidget {
-  const LineChartSample2({super.key, required this.p, required this.listVal});
+class Grafico extends StatelessWidget {
+  Grafico({super.key, required this.p, required this.listVal});
   final Particella p;
   final Map<DateTime, num> listVal;
-
-  @override
-  State<LineChartSample2> createState() => _LineChartSample2State();
-}
-
-class _LineChartSample2State extends State<LineChartSample2> {
-  List<Color> gradientColors = [
-    const Color(0xff23b6e6),
-    const Color(0xff02d39a),
-  ];
-
-  bool showAvg = false;
-
+  late List<double> limiti;
   @override
   Widget build(BuildContext context) {
-    List<double> valori =
-        (widget.p.limite.length == 1 && widget.p.limite.first > 100)
-            ? widget.listVal.values.map((e) => (e / 10).toDouble()).toList()
-            : widget.listVal.values.map((e) => e.toDouble()).toList();
-    // calcolo valore massimo y
     num maxVal = 0;
-    for (num i in valori) {
+    for (num i in listVal.values.map((e) => e.toDouble()).toList()) {
       if (i > maxVal) maxVal = i;
     }
-    num max = 0;
-    if (widget.p.limite.length > 1) {
-      max = (widget.p.limite.last > maxVal) ? widget.p.limite.last : maxVal;
-    } else {
-      max = (widget.p.limite.first > maxVal) ? widget.p.limite.first : maxVal;
-      if (max > 100) max = max / 10;
+    List<double> valori = listVal.values.map((e) => e.toDouble()).toList();
+    limiti = p.limite.map((e) => (e).toDouble()).toList();
+    // calcolo valore massimo y
+    num max = maxVal;
+    if (limiti.last > max) {
+      max = limiti.last;
     }
+
     return Stack(
       children: <Widget>[
         AspectRatio(
           aspectRatio: 1,
-          child: DecoratedBox(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(18),
-              ),
-              color: Color(0xFFF1F1F1),
-            ),
+          child: Card(
+            elevation: 10,
+            color: const Color(0xFFF1F1F1),
             child: Padding(
               padding: const EdgeInsets.only(
-                right: 18,
+                right: 20,
                 left: 12,
                 top: 24,
                 bottom: 12,
               ),
               child: LineChart(
-                mainData(valori, max),
+                mainData(valori, max, limiti),
               ),
             ),
           ),
         ),
-        /*
-        SizedBox(
-          width: 60,
-          height: 34,
-          child: TextButton(
-            style: TextButton.styleFrom(
-              foregroundColor: Colors.white,
-              textStyle: const TextStyle(fontSize: 10),
-            ),
-            onPressed: () {
-              setState(() {
-                showAvg = !showAvg;
-              });
-            },
-            child: Text(
-              'media',
-              style: TextStyle(
-                fontSize: 12,
-                color: showAvg ? Colors.white.withOpacity(0.5) : Colors.white,
-              ),
-            ),
-          ),
-        ),
-        */
       ],
     );
   }
@@ -99,7 +55,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
     Widget text;
     if (value == value.toInt()) {
       text = Text(
-        "${widget.listVal.keys.elementAt(value.toInt()).day}/${widget.listVal.keys.elementAt(value.toInt()).month}",
+        "${listVal.keys.elementAt(value.toInt()).day}/${listVal.keys.elementAt(value.toInt()).month}",
         style: style,
       );
     } else {
@@ -116,30 +72,25 @@ class _LineChartSample2State extends State<LineChartSample2> {
     double value,
     TitleMeta meta,
   ) {
-    const style = TextStyle(
-      color: Color(0xff67727d),
-      fontWeight: FontWeight.bold,
-      fontSize: 10,
-    );
     //                                                              asse y nomi
     String text;
     Color colore = Colors.grey;
 
-    if (widget.p.limite.length > 1) {
-      if (value == widget.p.limite[0].toInt()) {
+    if (limiti.length > 1) {
+      if (value == limiti[0].toInt()) {
         text = "basso";
         colore = const Color(0xFFFFF275);
-      } else if (value == widget.p.limite[1].toInt()) {
+      } else if (value == limiti[1].toInt()) {
         text = "medio";
         colore = const Color(0xFFFBAF55);
-      } else if (value == widget.p.limite[2].toInt()) {
+      } else if (value == limiti[2].toInt()) {
         text = "alto";
         colore = const Color(0xFFD33C3C);
       } else {
         return Container();
       }
     } else {
-      if (value == widget.p.limite.first.toInt()) {
+      if (value == limiti.first.toInt()) {
         text = "alto";
         colore = const Color(0xFFD33C3C);
       } else {
@@ -163,16 +114,17 @@ class _LineChartSample2State extends State<LineChartSample2> {
     );
   }
 
-  LineChartData mainData(List<double> listVal, num maxY) {
+  LineChartData mainData(List<double> listVal, num maxY, List<double> limiti) {
     //                                                                creare punti grafo
     List<FlSpot> listaPunti = [];
-    print(maxY);
+
     for (double i = 0; i < listVal.length; i++) {
       listaPunti.add(FlSpot(i, listVal[i.toInt()].toDouble()));
     }
+
     return LineChartData(
       gridData: FlGridData(
-        show: true,
+        show: false,
         drawVerticalLine: false,
         horizontalInterval: 10,
         verticalInterval: 1,
@@ -220,10 +172,6 @@ class _LineChartSample2State extends State<LineChartSample2> {
       maxY: maxY.toDouble(),
       lineTouchData: LineTouchData(
           enabled: true,
-          touchCallback:
-              (FlTouchEvent event, LineTouchResponse? touchResponse) {
-            // TODO : Utilize touch event here to perform any operation
-          },
           touchTooltipData: LineTouchTooltipData(
             tooltipBgColor: Colors.green,
             tooltipRoundedRadius: 13.0,
@@ -234,12 +182,17 @@ class _LineChartSample2State extends State<LineChartSample2> {
               return touchedSpots.map(
                 (LineBarSpot touchedSpot) {
                   const textStyle = TextStyle(
-                    fontSize: 20,
+                    fontSize: 15,
                     fontWeight: FontWeight.w700,
                     color: Colors.white,
                   );
                   return LineTooltipItem(
-                    listaPunti[touchedSpot.spotIndex].y.toStringAsFixed(2),
+                    (listaPunti[touchedSpot.spotIndex].y ==
+                            listaPunti[touchedSpot.spotIndex].y.toInt())
+                        ? listaPunti[touchedSpot.spotIndex].y.toStringAsFixed(0)
+                        : listaPunti[touchedSpot.spotIndex]
+                            .y
+                            .toStringAsFixed(2),
                     textStyle,
                   );
                 },
@@ -252,8 +205,8 @@ class _LineChartSample2State extends State<LineChartSample2> {
               (int index) {
                 final line = FlLine(
                     color: Colors.grey.shade500,
-                    strokeWidth: 2,
-                    dashArray: [2, 4]);
+                    strokeWidth: 4,
+                    dashArray: [8, 16]);
                 return TouchedSpotIndicatorData(
                   line,
                   FlDotData(show: true),
@@ -261,7 +214,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
               },
             ).toList();
           },
-          getTouchLineEnd: (_, __) => double.infinity),
+          getTouchLineEnd: (_, x) => listVal[x]),
       lineBarsData: [
         LineChartBarData(
           isStepLineChart: false,
@@ -272,114 +225,6 @@ class _LineChartSample2State extends State<LineChartSample2> {
           isStrokeCapRound: true,
           dotData: FlDotData(
             show: false,
-          ),
-          belowBarData: BarAreaData(
-            show: false,
-            gradient: LinearGradient(
-              colors: gradientColors
-                  .map((color) => color.withOpacity(0.3))
-                  .toList(),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  LineChartData avgData(List<double> listVal, num maxY) {
-    // media
-    List<FlSpot> valoriY = [];
-    double media = 0;
-    if (listVal.length == 1) {
-      media = listVal.first.toDouble();
-    } else {
-      media = listVal.reduce((a, b) => a + b) / listVal.length;
-    }
-    for (double i = 0; i < listVal.length; i++) {
-      valoriY.add(FlSpot(i, media));
-    }
-    return LineChartData(
-      lineTouchData: LineTouchData(enabled: false),
-      gridData: FlGridData(
-        show: true,
-        drawHorizontalLine: true,
-        verticalInterval: 1,
-        horizontalInterval: 1,
-        getDrawingVerticalLine: (value) {
-          return FlLine(
-            color: const Color(0xff37434d),
-            strokeWidth: 1,
-          );
-        },
-        getDrawingHorizontalLine: (value) {
-          return FlLine(
-            color: const Color(0xff37434d),
-            strokeWidth: 1,
-          );
-        },
-      ),
-      titlesData: FlTitlesData(
-        show: true,
-        bottomTitles: AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: true,
-            reservedSize: 30,
-            getTitlesWidget: bottomTitleWidgets,
-            interval: 1,
-          ),
-        ),
-        leftTitles: AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: true,
-            getTitlesWidget: leftTitleWidgets,
-            reservedSize: 42,
-            interval: 1,
-          ),
-        ),
-        topTitles: AxisTitles(
-          sideTitles: SideTitles(showTitles: false),
-        ),
-        rightTitles: AxisTitles(
-          sideTitles: SideTitles(showTitles: false),
-        ),
-      ),
-      borderData: FlBorderData(
-        show: true,
-        border: Border.all(color: const Color(0xff37434d)),
-      ),
-      minX: 0,
-      maxX: listVal.length.toDouble() - 1,
-      minY: 0,
-      maxY: maxY.toDouble(),
-      lineBarsData: [
-        LineChartBarData(
-          spots: valoriY,
-          isCurved: false,
-          gradient: LinearGradient(
-            colors: [
-              ColorTween(begin: gradientColors[0], end: gradientColors[1])
-                  .lerp(0.2)!,
-              ColorTween(begin: gradientColors[0], end: gradientColors[1])
-                  .lerp(0.2)!,
-            ],
-          ),
-          barWidth: 5,
-          isStrokeCapRound: true,
-          dotData: FlDotData(
-            show: false,
-          ),
-          belowBarData: BarAreaData(
-            show: true,
-            gradient: LinearGradient(
-              colors: [
-                ColorTween(begin: gradientColors[0], end: gradientColors[1])
-                    .lerp(0.2)!
-                    .withOpacity(0.1),
-                ColorTween(begin: gradientColors[0], end: gradientColors[1])
-                    .lerp(0.2)!
-                    .withOpacity(0.1),
-              ],
-            ),
           ),
         ),
       ],
