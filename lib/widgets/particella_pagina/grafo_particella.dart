@@ -31,7 +31,7 @@ class Grafico extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(
                 right: 20,
-                left: 12,
+                left: 2,
                 top: 24,
                 bottom: 12,
               ),
@@ -75,23 +75,22 @@ class Grafico extends StatelessWidget {
     //                                                              asse y nomi
     String text;
     Color colore = Colors.grey;
+    Color coloreTesto = Colors.white;
+    text = value.toStringAsFixed(0);
 
     if (limiti.length > 1) {
       if (value == limiti[0].toInt()) {
-        text = "basso";
         colore = const Color(0xFFFFF275);
+        coloreTesto = Colors.black;
       } else if (value == limiti[1].toInt()) {
-        text = "medio";
         colore = const Color(0xFFFBAF55);
       } else if (value == limiti[2].toInt()) {
-        text = "alto";
         colore = const Color(0xFFD33C3C);
       } else {
         return Container();
       }
     } else {
       if (value == limiti.first.toInt()) {
-        text = "alto";
         colore = const Color(0xFFD33C3C);
       } else {
         return Container();
@@ -103,11 +102,11 @@ class Grafico extends StatelessWidget {
       margin: const EdgeInsets.all(3),
       decoration: BoxDecoration(
           color: colore,
-          borderRadius: const BorderRadius.all(Radius.circular(4))),
+          borderRadius: const BorderRadius.all(Radius.circular(50))),
       child: Center(
         child: Text(
           text,
-          style: const TextStyle(color: Colors.black),
+          style: TextStyle(color: coloreTesto),
           textAlign: TextAlign.center,
         ),
       ),

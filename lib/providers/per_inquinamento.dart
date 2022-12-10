@@ -19,15 +19,22 @@ class PerInquinamento {
   late final Hourly hourly;
   static Future<Map<DateTime, num>> fetch(
       Posizione p, Particella particella) async {
+    Map<String, String> nomeParticella = {
+      "Monossido di carbonio": "carbon_monoxide",
+      "Anidride solforosa": "sulphur_dioxide",
+      "Diossido di azoto": "nitrogen_dioxide",
+      "Ozono": "ozone",
+      "PM 10": "pm10",
+      "PM 2.5": "pm2_5"
+    };
     final response = await http.get(Uri.parse(
-        'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${p.lat}&longitude=${p.lon}&hourly=${particella.nome}'));
+        'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${p.lat}&longitude=${p.lon}&hourly=${nomeParticella[particella.nome]}'));
 
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
-      PerInquinamento p =
-          PerInquinamento.fromJson(jsonDecode(response.body), particella.nome);
-
+      PerInquinamento p = PerInquinamento.fromJson(
+          jsonDecode(response.body), nomeParticella[particella.nome]!);
       return {
         for (int day = 0; day < (24 * 5); day = day + 24)
           DateTime.parse(p.hourly.time[day]):

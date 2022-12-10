@@ -11,7 +11,7 @@ class WidgetStazione extends StatelessWidget {
     return ListTile(
       title: Text(s.statenameI),
       onTap: () {
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
               builder: (context) => Selezionata(

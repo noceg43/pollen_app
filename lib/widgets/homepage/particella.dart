@@ -21,6 +21,7 @@ class ItemParticella extends StatelessWidget {
     };
 
     return GestureDetector(
+      behavior: HitTestBehavior.opaque,
       onTap: () {
         Navigator.push(
           context,

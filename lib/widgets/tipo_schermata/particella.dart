@@ -43,14 +43,20 @@ class ItemParticellaDaTipo extends StatelessWidget {
             width: 600,
             child: Row(
               children: [
-                Text(
-                  p.nome,
-                  style: TextStyle(color: fontColore[p.valColore]),
+                SizedBox(
+                  width: 150,
+                  child: Text(
+                    p.nome,
+                    style: TextStyle(color: fontColore[p.valColore]),
+                  ),
                 ),
-                const Spacer(),
+                const SizedBox(
+                  width: 50,
+                ),
                 Text(
                   p.valore.toString(),
                   style: TextStyle(color: fontColore[p.valColore]),
+                  textAlign: TextAlign.end,
                 ),
                 const Spacer(),
                 Icon(

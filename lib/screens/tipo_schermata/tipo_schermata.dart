@@ -38,6 +38,7 @@ class TipoSchermata extends StatelessWidget {
         title: Text(titolo[tipologia.nome]!),
         leading: const BackButton(),
       ),
+      backgroundColor: const Color(0xFFE8F5E9),
       body: ListView(
         children: [
           const SizedBox(
@@ -70,54 +71,94 @@ class TipoSchermata extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Visibility(
-                      visible: (tipologia.nome != "Inquinamento"),
-                      child: Transform.translate(
-                        offset: const Offset(0.0, -15.0),
-                        child: Container(
-                            padding: const EdgeInsets.all(10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("Recuperati dalla stazione di:",
-                                    style:
-                                        Theme.of(context).textTheme.bodyMedium),
-                                Row(
-                                  children: [
-                                    Text(posizione.pos,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline6),
-                                    const Icon(Icons.location_on)
-                                  ],
-                                ),
-                                Visibility(
-                                  visible: (GeolocatorPlatform.instance
-                                          .distanceBetween(
-                                              localizzato.lat.toDouble(),
-                                              localizzato.lon.toDouble(),
-                                              posizione.lat.toDouble(),
-                                              posizione.lon.toDouble()) !=
-                                      0),
-                                  child: Row(
+                    Transform.translate(
+                      offset: const Offset(0.0, -15.0),
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        child: (tipologia.nome == "Inquinamento")
+                            ? Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Recuperati dalla posizione:",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium),
+                                  Row(
+                                    children: [
+                                      Text(localizzato.pos,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline6),
+                                      const Icon(Icons.location_on)
+                                    ],
+                                  ),
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.baseline,
+                                    textBaseline: TextBaseline.alphabetic,
                                     children: [
                                       Text(
-                                        "Distante:",
+                                        "Con una precisione di ",
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyMedium,
                                       ),
                                       Text(
-                                        "${(GeolocatorPlatform.instance.distanceBetween(localizzato.lat.toDouble(), localizzato.lon.toDouble(), posizione.lat.toDouble(), posizione.lon.toDouble()) / 1000).toStringAsFixed(2)}km",
+                                        "11km",
                                         style: Theme.of(context)
                                             .textTheme
                                             .subtitle1,
                                       ),
                                     ],
                                   ),
-                                )
-                              ],
-                            )),
+                                ],
+                              )
+                            : Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Recuperati dalla stazione di:",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium),
+                                  Row(
+                                    children: [
+                                      Text(posizione.pos,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline6),
+                                      const Icon(Icons.location_on)
+                                    ],
+                                  ),
+                                  Visibility(
+                                    visible: (GeolocatorPlatform.instance
+                                            .distanceBetween(
+                                                localizzato.lat.toDouble(),
+                                                localizzato.lon.toDouble(),
+                                                posizione.lat.toDouble(),
+                                                posizione.lon.toDouble()) !=
+                                        0),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.baseline,
+                                      textBaseline: TextBaseline.alphabetic,
+                                      children: [
+                                        Text(
+                                          "Distante: ",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium,
+                                        ),
+                                        Text(
+                                          "${(GeolocatorPlatform.instance.distanceBetween(localizzato.lat.toDouble(), localizzato.lon.toDouble(), posizione.lat.toDouble(), posizione.lon.toDouble()) / 1000).toStringAsFixed(2)}km",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle1,
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
                       ),
                     ),
                   ],
