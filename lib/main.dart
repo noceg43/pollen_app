@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:isolate';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
@@ -16,12 +15,12 @@ import 'package:json_theme/json_theme.dart';
 import 'screens/app.dart';
 
 void lavoroInquinamento() async {
-  final DateTime now = DateTime.now();
-  print("inizio alle $now");
+  //final DateTime now = DateTime.now();
+  //print("inizio alle $now");
 
   Posizione p = await UltimaPosizione.ottieni();
-  print(p.pos);
-  final int isolateId = Isolate.current.hashCode;
+  //print(p.pos);
+  //final int isolateId = Isolate.current.hashCode;
   DatiNotifica? i = DatiNotifica.ottieniInquinamento(
       await Tipologia.daPosizione(p, 0), await Tipologia.daPosizione(p, 1));
   if (i != null) {

@@ -1,8 +1,8 @@
 import 'package:demo_1/providers/position.dart';
 import 'package:demo_1/providers/preferences.dart';
-import 'package:demo_1/screens/diario/diario.dart';
 import 'package:demo_1/screens/homepage/dati_completi.dart';
 import 'package:demo_1/screens/scelta_manuale/schermata_scelta_stazione.dart';
+import 'package:demo_1/widgets/homepage/button_diario.dart';
 import 'package:flutter/material.dart';
 
 // Contiene: Scheletro dati completi
@@ -25,12 +25,14 @@ class SchermataDatiCompleti extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(dataPos.pos),
-          leading: IconButton(
-              onPressed: () {
-                Peso.stampa(context);
-                //Peso.elimina();
-              },
-              icon: const Icon(Icons.settings)),
+          leading: GestureDetector(
+            onLongPress: (() => Peso.elimina()),
+            child: IconButton(
+                onPressed: () {
+                  Peso.stampa(context);
+                },
+                icon: const Icon(Icons.settings)),
+          ),
           actions: [
             IconButton(
                 onPressed: () => {
@@ -63,26 +65,8 @@ class SchermataDatiCompleti extends StatelessWidget {
           dataPos: dataPos,
           update: update,
         ),
-        floatingActionButton: (homepage)
-            ? FutureBuilder<List<Peso>>(
-                future: Peso.getContatore(dataPos),
-                builder: (context, snapshot) {
-                  return FloatingActionButton(
-                    onPressed: (() => (snapshot.hasData)
-                        ? Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => DiarioSchermata(
-                                pos: dataPos,
-                              ),
-                            ),
-                          )
-                        : null),
-                    backgroundColor: Colors.green,
-                    child: const Icon(Icons.navigation),
-                  );
-                })
-            : null,
+        floatingActionButton:
+            (homepage) ? ButtonDiario(dataPos: dataPos) : null,
       ),
     );
   }

@@ -1,4 +1,3 @@
-import 'package:demo_1/providers/inquinamento.dart';
 import 'package:demo_1/providers/position.dart';
 import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
 import 'package:demo_1/utils/format_dati_giornalieri.dart';

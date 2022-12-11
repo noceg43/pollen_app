@@ -19,6 +19,25 @@ class UltimaPosizione {
   }
 }
 
+class DiarioDisponibile {
+  static Future<void> usato() async {
+    final preferences = await SharedPreferences.getInstance();
+    preferences.setInt("diario", DateTime.now().day);
+  }
+
+  static Future<bool> statoUsato() async {
+    final preferences = await SharedPreferences.getInstance();
+    if (!preferences.containsKey("diario")) return false;
+    int giorno = preferences.getInt("diario")!;
+    print(DateTime.now().day == giorno);
+    if (DateTime.now().day == giorno) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
+
 class Peso {
   double p = 0;
   String codice = "";

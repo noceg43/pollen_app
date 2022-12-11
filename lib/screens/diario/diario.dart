@@ -25,42 +25,122 @@ class _DiarioSchermataState extends State<DiarioSchermata> {
       appBar: AppBar(
         //title: Text(p.partNameI),
         leading: const BackButton(),
-        title: const Text("Diario"),
+        title: const Text("Segnala un disturbo"),
       ),
-      body: ListView(
-        children: [
-          Slider(
-            value: oraValore,
-            max: 24,
-            divisions: 24,
-            label: (oraValore).round().toString(),
-            onChanged: (double value) {
-              setState(() {
-                if (value < 1) value = 1;
-                oraValore = value;
-              });
-            },
-          ),
-          Slider(
-            value: statoFisicoValore,
-            max: 10,
-            divisions: 10,
-            label: (statoFisicoValore).round().toString(),
-            onChanged: (double value) {
-              setState(() {
-                if (value < 1) value = 1;
-                statoFisicoValore = value;
-              });
-            },
-          ),
-          TextButton(
-              onPressed: (() {
-                // ignore: avoid_print
-                print("${calcolaPeso()} $oraValore $statoFisicoValore ");
-                Peso.aumentaMultipli(widget.pos, calcolaPeso());
-              }),
-              child: const Text("Conferma"))
-        ],
+      body: Container(
+        padding: const EdgeInsets.fromLTRB(15, 20, 15, 0),
+        child: Column(
+          //padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+          children: [
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              const Text(
+                "Com’è andata oggi ?",
+                textAlign: TextAlign.left,
+                style: TextStyle(fontSize: 24, fontStyle: FontStyle.italic),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Text(
+                "Inserisci l’intensità del disturbo (da 0 a 10)\ntenendo conto di: ",
+                textAlign: TextAlign.left,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Text(
+                "•occhi\n•naso\n•polmoni\n•pelle",
+                textAlign: TextAlign.left,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 10),
+              Container(
+                decoration: const BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                padding: const EdgeInsets.fromLTRB(5, 10, 5, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("implicazioni dello stato fisico".toUpperCase(),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                        )),
+                    Slider(
+                      activeColor: Colors.green.shade900,
+                      inactiveColor: Colors.green.shade100,
+                      value: statoFisicoValore,
+                      max: 10,
+                      divisions: 10,
+                      label: (statoFisicoValore).round().toString(),
+                      onChanged: (double value) {
+                        setState(() {
+                          if (value < 1) value = 1;
+                          statoFisicoValore = value;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ]),
+            const SizedBox(height: 50),
+            const Text(
+              "Quanto sei stato all’aria aperta ?",
+              textAlign: TextAlign.left,
+              style: TextStyle(fontSize: 24, fontStyle: FontStyle.italic),
+            ),
+            Container(
+              decoration: const BoxDecoration(
+                  color: Colors.green,
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              padding: const EdgeInsets.fromLTRB(5, 10, 5, 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("ore passate all'aperto".toUpperCase(),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      )),
+                  Slider(
+                    activeColor: Colors.green.shade900,
+                    inactiveColor: Colors.green.shade100,
+                    value: oraValore,
+                    max: 24,
+                    divisions: 24,
+                    label: (oraValore).round().toString(),
+                    onChanged: (double value) {
+                      setState(() {
+                        if (value < 1) value = 1;
+                        oraValore = value;
+                      });
+                    },
+                  ),
+                ],
+              ),
+            ),
+            const Spacer(),
+            ConstrainedBox(
+              constraints:
+                  const BoxConstraints.tightFor(width: 150, height: 50),
+              child: ElevatedButton.icon(
+                onPressed: (() {
+                  // ignore: avoid_print
+                  Navigator.pop(context, true);
+                  print("${calcolaPeso()} $oraValore $statoFisicoValore ");
+                  Peso.aumentaMultipli(widget.pos, calcolaPeso());
+                  DiarioDisponibile.usato();
+                }),
+                label: const Text("Conferma"),
+                icon: const Icon(Icons.check),
+              ),
+            ),
+            const SizedBox(height: 100),
+          ],
+        ),
       ),
     );
   }

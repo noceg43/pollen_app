@@ -2,19 +2,27 @@ import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-class Grafico extends StatelessWidget {
-  Grafico({super.key, required this.p, required this.listVal});
+class Grafico extends StatefulWidget {
+  const Grafico({super.key, required this.p, required this.listVal});
   final Particella p;
   final Map<DateTime, num> listVal;
+
+  @override
+  State<Grafico> createState() => _GraficoState();
+}
+
+class _GraficoState extends State<Grafico> {
   late List<double> limiti;
+
   @override
   Widget build(BuildContext context) {
     num maxVal = 0;
-    for (num i in listVal.values.map((e) => e.toDouble()).toList()) {
+    for (num i in widget.listVal.values.map((e) => e.toDouble()).toList()) {
       if (i > maxVal) maxVal = i;
     }
-    List<double> valori = listVal.values.map((e) => e.toDouble()).toList();
-    limiti = p.limite.map((e) => (e).toDouble()).toList();
+    List<double> valori =
+        widget.listVal.values.map((e) => e.toDouble()).toList();
+    limiti = widget.p.limite.map((e) => (e).toDouble()).toList();
     // calcolo valore massimo y
     num max = maxVal;
     if (limiti.last > max) {
@@ -55,7 +63,7 @@ class Grafico extends StatelessWidget {
     Widget text;
     if (value == value.toInt()) {
       text = Text(
-        "${listVal.keys.elementAt(value.toInt()).day}/${listVal.keys.elementAt(value.toInt()).month}",
+        "${widget.listVal.keys.elementAt(value.toInt()).day}/${widget.listVal.keys.elementAt(value.toInt()).month}",
         style: style,
       );
     } else {
@@ -172,11 +180,12 @@ class Grafico extends StatelessWidget {
       lineTouchData: LineTouchData(
           enabled: true,
           touchTooltipData: LineTouchTooltipData(
-            tooltipBgColor: Colors.green,
+            tooltipBgColor: Colors.green.shade700,
             tooltipRoundedRadius: 13.0,
             showOnTopOfTheChartBoxArea: false,
             fitInsideHorizontally: true,
-            tooltipMargin: 20,
+            fitInsideVertically: true,
+            tooltipMargin: 15,
             getTooltipItems: (touchedSpots) {
               return touchedSpots.map(
                 (LineBarSpot touchedSpot) {
@@ -223,7 +232,7 @@ class Grafico extends StatelessWidget {
           barWidth: 4,
           isStrokeCapRound: true,
           dotData: FlDotData(
-            show: false,
+            show: true,
           ),
         ),
       ],

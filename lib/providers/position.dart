@@ -29,10 +29,10 @@ Future<List<dynamic>> _determinePosition() async {
     if (isAvailable!) {
       await Autostarter.getAutoStartPermission();
     } else {
-      print('Your phone don\'t need to request Auto Start Permission');
+      //print('Your phone don\'t need to request Auto Start Permission');
     }
   } on PlatformException {
-    print('Failed to get platform version');
+    //print('Failed to get platform version');
   }
 
   serviceEnabled = await Geolocator.isLocationServiceEnabled();

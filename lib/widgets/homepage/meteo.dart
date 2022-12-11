@@ -28,12 +28,18 @@ class WidgetMeteo extends StatelessWidget {
               const Spacer(),
               Text(
                 "${m.temperatura}°",
-                style: Theme.of(context).textTheme.headline4,
+                style: Theme.of(context).textTheme.headline5,
+              ),
+              const SizedBox(
+                height: 10,
               ),
               Row(
                 children: [
                   const Icon(Icons.wind_power),
-                  Text("${m.vento}km/h")
+                  Text(
+                    "${m.vento}km/h",
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  )
                 ],
               ),
               const Spacer(),
@@ -42,14 +48,15 @@ class WidgetMeteo extends StatelessWidget {
           const Spacer(),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 "Max ${m.max}°",
-                style: const TextStyle(fontSize: 13),
+                style: Theme.of(context).textTheme.bodyMedium,
               ),
               Text(
                 "Min ${m.min}°",
-                style: const TextStyle(fontSize: 13),
+                style: Theme.of(context).textTheme.bodyMedium,
               ),
             ],
           )
