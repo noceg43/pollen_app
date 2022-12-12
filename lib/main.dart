@@ -22,12 +22,12 @@ void lavoroInquinamento() async {
   //print(p.pos);
   //final int isolateId = Isolate.current.hashCode;
   DatiNotifica? i = DatiNotifica.ottieniInquinamento(
-      await Tipologia.daPosizione(p, 0), await Tipologia.daPosizione(p, 1));
+      p, await Tipologia.daPosizione(p, 0), await Tipologia.daPosizione(p, 1));
   if (i != null) {
     NotificaInquinamento.instantNotify(i.stampaNomi, i.stampaLivello);
   } else {
     NotificaInquinamento.instantNotify(
-        "tutto normale", "confermo tutto normale");
+        "tutto normale a ${p.pos}", "confermo tutto normale");
   }
 }
 

@@ -10,6 +10,9 @@ class NotificaParticella {
           id: Random().nextInt(100),
           title: title,
           body: body,
+          displayOnBackground: true,
+          displayOnForeground: true,
+          wakeUpScreen: true,
           channelKey: 'notifica_particella'),
     );
   }
@@ -23,6 +26,9 @@ class NotificaInquinamento {
           id: Random().nextInt(100),
           title: title,
           body: body,
+          displayOnBackground: true,
+          displayOnForeground: true,
+          wakeUpScreen: true,
           channelKey: 'notifica_inquinamento'),
     );
   }

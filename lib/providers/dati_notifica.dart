@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+import 'package:demo_1/providers/position.dart';
 import 'package:demo_1/providers/preferences.dart';
 import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
 
@@ -9,7 +10,7 @@ class DatiNotifica {
   DatiNotifica(this.stampaNomi, this.stampaLivello);
 
   static Future<DatiNotifica?> ottieni(
-      List<Tipologia> oggi, List<Tipologia> domani) async {
+      Posizione p, List<Tipologia> oggi, List<Tipologia> domani) async {
     // ottiene le particelle massime di oggi e domani
     List<Map<Particella, ValoreDelGiorno>> maxOggi =
         Tipologia.massimi(oggi, soglia: 1) ?? [];
@@ -79,7 +80,7 @@ class DatiNotifica {
     if (chiAumentato.length > 1) {
       nomi = "diverse particelle di ${chiAumentato.first.keys.first.tipo}";
     }
-
+    nomi = "$nomi a ${p.pos}";
     Map<int, String> livello = {1: "basso", 20: "medio", 30: "alto"};
     print(maxDomani.first.values.first.gruppoValore);
     return DatiNotifica(
@@ -87,7 +88,7 @@ class DatiNotifica {
   }
 
   static DatiNotifica? ottieniInquinamento(
-      List<Tipologia> oggi, List<Tipologia> domani) {
+      Posizione p, List<Tipologia> oggi, List<Tipologia> domani) {
     // se non c'è inquinamento
     if (oggi.first.nome != "Inquinamento" &&
         domani.first.nome != "Inquinamento") return null;
@@ -100,8 +101,9 @@ class DatiNotifica {
 
       String aumentati = maxOggi.first.keys.first.nome;
       if (maxOggi.length > 1) aumentati = "diverse particelle";
+
       return DatiNotifica(
-          "domani qualità dell'aria migliore rispetto ad oggi", aumentati);
+          "domani qualità dell'aria migliore a ${p.pos}", aumentati);
     }
     // se oggi non c'è inquinamento ma domani sì
     if (oggi.first.nome != "Inquinamento" &&
@@ -112,7 +114,7 @@ class DatiNotifica {
       String aumentati = maxDomani.first.keys.first.nome;
       if (maxDomani.length > 1) aumentati = "diverse particelle";
       return DatiNotifica(
-          "domani qualità dell'aria peggiore rispetto ad oggi", aumentati);
+          "domani qualità dell'aria peggiore a ${p.pos}", aumentati);
     }
     // sia oggi che domani c'è inquinamento
     if (oggi.first.nome == "Inquinamento" &&
@@ -144,7 +146,7 @@ class DatiNotifica {
           String body = aggiunte.first;
           if (aggiunte.length > 1) body = "diverse particelle";
           return DatiNotifica(
-              "domani qualità dell'aria peggiore rispetto ad oggi", body);
+              "domani qualità dell'aria peggiore a ${p.pos}", body);
         } else {
           for (String s in aumentateOggi) {
             if (!aumentateDomani.contains(s)) aggiunte.add(s);
@@ -152,7 +154,7 @@ class DatiNotifica {
           String body = aggiunte.first;
           if (aggiunte.length > 1) body = "diverse particelle";
           return DatiNotifica(
-              "domani qualità dell'aria migliore rispetto ad oggi", body);
+              "domani qualità dell'aria migliore a ${p.pos}", body);
         }
       }
     }

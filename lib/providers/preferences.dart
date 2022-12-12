@@ -22,15 +22,17 @@ class UltimaPosizione {
 class DiarioDisponibile {
   static Future<void> usato() async {
     final preferences = await SharedPreferences.getInstance();
-    preferences.setInt("diario", DateTime.now().day);
+    preferences.setStringList("diario",
+        [DateTime.now().month.toString(), DateTime.now().day.toString()]);
   }
 
   static Future<bool> statoUsato() async {
     final preferences = await SharedPreferences.getInstance();
     if (!preferences.containsKey("diario")) return false;
-    int giorno = preferences.getInt("diario")!;
-    print(DateTime.now().day == giorno);
-    if (DateTime.now().day == giorno) {
+    List<String> data = preferences.getStringList("diario")!;
+
+    if (DateTime.now().month.toString() == data[0] &&
+        DateTime.now().day.toString() == data[1]) {
       return true;
     } else {
       return false;

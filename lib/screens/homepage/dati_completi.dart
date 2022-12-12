@@ -23,10 +23,16 @@ class DatiCompleti extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void generaNotifica(List<Tipologia> oggi, List<Tipologia> domani) async {
-      DatiNotifica? d = await DatiNotifica.ottieni(oggi, domani);
+      DatiNotifica? d = await DatiNotifica.ottieni(dataPos, oggi, domani);
       // il true sarà il check sul se abilitare le notifiche inquinamento
       if (d != null) {
         NotificaParticella.instantNotify(d.stampaNomi, d.stampaLivello);
+      }
+      DatiNotifica? inq =
+          DatiNotifica.ottieniInquinamento(dataPos, oggi, domani);
+      // il true sarà il check sul se abilitare le notifiche inquinamento
+      if (inq != null) {
+        NotificaInquinamento.instantNotify(inq.stampaNomi, inq.stampaLivello);
       }
     }
 
