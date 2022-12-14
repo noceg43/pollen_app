@@ -1,9 +1,6 @@
-import 'package:autostarter/autostarter.dart';
 import 'package:demo_1/providers/preferences.dart';
-import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class Posizione {
   String pos;
@@ -24,24 +21,13 @@ Future<List<dynamic>> _determinePosition() async {
   bool serviceEnabled;
   LocationPermission permission;
 
-  try {
-    bool? isAvailable = await Autostarter.isAutoStartPermissionAvailable();
-    if (isAvailable!) {
-      await Autostarter.getAutoStartPermission();
-    } else {
-      //print('Your phone don\'t need to request Auto Start Permission');
-    }
-  } on PlatformException {
-    //print('Failed to get platform version');
-  }
-
   serviceEnabled = await Geolocator.isLocationServiceEnabled();
   if (!serviceEnabled) {
     return Future.error('Location services are disabled.');
   }
 
   permission = await Geolocator.checkPermission();
-  var status = await Permission.ignoreBatteryOptimizations.request();
+  //var status = await Permission.ignoreBatteryOptimizations.request();
   if (permission == LocationPermission.denied) {
     permission = await Geolocator.requestPermission();
     if (permission == LocationPermission.denied) {

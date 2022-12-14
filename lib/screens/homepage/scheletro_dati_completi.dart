@@ -1,6 +1,7 @@
 import 'package:demo_1/providers/position.dart';
 import 'package:demo_1/providers/preferences.dart';
 import 'package:demo_1/screens/homepage/dati_completi.dart';
+import 'package:demo_1/screens/impostazioni/impostazioni.dart';
 import 'package:demo_1/screens/scelta_manuale/schermata_scelta_stazione.dart';
 import 'package:demo_1/widgets/homepage/button_diario.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,12 @@ class SchermataDatiCompleti extends StatelessWidget {
             child: IconButton(
                 onPressed: () {
                   Peso.stampa(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SchermataImpostazioni(),
+                    ),
+                  );
                 },
                 icon: const Icon(Icons.settings)),
           ),
@@ -82,7 +89,15 @@ class SchermataDatiCaricamento extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
-              onPressed: () => {Peso.stampa(context)},
+              onPressed: () => {
+                    Peso.stampa(context),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SchermataImpostazioni(),
+                      ),
+                    )
+                  },
               icon: const Icon(Icons.settings)),
           actions: [
             IconButton(

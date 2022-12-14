@@ -10,7 +10,7 @@ class DiarioSchermata extends StatefulWidget {
 }
 
 class _DiarioSchermataState extends State<DiarioSchermata> {
-  double oraValore = 24;
+  double oraValore = 12;
   double statoFisicoValore = 5;
 
   double calcolaPeso() {
@@ -86,12 +86,14 @@ class _DiarioSchermataState extends State<DiarioSchermata> {
                 ),
               ),
             ]),
-            const SizedBox(height: 50),
+            const Spacer(),
+            //const SizedBox(height: 50),
             const Text(
-              "Quanto sei stato all’aria aperta ?",
+              "Quante ore hai passato all'aperto ?",
               textAlign: TextAlign.left,
               style: TextStyle(fontSize: 24, fontStyle: FontStyle.italic),
             ),
+            const SizedBox(height: 10),
             Container(
               decoration: const BoxDecoration(
                   color: Colors.green,
@@ -100,7 +102,7 @@ class _DiarioSchermataState extends State<DiarioSchermata> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("ore passate all'aperto".toUpperCase(),
+                  Text("numero ore all'aperto".toUpperCase(),
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 18,
@@ -130,7 +132,6 @@ class _DiarioSchermataState extends State<DiarioSchermata> {
                 onPressed: (() {
                   // ignore: avoid_print
                   Navigator.pop(context, true);
-                  print("${calcolaPeso()} $oraValore $statoFisicoValore ");
                   Peso.aumentaMultipli(widget.pos, calcolaPeso());
                   DiarioDisponibile.usato();
                 }),

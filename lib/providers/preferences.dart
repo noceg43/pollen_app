@@ -19,6 +19,40 @@ class UltimaPosizione {
   }
 }
 
+class PreferencesNotificaParticelle {
+  static Future<void> modifica(bool val) async {
+    final preferences = await SharedPreferences.getInstance();
+    preferences.setBool("particelle", val);
+  }
+
+  static Future<bool> ottieni() async {
+    final preferences = await SharedPreferences.getInstance();
+    if (!preferences.containsKey("particelle")) {
+      modifica(true);
+      return true;
+    }
+    bool val = preferences.getBool("particelle")!;
+    return val;
+  }
+}
+
+class PreferencesNotificaInquinamento {
+  static Future<void> modifica(bool val) async {
+    final preferences = await SharedPreferences.getInstance();
+    preferences.setBool("inquinamento", val);
+  }
+
+  static Future<bool> ottieni() async {
+    final preferences = await SharedPreferences.getInstance();
+    if (!preferences.containsKey("inquinamento")) {
+      preferences.setBool("inquinamento", true);
+      return true;
+    }
+    bool val = preferences.getBool("inquinamento")!;
+    return val;
+  }
+}
+
 class DiarioDisponibile {
   static Future<void> usato() async {
     final preferences = await SharedPreferences.getInstance();

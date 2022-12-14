@@ -84,7 +84,7 @@ class DatiNotifica {
     Map<int, String> livello = {1: "basso", 20: "medio", 30: "alto"};
     print(maxDomani.first.values.first.gruppoValore);
     return DatiNotifica(
-        nomi, livello[maxDomani.first.values.first.gruppoValore]!);
+        nomi, "Livello ${livello[maxDomani.first.values.first.gruppoValore]!}");
   }
 
   static DatiNotifica? ottieniInquinamento(

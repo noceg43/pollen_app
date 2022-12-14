@@ -35,98 +35,109 @@ class ListGiornaliera extends StatelessWidget {
       onRefresh: () async {
         update();
       },
-      child: SingleChildScrollView(
-        key: PageStorageKey(key),
-        child: Stack(
-          children: [
-            Column(
-              children: [
-                // Back della schermata
-                Container(
-                  height: 275,
-                  color: formatTop.col,
-                  child: Row(
-                    children: [
-                      const Spacer(),
-                      Container(
-                        width: 150,
-                        height: 150,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.3),
-                              spreadRadius: 1,
-                              blurRadius: 10,
-                              offset: const Offset(5, 8),
-                            ),
-                          ],
-                          image: DecorationImage(
-                              image: formatTop.img, fit: BoxFit.fill),
+      child: ScrollConfiguration(
+        behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+        child: SingleChildScrollView(
+          key: PageStorageKey(key),
+          child: Stack(
+            children: [
+              Column(
+                children: [
+                  // Back della schermata
+                  Container(
+                    height: 275,
+                    color: formatTop.col,
+                    child: Row(
+                      children: [
+                        const SizedBox(
+                          width: 5,
                         ),
-                      ),
-                      const Spacer(),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Material(
-                              elevation: 10,
-                              child: WidgetMeteo(
-                                m: m,
-                              )),
-                          const Spacer(),
-                          Container(
-                            padding: const EdgeInsets.fromLTRB(20, 0, 0, 40),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Visibility(
-                                  visible: (formatTop.livello == "Medio" ||
-                                      formatTop.livello == "Alto"),
-                                  child: const Text("ATTENZIONE:",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 14,
-                                      )),
+                        Flexible(
+                          child: Container(
+                            //width: 115,
+                            //height: 235,
+                            constraints: const BoxConstraints(maxHeight: 185),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.3),
+                                  spreadRadius: 1,
+                                  blurRadius: 10,
+                                  offset: const Offset(5, 8),
                                 ),
-                                Text(formatTop.tipo,
-                                    style: TextStyle(
+                              ],
+                              image: DecorationImage(
+                                  image: formatTop.img, fit: BoxFit.scaleDown),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 60,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Material(
+                                elevation: 10,
+                                child: WidgetMeteo(
+                                  m: m,
+                                )),
+                            const Spacer(),
+                            Container(
+                              padding: const EdgeInsets.fromLTRB(20, 0, 0, 40),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Visibility(
+                                    visible: (formatTop.livello == "Medio" ||
+                                        formatTop.livello == "Alto"),
+                                    child: const Text("ATTENZIONE:",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14,
+                                        )),
+                                  ),
+                                  Text(formatTop.tipo,
+                                      style: TextStyle(
+                                          color: (formatTop.livello ==
+                                                      "Medio" ||
+                                                  formatTop.livello == "Alto")
+                                              ? Colors.white
+                                              : Colors.black,
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold)),
+                                  Text(
+                                      "Il livello è ${formatTop.livello.toLowerCase()}",
+                                      style: TextStyle(
                                         color: (formatTop.livello == "Medio" ||
                                                 formatTop.livello == "Alto")
                                             ? Colors.white
                                             : Colors.black,
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.bold)),
-                                Text(
-                                    "Il livello è ${formatTop.livello.toLowerCase()}",
-                                    style: TextStyle(
-                                      color: (formatTop.livello == "Medio" ||
-                                              formatTop.livello == "Alto")
-                                          ? Colors.white
-                                          : Colors.black,
-                                      fontSize: 14,
-                                    )),
-                              ],
+                                        fontSize: 14,
+                                      )),
+                                ],
+                              ),
                             ),
-                          ),
-                          const Spacer()
-                        ],
-                      )
-                    ],
+                            const Spacer()
+                          ],
+                        )
+                      ],
+                    ),
                   ),
-                ),
 
-                Transform.translate(
-                  offset: const Offset(0.0, -40.0),
-                  child: CardContenitore(
-                    listaOrdinata: tipologie,
-                    staz: s,
-                    p: p,
+                  Transform.translate(
+                    offset: const Offset(0.0, -40.0),
+                    child: CardContenitore(
+                      listaOrdinata: tipologie,
+                      staz: s,
+                      p: p,
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

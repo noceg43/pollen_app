@@ -19,11 +19,14 @@ class FormatMeteo {
     min = m.daily.temperature2MMin[day].toStringAsFixed(0);
     String getTemperatura() {
       if (day == 0) {
-        return m.hourly.apparentTemperature[oraMeteo].toStringAsFixed(1);
+        return m.hourly.temperature2M[oraMeteo].toDouble().round().toString();
       } else {
         List<num> l =
-            m.hourly.apparentTemperature.sublist(24 * (day), 24 * (day + 1));
-        return (l.reduce((a, b) => a + b) / l.length).toStringAsFixed(1);
+            m.hourly.temperature2M.sublist(24 * (day), 24 * (day + 1));
+        return (l.reduce((a, b) => a + b) / l.length)
+            .toDouble()
+            .round()
+            .toString();
       }
     }
 

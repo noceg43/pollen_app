@@ -28,7 +28,7 @@ class WidgetMeteo extends StatelessWidget {
               const Spacer(),
               Text(
                 "${m.temperatura}°",
-                style: Theme.of(context).textTheme.headline5,
+                style: Theme.of(context).textTheme.headline4,
               ),
               const SizedBox(
                 height: 10,

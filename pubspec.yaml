@@ -48,7 +48,7 @@ dependencies:
   notification_channel_manager: ^0.1.1+1
   json_theme: ^4.0.3+1
   permission_handler: ^10.2.0
-  autostarter: ^0.0.1
+  app_settings: ^4.1.8
 
 dev_dependencies:
   flutter_test:

@@ -38,142 +38,145 @@ class TipoSchermata extends StatelessWidget {
         leading: const BackButton(),
       ),
       backgroundColor: const Color(0xFFE8F5E9),
-      body: ListView(
-        children: [
-          const SizedBox(
-            height: 80,
-          ),
-          Card(
-            elevation: 10,
-            color: const Color(0xFFF1F1F1),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Transform.translate(
-                      offset: const Offset(0.0, -60.0),
-                      child: Container(
-                        width: 120,
-                        height: 120,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.2),
-                              spreadRadius: 1,
-                              blurRadius: 3,
-                              offset: const Offset(0, 3),
-                            ),
-                          ],
-                          image: DecorationImage(
-                              image: formTipo.img, fit: BoxFit.fill),
+      body: ScrollConfiguration(
+        behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+        child: ListView(
+          children: [
+            const SizedBox(
+              height: 80,
+            ),
+            Card(
+              elevation: 10,
+              color: const Color(0xFFF1F1F1),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Transform.translate(
+                        offset: const Offset(0.0, -60.0),
+                        child: Container(
+                          width: 120,
+                          height: 120,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.2),
+                                spreadRadius: 1,
+                                blurRadius: 3,
+                                offset: const Offset(0, 3),
+                              ),
+                            ],
+                            image: DecorationImage(
+                                image: formTipo.img, fit: BoxFit.fill),
+                          ),
                         ),
                       ),
-                    ),
-                    Transform.translate(
-                      offset: const Offset(0.0, -15.0),
-                      child: Container(
-                        padding: const EdgeInsets.all(10),
-                        child: (tipologia.nome == "Inquinamento")
-                            ? Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("Recuperati dalla posizione:",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium),
-                                  Row(
-                                    children: [
-                                      Text(localizzato.pos,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline6),
-                                      const Icon(Icons.location_on)
-                                    ],
-                                  ),
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.baseline,
-                                    textBaseline: TextBaseline.alphabetic,
-                                    children: [
-                                      Text(
-                                        "Con una precisione di ",
+                      Transform.translate(
+                        offset: const Offset(0.0, -15.0),
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          child: (tipologia.nome == "Inquinamento")
+                              ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("Recuperati dalla posizione:",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .bodyMedium,
-                                      ),
-                                      Text(
-                                        "11km",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .subtitle1,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              )
-                            : Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("Recuperati dalla stazione di:",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium),
-                                  Row(
-                                    children: [
-                                      Text(posizione.pos,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline6),
-                                      const Icon(Icons.location_on)
-                                    ],
-                                  ),
-                                  Visibility(
-                                    visible: (GeolocatorPlatform.instance
-                                            .distanceBetween(
-                                                localizzato.lat.toDouble(),
-                                                localizzato.lon.toDouble(),
-                                                posizione.lat.toDouble(),
-                                                posizione.lon.toDouble()) !=
-                                        0),
-                                    child: Row(
+                                            .bodyMedium),
+                                    Row(
+                                      children: [
+                                        Text(localizzato.pos,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline6),
+                                        const Icon(Icons.location_on)
+                                      ],
+                                    ),
+                                    Row(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.baseline,
                                       textBaseline: TextBaseline.alphabetic,
                                       children: [
                                         Text(
-                                          "Distante: ",
+                                          "Con una precisione di ",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyMedium,
                                         ),
                                         Text(
-                                          "${(GeolocatorPlatform.instance.distanceBetween(localizzato.lat.toDouble(), localizzato.lon.toDouble(), posizione.lat.toDouble(), posizione.lon.toDouble()) / 1000).toStringAsFixed(2)}km",
+                                          "11km",
                                           style: Theme.of(context)
                                               .textTheme
                                               .subtitle1,
                                         ),
                                       ],
                                     ),
-                                  )
-                                ],
-                              ),
+                                  ],
+                                )
+                              : Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("Recuperati dalla stazione di:",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium),
+                                    Row(
+                                      children: [
+                                        Text(posizione.pos,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline6),
+                                        const Icon(Icons.location_on)
+                                      ],
+                                    ),
+                                    Visibility(
+                                      visible: (GeolocatorPlatform.instance
+                                              .distanceBetween(
+                                                  localizzato.lat.toDouble(),
+                                                  localizzato.lon.toDouble(),
+                                                  posizione.lat.toDouble(),
+                                                  posizione.lon.toDouble()) !=
+                                          0),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.baseline,
+                                        textBaseline: TextBaseline.alphabetic,
+                                        children: [
+                                          Text(
+                                            "Distante: ",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium,
+                                          ),
+                                          Text(
+                                            "${(GeolocatorPlatform.instance.distanceBetween(localizzato.lat.toDouble(), localizzato.lon.toDouble(), posizione.lat.toDouble(), posizione.lon.toDouble()) / 1000).toStringAsFixed(2)}km",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .subtitle1,
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  for (Map<Particella, ValoreDelGiorno> el in tipologia.lista)
+                    Transform.translate(
+                      offset: const Offset(0.0, -30.0),
+                      child: ItemParticellaDaTipo(
+                        data: el,
+                        s: s,
                       ),
                     ),
-                  ],
-                ),
-                for (Map<Particella, ValoreDelGiorno> el in tipologia.lista)
-                  Transform.translate(
-                    offset: const Offset(0.0, -30.0),
-                    child: ItemParticellaDaTipo(
-                      data: el,
-                      s: s,
-                    ),
-                  ),
-              ],
-            ),
-          )
-        ],
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

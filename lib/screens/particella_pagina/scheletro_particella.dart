@@ -18,38 +18,42 @@ class ScheletroParticella extends StatelessWidget {
           future: Tipologia.daParticella(s, p),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return ListView(
-                children: [
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(2),
-                    child: Row(
-                      children: [
-                        Text(
-                          "Ultimi dati disponibili:",
-                          style: Theme.of(context).textTheme.headline5,
-                        ),
-                        const Spacer(),
-                        Text(
-                          (p.tipo == "Inquinamento")
-                              ? "(µg/m³)"
-                              : "(granuli/m³)",
-                          style: Theme.of(context).textTheme.subtitle2,
-                        ),
-                      ],
+              return ScrollConfiguration(
+                behavior:
+                    ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                child: ListView(
+                  children: [
+                    const SizedBox(
+                      height: 10,
                     ),
-                  ),
-                  Grafico(
-                    p: p,
-                    listVal: snapshot.data!,
-                  ),
-                  const SizedBox(
-                    height: 60,
-                  ),
-                  SchedaInfoParticella(p: p)
-                ],
+                    Container(
+                      padding: const EdgeInsets.all(2),
+                      child: Row(
+                        children: [
+                          Text(
+                            "Ultimi dati disponibili:",
+                            style: Theme.of(context).textTheme.headline5,
+                          ),
+                          const Spacer(),
+                          Text(
+                            (p.tipo == "Inquinamento")
+                                ? "(µg/m³)"
+                                : "(granuli/m³)",
+                            style: Theme.of(context).textTheme.subtitle2,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Grafico(
+                      p: p,
+                      listVal: snapshot.data!,
+                    ),
+                    const SizedBox(
+                      height: 60,
+                    ),
+                    SchedaInfoParticella(p: p)
+                  ],
+                ),
               );
             } else {
               if (snapshot.hasError) {
