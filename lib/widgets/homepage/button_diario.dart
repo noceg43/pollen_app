@@ -42,7 +42,7 @@ class ButtonDiarioState extends State<ButtonDiario> {
                         (snapshot.hasData) ? {_navigaDiario(context)} : null;
                       }),
                       backgroundColor: Colors.green,
-                      child: const Icon(Icons.navigation),
+                      child: const Icon(Icons.menu_book),
                     ),
                   );
                 } else {
