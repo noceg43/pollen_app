@@ -15,7 +15,7 @@ class WidgetMeteo extends StatelessWidget {
       color: const Color(0xFFE8F5E9),
       height: 100,
       width: 205,
-      padding: const EdgeInsets.all(5),
+      padding: const EdgeInsets.all(3),
       child: Row(
         children: [
           Icon(

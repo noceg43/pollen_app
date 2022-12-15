@@ -11,11 +11,17 @@ class DatiNotifica {
 
   static Future<DatiNotifica?> ottieni(
       Posizione p, List<Tipologia> oggi, List<Tipologia> domani) async {
+    // copia della lista per poter eseguire operazioni in sicurezza
+    List<Tipologia> oggiLocal = [for (Tipologia t in oggi) t];
+    List<Tipologia> domaniLocal = [for (Tipologia t in domani) t];
+    // rimuove dal conteggio la tipologia inquinamento
+    domaniLocal.removeWhere((e) => e.nome == "Inquinamento");
+    oggiLocal.removeWhere((e) => e.nome == "Inquinamento");
     // ottiene le particelle massime di oggi e domani
     List<Map<Particella, ValoreDelGiorno>> maxOggi =
-        Tipologia.massimi(oggi, soglia: 1) ?? [];
+        Tipologia.massimi(oggiLocal, soglia: 1) ?? [];
     List<Map<Particella, ValoreDelGiorno>>? maxDomani =
-        Tipologia.massimi(domani, soglia: 1);
+        Tipologia.massimi(domaniLocal, soglia: 1);
     // controlla che domani ci sia qualcosa
     if (maxDomani == null) return null;
 
@@ -100,7 +106,9 @@ class DatiNotifica {
           Tipologia.massimi(oggi, soglia: 30) ?? [];
 
       String aumentati = maxOggi.first.keys.first.nome;
-      if (maxOggi.length > 1) aumentati = "diverse particelle";
+      for (int i = 1; i < maxOggi.length; i++) {
+        aumentati = "$aumentati, ${maxOggi[i].keys.first.nome}";
+      }
 
       return DatiNotifica(
           "domani qualità dell'aria migliore a ${p.pos}", aumentati);
@@ -112,7 +120,9 @@ class DatiNotifica {
           Tipologia.massimi(domani, soglia: 30) ?? [];
 
       String aumentati = maxDomani.first.keys.first.nome;
-      if (maxDomani.length > 1) aumentati = "diverse particelle";
+      for (int i = 1; i < maxDomani.length; i++) {
+        aumentati = "$aumentati, ${maxDomani[i].keys.first.nome}";
+      }
       return DatiNotifica(
           "domani qualità dell'aria peggiore a ${p.pos}", aumentati);
     }
@@ -144,7 +154,10 @@ class DatiNotifica {
           }
 
           String body = aggiunte.first;
-          if (aggiunte.length > 1) body = "diverse particelle";
+          for (int i = 1; i < aggiunte.length; i++) {
+            body = "$body, ${aggiunte[i]}";
+          }
+
           return DatiNotifica(
               "domani qualità dell'aria peggiore a ${p.pos}", body);
         } else {
@@ -152,7 +165,9 @@ class DatiNotifica {
             if (!aumentateDomani.contains(s)) aggiunte.add(s);
           }
           String body = aggiunte.first;
-          if (aggiunte.length > 1) body = "diverse particelle";
+          for (int i = 1; i < aggiunte.length; i++) {
+            body = "$body, ${aggiunte[i]}";
+          }
           return DatiNotifica(
               "domani qualità dell'aria migliore a ${p.pos}", body);
         }
