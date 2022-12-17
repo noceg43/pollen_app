@@ -127,7 +127,7 @@ class _DiarioSchermataState extends State<DiarioSchermata> {
             const Spacer(),
             ConstrainedBox(
               constraints:
-                  const BoxConstraints.tightFor(width: 150, height: 50),
+                  const BoxConstraints.tightFor(width: 170, height: 50),
               child: ElevatedButton.icon(
                 onPressed: (() {
                   // ignore: avoid_print
@@ -139,7 +139,7 @@ class _DiarioSchermataState extends State<DiarioSchermata> {
                 icon: const Icon(Icons.check),
               ),
             ),
-            const SizedBox(height: 100),
+            const SizedBox(height: 30),
           ],
         ),
       ),

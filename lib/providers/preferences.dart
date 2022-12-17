@@ -135,6 +135,19 @@ class Peso {
     return {for (String i in prefs.getKeys()) i: prefs.get(i).toString()};
   }
 
+  static Future<void> eliminaDatiDiario() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    bool i = preferences.getBool("inquinamento")!;
+    bool part = preferences.getBool("particelle")!;
+    List<String> lista = preferences.getStringList("posizione")!;
+
+    await preferences.clear();
+    await UltimaPosizione.salva(
+        Posizione(double.parse(lista[0]), double.parse(lista[1]), lista[2]));
+    await PreferencesNotificaInquinamento.modifica(i);
+    await PreferencesNotificaParticelle.modifica(part);
+  }
+
   static Future<void> elimina() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.clear();

@@ -54,7 +54,8 @@ class _SchermataImpostazioniState extends State<SchermataImpostazioni> {
                       child: const Text('No'),
                     ),
                     TextButton(
-                      onPressed: () => {Peso.elimina(), Navigator.pop(context)},
+                      onPressed: () =>
+                          {Peso.eliminaDatiDiario(), Navigator.pop(context)},
                       child: const Text('Sì, confermo'),
                     ),
                   ],
@@ -110,80 +111,96 @@ class _SchermataImpostazioniState extends State<SchermataImpostazioni> {
               style: TextStyle(color: Colors.green.shade900, fontSize: 15),
             ),
           ),
-          Container(
-            padding: const EdgeInsets.fromLTRB(40, 5, 20, 5),
-            child: Row(
-              children: [
-                Flexible(
-                  flex: 9,
-                  child: Container(
-                    constraints: const BoxConstraints(maxWidth: 400),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "Aumento particelle sensibili",
-                          style: TextStyle(color: Colors.black, fontSize: 16),
-                        ),
-                        Text(
-                          "Massimo una volta al giorno, legate alle interazioni con il diario",
-                          style: TextStyle(
-                              color: Colors.black.withOpacity(0.6),
-                              fontSize: 16),
-                        ),
-                      ],
+          InkWell(
+            onTap: (() {
+              setState(() {
+                part = !part;
+                PreferencesNotificaParticelle.modifica(part);
+              });
+            }),
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(40, 5, 20, 5),
+              child: Row(
+                children: [
+                  Flexible(
+                    flex: 9,
+                    child: Container(
+                      constraints: const BoxConstraints(maxWidth: 400),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Aumento particelle sensibili",
+                            style: TextStyle(color: Colors.black, fontSize: 16),
+                          ),
+                          Text(
+                            "Massimo una volta al giorno, legate alle interazioni con il diario",
+                            style: TextStyle(
+                                color: Colors.black.withOpacity(0.6),
+                                fontSize: 16),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                const Spacer(),
-                Switch(
-                  value: part,
-                  onChanged: ((value) {
-                    setState(() {
-                      part = value;
-                      PreferencesNotificaParticelle.modifica(value);
-                    });
-                  }),
-                )
-              ],
+                  const Spacer(),
+                  Switch(
+                    value: part,
+                    onChanged: ((value) {
+                      setState(() {
+                        part = value;
+                        PreferencesNotificaParticelle.modifica(value);
+                      });
+                    }),
+                  )
+                ],
+              ),
             ),
           ),
-          Container(
-            padding: const EdgeInsets.fromLTRB(40, 5, 20, 5),
-            child: Row(
-              children: [
-                Flexible(
-                  flex: 9,
-                  child: Container(
-                    constraints: const BoxConstraints(maxWidth: 400),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "Qualità aria",
-                          style: TextStyle(color: Colors.black, fontSize: 16),
-                        ),
-                        Text(
-                          "Cambiamenti degli agenti inquinanti nel giorno successivo",
-                          style: TextStyle(
-                              color: Colors.black.withOpacity(0.6),
-                              fontSize: 16),
-                        ),
-                      ],
+          InkWell(
+            onTap: () {
+              setState(() {
+                inq = !inq;
+                PreferencesNotificaInquinamento.modifica(inq);
+              });
+            },
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(40, 5, 20, 5),
+              child: Row(
+                children: [
+                  Flexible(
+                    flex: 9,
+                    child: Container(
+                      constraints: const BoxConstraints(maxWidth: 400),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Qualità aria",
+                            style: TextStyle(color: Colors.black, fontSize: 16),
+                          ),
+                          Text(
+                            "Cambiamenti degli agenti inquinanti nel giorno successivo",
+                            style: TextStyle(
+                                color: Colors.black.withOpacity(0.6),
+                                fontSize: 16),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                const Spacer(),
-                Switch(
-                  value: inq,
-                  onChanged: ((value) {
-                    setState(() {
-                      inq = value;
-                      PreferencesNotificaInquinamento.modifica(value);
-                    });
-                  }),
-                )
-              ],
+                  const Spacer(),
+                  Switch(
+                    value: inq,
+                    onChanged: ((value) {
+                      setState(() {
+                        inq = value;
+                        PreferencesNotificaInquinamento.modifica(value);
+                      });
+                    }),
+                  )
+                ],
+              ),
             ),
           ),
           const Divider(
