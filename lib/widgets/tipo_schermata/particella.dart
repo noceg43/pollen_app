@@ -51,7 +51,7 @@ class ItemParticellaDaTipo extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  width: 50,
+                  width: 40,
                 ),
                 Text(
                   p.valore.toString(),

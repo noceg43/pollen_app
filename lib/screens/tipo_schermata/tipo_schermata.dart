@@ -52,23 +52,25 @@ class TipoSchermata extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Transform.translate(
-                        offset: const Offset(0.0, -60.0),
-                        child: Container(
-                          width: 120,
-                          height: 120,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.2),
-                                spreadRadius: 1,
-                                blurRadius: 3,
-                                offset: const Offset(0, 3),
-                              ),
-                            ],
-                            image: DecorationImage(
-                                image: formTipo.img, fit: BoxFit.fill),
+                      Flexible(
+                        child: Transform.translate(
+                          offset: const Offset(0.0, -60.0),
+                          child: Container(
+                            width: 120,
+                            height: 120,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.2),
+                                  spreadRadius: 1,
+                                  blurRadius: 3,
+                                  offset: const Offset(0, 3),
+                                ),
+                              ],
+                              image: DecorationImage(
+                                  image: formTipo.img, fit: BoxFit.scaleDown),
+                            ),
                           ),
                         ),
                       ),
@@ -86,10 +88,12 @@ class TipoSchermata extends StatelessWidget {
                                             .bodyMedium),
                                     Row(
                                       children: [
-                                        Text(localizzato.pos,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline6),
+                                        Text(
+                                          localizzato.pos,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline6,
+                                        ),
                                         const Icon(Icons.location_on)
                                       ],
                                     ),

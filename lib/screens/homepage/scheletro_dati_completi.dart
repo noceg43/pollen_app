@@ -102,12 +102,21 @@ class SchermataDatiCaricamento extends StatelessWidget {
           actions: [
             IconButton(
                 onPressed: () => {
-                      Navigator.push(
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SchermataSceltaStazione(),
+                        ),
+                        ModalRoute.withName('/'),
+                      )
+/*
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                           builder: (context) => const SchermataSceltaStazione(),
                         ),
                       ),
+                      */
                     },
                 icon: const Icon(Icons.search)),
           ],

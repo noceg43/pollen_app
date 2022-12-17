@@ -11,11 +11,12 @@ class WidgetStazione extends StatelessWidget {
     return ListTile(
       title: Text(s.statenameI),
       onTap: () {
-        Navigator.pushReplacement(
+        Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
               builder: (context) => Selezionata(
                   dataPos: Posizione(s.latitude, s.longitude, s.statenameI))),
+          ModalRoute.withName('/'),
         );
       },
     );

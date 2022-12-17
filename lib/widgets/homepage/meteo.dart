@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:demo_1/utils/format_meteo.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +15,7 @@ class WidgetMeteo extends StatelessWidget {
     return Container(
       color: const Color(0xFFE8F5E9),
       height: 100,
-      width: 205,
+      width: (MediaQuery.of(context).textScaleFactor > 1) ? 260 : 220,
       padding: const EdgeInsets.all(3),
       child: Row(
         children: [
