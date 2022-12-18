@@ -109,9 +109,9 @@ class DatiNotifica {
       for (int i = 1; i < maxOggi.length; i++) {
         aumentati = "$aumentati, ${maxOggi[i].keys.first.nome}";
       }
+      aumentati = "$aumentati in diminuzione a ${p.pos}";
 
-      return DatiNotifica(
-          "domani qualità dell'aria migliore a ${p.pos}", aumentati);
+      return DatiNotifica("domani qualità dell'aria migliore", aumentati);
     }
     // se oggi non c'è inquinamento ma domani sì
     if (oggi.first.nome != "Inquinamento" &&
@@ -123,8 +123,9 @@ class DatiNotifica {
       for (int i = 1; i < maxDomani.length; i++) {
         aumentati = "$aumentati, ${maxDomani[i].keys.first.nome}";
       }
-      return DatiNotifica(
-          "domani qualità dell'aria peggiore a ${p.pos}", aumentati);
+      aumentati = "$aumentati in aumento a ${p.pos}";
+
+      return DatiNotifica("domani qualità dell'aria peggiore", aumentati);
     }
     // sia oggi che domani c'è inquinamento
     if (oggi.first.nome == "Inquinamento" &&
@@ -157,9 +158,9 @@ class DatiNotifica {
           for (int i = 1; i < aggiunte.length; i++) {
             body = "$body, ${aggiunte[i]}";
           }
+          body = "$body in aumento a ${p.pos}";
 
-          return DatiNotifica(
-              "domani qualità dell'aria peggiore a ${p.pos}", body);
+          return DatiNotifica("domani qualità dell'aria peggiore", body);
         } else {
           for (String s in aumentateOggi) {
             if (!aumentateDomani.contains(s)) aggiunte.add(s);
@@ -168,8 +169,8 @@ class DatiNotifica {
           for (int i = 1; i < aggiunte.length; i++) {
             body = "$body, ${aggiunte[i]}";
           }
-          return DatiNotifica(
-              "domani qualità dell'aria migliore a ${p.pos}", body);
+          body = "$body in diminuzione a ${p.pos}";
+          return DatiNotifica("domani qualità dell'aria migliore", body);
         }
       }
     }

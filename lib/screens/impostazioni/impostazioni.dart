@@ -1,6 +1,7 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:demo_1/providers/preferences.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 
 class SchermataImpostazioni extends StatefulWidget {
   const SchermataImpostazioni({super.key});
@@ -81,7 +82,9 @@ class _SchermataImpostazioniState extends State<SchermataImpostazioni> {
           ),
           InkWell(
             onTap: () {
-              AppSettings.openLocationSettings();
+              setState(() {
+                AppSettings.openLocationSettings();
+              });
             },
             child: Container(
               padding: const EdgeInsets.fromLTRB(40, 5, 40, 5),
@@ -92,11 +95,30 @@ class _SchermataImpostazioniState extends State<SchermataImpostazioni> {
                     "Reimposta permesso per posizione",
                     style: TextStyle(color: Colors.black, fontSize: 16),
                   ),
-                  Text(
-                    "Abilitato",
-                    style: TextStyle(
-                        color: Colors.black.withOpacity(0.6), fontSize: 16),
-                  ),
+                  FutureBuilder<LocationPermission>(
+                      future: Geolocator.checkPermission(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          if (snapshot.data == LocationPermission.always ||
+                              snapshot.data == LocationPermission.whileInUse) {
+                            return Text(
+                              "Abilitato",
+                              style: TextStyle(
+                                  color: Colors.black.withOpacity(0.6),
+                                  fontSize: 16),
+                            );
+                          } else {
+                            return Text(
+                              "Disabilitato",
+                              style: TextStyle(
+                                  color: Colors.black.withOpacity(0.6),
+                                  fontSize: 16),
+                            );
+                          }
+                        } else {
+                          return Container();
+                        }
+                      }),
                 ],
               ),
             ),
