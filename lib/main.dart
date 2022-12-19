@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:demo_1/providers/cache.dart';
 import 'package:demo_1/providers/dati_notifica.dart';
 import 'package:demo_1/providers/notifications.dart';
 import 'package:demo_1/providers/position.dart';
@@ -13,6 +14,7 @@ import 'package:json_theme/json_theme.dart';
 //import 'package:notification_channel_manager/notification_channel_manager.dart';
 
 import 'screens/app.dart';
+import 'package:http/http.dart' as http;
 
 void lavoroInquinamento() async {
   //final DateTime now = DateTime.now();
@@ -27,10 +29,13 @@ void lavoroInquinamento() async {
     if (i != null) {
       NotificaInquinamento.instantNotify(i.stampaNomi, i.stampaLivello);
     } else {
-      /*
+      String urlOra = 'http://worldtimeapi.org/api/timezone/Europe/London';
+      //final response = await http.get(Uri.parse(urlMeteo));
+      var file = await GiornalieraCacheManager.instance.getSingleFile(urlOra);
+
       NotificaInquinamento.instantNotify(
-          "tutto normale a ${p.pos}", "confermo tutto normale");
-          */
+          "tutto normale a ${jsonDecode(await file.readAsString())["datetime"]}",
+          "confermo tutto normale");
     }
   }
 }

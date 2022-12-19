@@ -30,7 +30,7 @@ class SchermataDatiCompleti extends StatelessWidget {
             //onLongPress: (() => Peso.elimina()),
             child: IconButton(
                 onPressed: () {
-                  //Peso.stampa(context);
+                  Peso.stampa(context);
                   Navigator.push(
                     context,
                     MaterialPageRoute(

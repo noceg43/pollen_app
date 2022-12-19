@@ -211,6 +211,7 @@ class Tipologia {
   static List<Map<Particella, ValoreDelGiorno>>? massimi(List<Tipologia> t,
       {num soglia = 20}) {
     List<Map<Particella, ValoreDelGiorno>> top = t.first.lista;
+    if (top.isEmpty) return null;
     int valMax = top.first.values.first.gruppoValore;
     if (valMax < soglia) return null;
     List<Map<Particella, ValoreDelGiorno>> ret = [];

@@ -137,10 +137,11 @@ class Peso {
         testo = "$testo $i";
       }
     }
+    print(testo);
     final snackBar = SnackBar(
       content: Text(testo),
     );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    //ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
     List<Peso> pesi = [];
     for (String s in lista) {
