@@ -74,6 +74,22 @@ class DiarioDisponibile {
   }
 }
 
+class PrimaVolta {
+  static Future<void> finitaIntro() async {
+    final preferences = await SharedPreferences.getInstance();
+    preferences.setBool("primavolta", false);
+  }
+
+  static Future<bool> ottieni() async {
+    final preferences = await SharedPreferences.getInstance();
+    if (!preferences.containsKey("primavolta")) {
+      preferences.setBool("primavolta", true);
+      return true;
+    }
+    return preferences.getBool("primavolta")!;
+  }
+}
+
 class Peso {
   double p = 0;
   String codice = "";
@@ -108,9 +124,24 @@ class Peso {
   }
 
   // usare questa
-  static Future<void> aumentaMultipli(Posizione pos, double peso) async {
+  static Future<void> aumentaMultipli(
+      Posizione pos, double peso, BuildContext context) async {
     final preferences = await SharedPreferences.getInstance();
     List lista = await chiAumentare(pos);
+    String testo;
+    if (lista.isEmpty) {
+      testo = "Nessuna particella di livello medio-alta rilevata";
+    } else {
+      testo = "Segnate:";
+      for (String i in lista) {
+        testo = "$testo $i";
+      }
+    }
+    final snackBar = SnackBar(
+      content: Text(testo),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
     List<Peso> pesi = [];
     for (String s in lista) {
       final virgolato = preferences.getDouble(s) ?? 0;
@@ -140,12 +171,13 @@ class Peso {
     bool i = preferences.getBool("inquinamento")!;
     bool part = preferences.getBool("particelle")!;
     List<String> lista = preferences.getStringList("posizione")!;
-
+    bool primaVolta = preferences.getBool("primavolta")!;
     await preferences.clear();
     await UltimaPosizione.salva(
         Posizione(double.parse(lista[0]), double.parse(lista[1]), lista[2]));
     await PreferencesNotificaInquinamento.modifica(i);
     await PreferencesNotificaParticelle.modifica(part);
+    await preferences.setBool("primavolta", primaVolta);
   }
 
   static Future<void> elimina() async {

@@ -132,7 +132,7 @@ class _DiarioSchermataState extends State<DiarioSchermata> {
                 onPressed: (() {
                   // ignore: avoid_print
                   Navigator.pop(context, true);
-                  Peso.aumentaMultipli(widget.pos, calcolaPeso());
+                  Peso.aumentaMultipli(widget.pos, calcolaPeso(), context);
                   DiarioDisponibile.usato();
                 }),
                 label: const Text("Conferma"),

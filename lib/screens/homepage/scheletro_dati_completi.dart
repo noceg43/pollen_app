@@ -27,10 +27,10 @@ class SchermataDatiCompleti extends StatelessWidget {
         appBar: AppBar(
           title: Text(dataPos.pos),
           leading: GestureDetector(
-            onLongPress: (() => Peso.elimina()),
+            //onLongPress: (() => Peso.elimina()),
             child: IconButton(
                 onPressed: () {
-                  Peso.stampa(context);
+                  //Peso.stampa(context);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -90,7 +90,7 @@ class SchermataDatiCaricamento extends StatelessWidget {
         appBar: AppBar(
           leading: IconButton(
               onPressed: () => {
-                    Peso.stampa(context),
+                    //Peso.stampa(context),
                     Navigator.push(
                       context,
                       MaterialPageRoute(

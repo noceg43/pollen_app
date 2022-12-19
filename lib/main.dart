@@ -27,21 +27,27 @@ void lavoroInquinamento() async {
     if (i != null) {
       NotificaInquinamento.instantNotify(i.stampaNomi, i.stampaLivello);
     } else {
+      /*
       NotificaInquinamento.instantNotify(
           "tutto normale a ${p.pos}", "confermo tutto normale");
+          */
     }
   }
 }
 
 Future<void> main() async {
-  // ottenere il tema
   WidgetsFlutterBinding.ensureInitialized();
+  // disabilita rotazione automatica
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+
+  // ottenere il tema
   final themeStr =
       await rootBundle.loadString("assets/theme/appainter_theme.json");
   final themeJson = jsonDecode(themeStr);
   final theme = ThemeDecoder.decodeThemeData(themeJson)!;
 
-  runApp(MyApp(theme: theme));
+  runApp(MyApp(theme: theme, primaVolta: await PrimaVolta.ottieni()));
 
   // elimina i canali
   //NotificationChannelManager.deleteAllChannels();

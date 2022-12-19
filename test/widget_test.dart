@@ -7,6 +7,7 @@
 
 import 'dart:convert';
 
+import 'package:demo_1/providers/preferences.dart';
 import 'package:demo_1/screens/app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,7 +22,10 @@ void main() {
     final themeJson = jsonDecode(themeStr);
     final theme = ThemeDecoder.decodeThemeData(themeJson)!;
 
-    await tester.pumpWidget(MyApp(theme: theme));
+    await tester.pumpWidget(MyApp(
+      theme: theme,
+      primaVolta: await PrimaVolta.ottieni(),
+    ));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
