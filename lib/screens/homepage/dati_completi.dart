@@ -1,8 +1,12 @@
+import 'dart:convert';
+
+import 'package:demo_1/providers/cache.dart';
 import 'package:demo_1/providers/dati_notifica.dart';
 import 'package:demo_1/providers/meteo.dart';
 import 'package:demo_1/providers/notifications.dart';
 import 'package:demo_1/providers/polline.dart';
 import 'package:demo_1/providers/position.dart';
+import 'package:demo_1/providers/preferences.dart';
 import 'package:demo_1/screens/homepage/dati_giornalieri.dart';
 import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
 import 'package:demo_1/utils/format_meteo.dart';
@@ -25,14 +29,36 @@ class DatiCompleti extends StatelessWidget {
     void generaNotifica(List<Tipologia> oggi, List<Tipologia> domani) async {
       DatiNotifica? d = await DatiNotifica.ottieni(dataPos, oggi, domani);
       // il true sarà il check sul se abilitare le notifiche inquinamento
-      if (d != null) {
-        NotificaParticella.instantNotify(d.stampaNomi, d.stampaLivello);
+      if (await PreferencesNotificaParticelle.ottieni()) {
+        if (d != null) {
+          NotificaParticella.instantNotify(d.stampaNomi, d.stampaLivello);
+        } else {
+          String urlOra = 'http://worldtimeapi.org/api/timezone/Europe/London';
+          //final response = await http.get(Uri.parse(urlMeteo));
+          var file =
+              await GiornalieraCacheManager.instance.getSingleFile(urlOra);
+
+          NotificaParticella.instantNotify(
+              "tutto normale a ${jsonDecode(await file.readAsString())["datetime"]}",
+              "confermo tutto normale");
+        }
       }
       DatiNotifica? inq =
-          DatiNotifica.ottieniInquinamento(dataPos, oggi, domani);
+          await DatiNotifica.ottieniInquinamento(dataPos, oggi, domani);
       // il true sarà il check sul se abilitare le notifiche inquinamento
-      if (inq != null) {
-        NotificaInquinamento.instantNotify(inq.stampaNomi, inq.stampaLivello);
+      if (await PreferencesNotificaInquinamento.ottieni()) {
+        if (inq != null) {
+          NotificaInquinamento.instantNotify(inq.stampaNomi, inq.stampaLivello);
+        } else {
+          String urlOra = 'http://worldtimeapi.org/api/timezone/Europe/London';
+          //final response = await http.get(Uri.parse(urlMeteo));
+          var file =
+              await GiornalieraCacheManager.instance.getSingleFile(urlOra);
+
+          NotificaInquinamento.instantNotify(
+              "tutto normale a ${jsonDecode(await file.readAsString())["datetime"]}",
+              "confermo tutto normale");
+        }
       }
     }
 
@@ -58,7 +84,7 @@ class DatiCompleti extends StatelessWidget {
           List<Tipologia> oggi = snapshot.data![2];
           List<Tipologia> domani = snapshot.data![3];
           List<Tipologia> dopoDomani = snapshot.data![4];
-          generaNotifica(oggi, domani);
+          //generaNotifica(oggi, domani);
           return TabBarView(
             children: [
               ListGiornaliera(

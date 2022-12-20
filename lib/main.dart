@@ -23,19 +23,46 @@ void lavoroInquinamento() async {
   Posizione p = await UltimaPosizione.ottieni();
   //print(p.pos);
   //final int isolateId = Isolate.current.hashCode;
-  DatiNotifica? i = DatiNotifica.ottieniInquinamento(
+  DatiNotifica? i = await DatiNotifica.ottieniInquinamento(
       p, await Tipologia.daPosizione(p, 0), await Tipologia.daPosizione(p, 1));
-  if (await PreferencesNotificaInquinamento.ottieni()) {
+
+  if (i != null) {
+    NotificaInquinamento.instantNotify(i.stampaNomi, i.stampaLivello);
+  } else {
+    /*
+    String urlOra = 'http://worldtimeapi.org/api/timezone/Europe/London';
+    //final response = await http.get(Uri.parse(urlMeteo));
+    var file = await GiornalieraCacheManager.instance.getSingleFile(urlOra);
+
+    NotificaInquinamento.instantNotify(
+        "tutto normale a ${jsonDecode(await file.readAsString())["datetime"]}",
+        "confermo tutto normale");
+        */
+  }
+}
+
+void lavoroPolline() async {
+  //final DateTime now = DateTime.now();
+  //print("inizio alle $now");
+
+  Posizione p = await UltimaPosizione.ottieni();
+  //print(p.pos);
+  //final int isolateId = Isolate.current.hashCode;
+  DatiNotifica? i = await DatiNotifica.ottieni(
+      p, await Tipologia.daPosizione(p, 0), await Tipologia.daPosizione(p, 1));
+  if (await PreferencesNotificaParticelle.ottieni()) {
     if (i != null) {
-      NotificaInquinamento.instantNotify(i.stampaNomi, i.stampaLivello);
+      NotificaParticella.instantNotify(i.stampaNomi, i.stampaLivello);
     } else {
+      /*
       String urlOra = 'http://worldtimeapi.org/api/timezone/Europe/London';
       //final response = await http.get(Uri.parse(urlMeteo));
       var file = await GiornalieraCacheManager.instance.getSingleFile(urlOra);
 
-      NotificaInquinamento.instantNotify(
+      NotificaParticella.instantNotify(
           "tutto normale a ${jsonDecode(await file.readAsString())["datetime"]}",
           "confermo tutto normale");
+          */
     }
   }
 }
@@ -97,5 +124,24 @@ Future<void> main() async {
             DateTime.now().day + 1, 19, 0)
         : DateTime(DateTime.now().year, DateTime.now().month,
             DateTime.now().day, 19, 0),
+  );
+
+  await AndroidAlarmManager.periodic(
+    //const Duration(minutes: 20),
+    const Duration(days: 1),
+    exact: true,
+    allowWhileIdle: true,
+    wakeup: true,
+    rescheduleOnReboot: true,
+    2,
+    lavoroPolline,
+    // inviare una notifica ogni giorno a quell'ora
+
+    startAt: (DateTime.now().isAfter(DateTime(DateTime.now().year,
+            DateTime.now().month, DateTime.now().day, 19, 30)))
+        ? DateTime(DateTime.now().year, DateTime.now().month,
+            DateTime.now().day + 1, 19, 30)
+        : DateTime(DateTime.now().year, DateTime.now().month,
+            DateTime.now().day, 19, 30),
   );
 }

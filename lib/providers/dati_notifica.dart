@@ -11,6 +11,8 @@ class DatiNotifica {
 
   static Future<DatiNotifica?> ottieni(
       Posizione p, List<Tipologia> oggi, List<Tipologia> domani) async {
+    if (!(await PreferencesNotificaParticelle.ottieni())) return null;
+
     // copia della lista per poter eseguire operazioni in sicurezza
     List<Tipologia> oggiLocal = [for (Tipologia t in oggi) t];
     List<Tipologia> domaniLocal = [for (Tipologia t in domani) t];
@@ -93,8 +95,9 @@ class DatiNotifica {
         nomi, "Livello ${livello[maxDomani.first.values.first.gruppoValore]!}");
   }
 
-  static DatiNotifica? ottieniInquinamento(
-      Posizione p, List<Tipologia> oggi, List<Tipologia> domani) {
+  static Future<DatiNotifica?> ottieniInquinamento(
+      Posizione p, List<Tipologia> oggi, List<Tipologia> domani) async {
+    if (!(await PreferencesNotificaInquinamento.ottieni())) return null;
     // se non c'è inquinamento
     if (oggi.first.nome != "Inquinamento" &&
         domani.first.nome != "Inquinamento") return null;

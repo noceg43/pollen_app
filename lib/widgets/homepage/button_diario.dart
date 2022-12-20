@@ -38,6 +38,7 @@ class ButtonDiarioState extends State<ButtonDiario> {
                   return Visibility(
                     visible: (!result && !snapshot.data!),
                     child: FloatingActionButton(
+                      tooltip: "Diario",
                       onPressed: (() {
                         (snapshot.hasData) ? {_navigaDiario(context)} : null;
                       }),
