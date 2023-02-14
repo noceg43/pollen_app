@@ -12,7 +12,7 @@ class PerInquinamento {
   late final double latitude;
   late final double longitude;
   late final double generationtimeMs;
-  late final int utcOffsetSeconds;
+  late final num utcOffsetSeconds;
   late final String timezone;
   late final String timezoneAbbreviation;
   late final HourlyUnits hourlyUnits;
@@ -107,13 +107,13 @@ class HourlyUnits {
 
 class Hourly {
   late final List<String> time;
-  late final List<int> part;
+  late final List<num> part;
 
   Hourly({required this.time, required this.part});
 
   Hourly.fromJson(Map<String, dynamic> json, String part) {
     time = json['time'].cast<String>();
-    this.part = json[part].cast<int>();
+    this.part = json[part].cast<num>();
   }
 
   Map<String, dynamic> toJson() {

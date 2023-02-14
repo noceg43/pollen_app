@@ -8,7 +8,7 @@ class Inquinamento {
   late final double latitude;
   late final double longitude;
   late final double generationtimeMs;
-  late final int utcOffsetSeconds;
+  late final num utcOffsetSeconds;
   late final String timezone;
   late final String timezoneAbbreviation;
   late final HourlyUnits hourlyUnits;
@@ -99,8 +99,8 @@ class Inquinamento {
 
 class ParticellaInquinante {
   String tipo = "";
-  int val;
-  int lim;
+  num val;
+  num lim;
   bool superato = false;
   ParticellaInquinante(this.tipo, this.val, this.lim) {
     superato = (val >= lim);
@@ -154,12 +154,12 @@ class HourlyUnits {
 
 class Hourly {
   late final List<String> time;
-  late final List<int> pm10;
-  late final List<int> pm25;
-  late final List<int> carbonMonoxide;
-  late final List<int> nitrogenDioxide;
-  late final List<int> sulphurDioxide;
-  late final List<int> ozone;
+  late final List<num> pm10;
+  late final List<num> pm25;
+  late final List<num> carbonMonoxide;
+  late final List<num> nitrogenDioxide;
+  late final List<num> sulphurDioxide;
+  late final List<num> ozone;
 
   Hourly(
       {required this.time,
@@ -172,12 +172,12 @@ class Hourly {
 
   Hourly.fromJson(Map<String, dynamic> json) {
     time = json['time'].cast<String>();
-    pm10 = json['pm10'].cast<int>();
-    pm25 = json['pm2_5'].cast<int>();
-    carbonMonoxide = json['carbon_monoxide'].cast<int>();
-    nitrogenDioxide = json['nitrogen_dioxide'].cast<int>();
-    sulphurDioxide = json['sulphur_dioxide'].cast<int>();
-    ozone = json['ozone'].cast<int>();
+    pm10 = json['pm10'].cast<num>();
+    pm25 = json['pm2_5'].cast<num>();
+    carbonMonoxide = json['carbon_monoxide'].cast<num>();
+    nitrogenDioxide = json['nitrogen_dioxide'].cast<num>();
+    sulphurDioxide = json['sulphur_dioxide'].cast<num>();
+    ozone = json['ozone'].cast<num>();
   }
 
   Map<String, dynamic> toJson() {

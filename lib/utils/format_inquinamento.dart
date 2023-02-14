@@ -7,7 +7,7 @@ import 'package:demo_1/providers/inquinamento.dart';
 
 class FormatInquinamento {
   String tipo = "";
-  int val = 0;
+  num val = 0;
   int valoreColore = 0;
   FormatInquinamento(ParticellaInquinante p) {
     tipo = p.tipo;

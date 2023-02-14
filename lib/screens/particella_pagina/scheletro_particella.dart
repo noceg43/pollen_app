@@ -57,8 +57,7 @@ class ScheletroParticella extends StatelessWidget {
               );
             } else {
               if (snapshot.hasError) {
-                //print(snapshot.error);
-                const Text("errore");
+                return Text("errore: ${snapshot.error}");
               }
               return Container();
             }
