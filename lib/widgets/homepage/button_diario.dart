@@ -14,13 +14,14 @@ class ButtonDiarioState extends State<ButtonDiario> {
   bool result = false;
   _navigaDiario(BuildContext context) async {
     result = await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => DiarioSchermata(
-          pos: widget.dataPos,
-        ),
-      ),
-    );
+          context,
+          MaterialPageRoute(
+            builder: (context) => DiarioSchermata(
+              pos: widget.dataPos,
+            ),
+          ),
+        ) ??
+        false;
 
     setState(() {});
   }
