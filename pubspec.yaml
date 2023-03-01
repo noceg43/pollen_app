@@ -52,7 +52,7 @@ dependencies:
   auto_size_text: ^3.0.0
   introduction_screen: ^3.1.1
   url_launcher: ^6.1.7
-
+  flutter_secure_storage: ^8.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

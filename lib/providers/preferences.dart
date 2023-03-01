@@ -4,18 +4,33 @@ import 'package:demo_1/providers/position.dart';
 import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class UltimaPosizione {
   static Future<void> salva(Posizione p) async {
+    /*
     final preferences = await SharedPreferences.getInstance();
     preferences.setStringList(
         "posizione", [p.lat.toString(), p.lon.toString(), p.pos]);
+    */
+    const storage = FlutterSecureStorage();
+    await storage.write(key: 'posizione', value: p.pos);
+    await storage.write(key: 'latitudine', value: p.lat.toString());
+    await storage.write(key: 'longitudine', value: p.lon.toString());
   }
 
   static Future<Posizione> ottieni() async {
+    /*
     final preferences = await SharedPreferences.getInstance();
     List<String> lista = preferences.getStringList("posizione")!;
     return Posizione(double.parse(lista[0]), double.parse(lista[1]), lista[2]);
+    */
+    const storage = FlutterSecureStorage();
+    String? pos = await storage.read(key: 'posizione');
+    String? lat = await storage.read(key: 'latitudine');
+    String? lon = await storage.read(key: 'longitudine');
+
+    return Posizione(double.parse(lat!), double.parse(lon!), pos!);
   }
 }
 
@@ -95,12 +110,12 @@ class Peso {
   String codice = "";
 
   static Future<List<Peso>> getContatore(Posizione pos) async {
-    final preferences = await SharedPreferences.getInstance();
+    const storage = FlutterSecureStorage();
     List lista = await chiAumentare(pos);
     List<Peso> pesi = [];
     for (String s in lista) {
-      final virgolato = preferences.getDouble(s) ?? 0;
-      pesi.add(Peso(s, virgolato));
+      final virgolato = await storage.read(key: s) ?? '0';
+      pesi.add(Peso(s, double.parse(virgolato)));
     }
     return pesi;
   }
@@ -118,15 +133,15 @@ class Peso {
 
   Peso(this.codice, this.p);
   Future<void> aumentaSingolo(double peso) async {
-    final prefs = await SharedPreferences.getInstance();
+    const storage = FlutterSecureStorage();
     p = p + peso;
-    await prefs.setDouble(codice, p);
+    await storage.write(key: codice, value: p.toString());
   }
 
   // usare questa
   static Future<void> aumentaMultipli(
       Posizione pos, double peso, BuildContext context) async {
-    final preferences = await SharedPreferences.getInstance();
+    const storage = FlutterSecureStorage();
     List lista = await chiAumentare(pos);
     String testo;
     if (lista.isEmpty) {
@@ -145,8 +160,8 @@ class Peso {
 
     List<Peso> pesi = [];
     for (String s in lista) {
-      final virgolato = preferences.getDouble(s) ?? 0;
-      pesi.add(Peso(s, virgolato));
+      final virgolato = await storage.read(key: s) ?? '0';
+      pesi.add(Peso(s, double.parse(virgolato)));
     }
 
     for (Peso p in pesi) {
@@ -163,7 +178,9 @@ class Peso {
       }.toString()),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
+    const storage = FlutterSecureStorage();
+    Map<String, String> valoricriptati = await storage.readAll();
+    print(valoricriptati);
     return {for (String i in prefs.getKeys()) i: prefs.get(i).toString()};
   }
 
@@ -171,14 +188,15 @@ class Peso {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     bool i = preferences.getBool("inquinamento")!;
     bool part = preferences.getBool("particelle")!;
-    List<String> lista = preferences.getStringList("posizione")!;
+    Posizione p = await UltimaPosizione.ottieni();
     bool primaVolta = preferences.getBool("primavolta")!;
     await preferences.clear();
-    await UltimaPosizione.salva(
-        Posizione(double.parse(lista[0]), double.parse(lista[1]), lista[2]));
     await PreferencesNotificaInquinamento.modifica(i);
     await PreferencesNotificaParticelle.modifica(part);
     await preferences.setBool("primavolta", primaVolta);
+    const storage = FlutterSecureStorage();
+    storage.deleteAll();
+    await UltimaPosizione.salva(p);
   }
 
   static Future<void> elimina() async {
@@ -187,7 +205,7 @@ class Peso {
   }
 
   static Future<double> getPeso(String cod) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getDouble(cod) ?? 0;
+    const storage = FlutterSecureStorage();
+    return double.parse(await storage.read(key: cod) ?? '0');
   }
 }
