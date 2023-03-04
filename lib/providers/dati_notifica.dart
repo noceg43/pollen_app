@@ -28,8 +28,13 @@ class DatiNotifica {
 
     normalizza(oggiLocal);
     normalizza(domaniLocal);
-    // dopo aver normalizzato si possono aggiungere i pesi
-    // AGGIUNGERE I PESI, pensarci in seguito ma i pesi andrebbero messi nell'ordinamento della tipologia
+    // ordinare le tipologie in base ai pesi in questa fase
+    // ORDINA LE PARTICELLE DELLA TIPOLOGIA TOP,                                AGGIUNGERE I PESI
+    oggiLocal.first.lista.sort(((a, b) =>
+        b.values.first.gruppoValore.compareTo(a.values.first.gruppoValore)));
+    domaniLocal.first.lista.sort(((a, b) =>
+        b.values.first.gruppoValore.compareTo(a.values.first.gruppoValore)));
+
     bool checkLivelliMedioAlto(List<Tipologia> tList) {
       if (tList.first.lista.first.values.first.gruppoValore >= 2) return true;
       return false;
@@ -38,27 +43,43 @@ class DatiNotifica {
     if (!(checkLivelliMedioAlto(oggiLocal) ||
         checkLivelliMedioAlto(domaniLocal))) return null;
 
-    List<Particella?> modifiche(Tipologia t1, Tipologia t2) {
-      var setOggi = <Particella?>{
+    List<Particella> modifiche(Tipologia t1, Tipologia t2, bool diminuisce) {
+      Map<Particella, num> partOggi = {
         for (Map<Particella, ValoreDelGiorno> el in t1.lista)
-          el.values.first.gruppoValore >= 2 ? el.keys.first : null
+          el.keys.first: el.values.first.gruppoValore
       };
-      setOggi.removeWhere((e) => e == null);
-      var setDomani = <Particella?>{
+      Map<Particella, num> partDomani = {
         for (Map<Particella, ValoreDelGiorno> el in t2.lista)
-          el.values.first.gruppoValore >= 2 ? el.keys.first : null
+          el.keys.first: el.values.first.gruppoValore
       };
-      setDomani.removeWhere((e) => e == null);
+      Set<Particella> ret = {};
+      if (diminuisce) {
+        for (Particella p in partOggi.keys) {
+          if ((partDomani.containsKey(p) ? partDomani[p] : 0)! < partOggi[p]!) {
+            ret.add(p);
+          }
+        }
+      } else {
+        for (Particella p in partDomani.keys) {
+          if ((partOggi.containsKey(p) ? partOggi[p] : 0)! < partDomani[p]!) {
+            ret.add(p);
+          }
+        }
+      }
 
-      return setOggi.difference(setDomani).toList();
+      /*
+      for (Particella p in partDomani.keys) {
+        if (partOggi[p] != partDomani[p]) {
+          ret.add(p);
+        }
+      }
+      */
+      print(partOggi);
+      print(partDomani);
+      return ret.toList();
     }
 
-    // ORDINA LE PARTICELLE DELLA TIPOLOGIA TOP,                                AGGIUNGERE I PESI
-    oggiLocal.first.lista.sort(((a, b) =>
-        b.values.first.gruppoValore.compareTo(a.values.first.gruppoValore)));
-    domaniLocal.first.lista.sort(((a, b) =>
-        b.values.first.gruppoValore.compareTo(a.values.first.gruppoValore)));
-
+    /*
     // IMPLEMENTAZIONE CHE RESTITUISCE IL VALORE MA COMPLICATO DA GESTIRE
     if (oggiLocal.first.lista.first.values.first.gruppoValore >
         domaniLocal.first.lista.first.values.first.gruppoValore) {
@@ -72,14 +93,23 @@ class DatiNotifica {
         }
       }
     }
-
+    */
     //IMPLEMENTAZIONE CON "DIMINUISCE"
     if (oggiLocal.first.lista.first.values.first.gruppoValore >
         domaniLocal.first.lista.first.values.first.gruppoValore) {
-      List<Particella?> mod = modifiche(oggiLocal.first, domaniLocal.first);
+      List<Particella?> mod =
+          modifiche(oggiLocal.first, domaniLocal.first, true);
+      print(mod);
       return DatiNotifica(mod.toString(), "DIMINUZIONE");
     }
-
+    //IMPLEMENTAZIONE CON "AUMENTO"
+    if (oggiLocal.first.lista.first.values.first.gruppoValore <
+        domaniLocal.first.lista.first.values.first.gruppoValore) {
+      List<Particella?> mod =
+          modifiche(oggiLocal.first, domaniLocal.first, false);
+      print(mod);
+      return DatiNotifica(mod.toString(), "AUMENTO");
+    }
     //print(modifiche(oggiLocal.first, domaniLocal.first));
     return DatiNotifica("prova", "provo");
   }
