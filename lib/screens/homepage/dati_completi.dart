@@ -62,6 +62,19 @@ class DatiCompleti extends StatelessWidget {
       }
     }
 
+    dynamic stampaNotifica() async {
+      DatiNotifica? dataTot = await DatiNotifica.ottieni(
+          dataPos,
+          await Tipologia.daPosizione(dataPos, 0),
+          await Tipologia.daPosizione(dataPos, 1));
+      print(dataTot ?? "nessuna notifica");
+      DatiNotifica? dataInq = await DatiNotifica.ottieniInquinamento(
+          dataPos,
+          await Tipologia.daPosizione(dataPos, 0),
+          await Tipologia.daPosizione(dataPos, 1));
+      print(dataInq ?? "nessuna notifica");
+    }
+
     return FutureBuilder<List<dynamic>>(
       future: Future.wait(
         [
@@ -69,7 +82,8 @@ class DatiCompleti extends StatelessWidget {
           Stazione.trovaStaz(dataPos),
           Tipologia.daPosizione(dataPos, 0),
           Tipologia.daPosizione(dataPos, 1),
-          Tipologia.daPosizione(dataPos, 2)
+          Tipologia.daPosizione(dataPos, 2),
+          stampaNotifica()
         ],
       ),
       builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {

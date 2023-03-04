@@ -11,6 +11,81 @@ class DatiNotifica {
 
   static Future<DatiNotifica?> ottieni(
       Posizione p, List<Tipologia> oggi, List<Tipologia> domani) async {
+    // copia della lista per poter eseguire operazioni in sicurezza
+    List<Tipologia> oggiLocal = [for (Tipologia t in oggi) t];
+    List<Tipologia> domaniLocal = [for (Tipologia t in domani) t];
+
+    void normalizza(List<Tipologia> tList) {
+      for (Tipologia t in tList) {
+        for (Map<Particella, ValoreDelGiorno> el in t.lista) {
+          if (el.values.first.gruppoValore >= 20) {
+            el.values.first.gruppoValore =
+                (el.values.first.gruppoValore / 10).round();
+          }
+        }
+      }
+    }
+
+    normalizza(oggiLocal);
+    normalizza(domaniLocal);
+    // dopo aver normalizzato si possono aggiungere i pesi
+    // AGGIUNGERE I PESI, pensarci in seguito ma i pesi andrebbero messi nell'ordinamento della tipologia
+    bool checkLivelliMedioAlto(List<Tipologia> tList) {
+      if (tList.first.lista.first.values.first.gruppoValore >= 2) return true;
+      return false;
+    }
+
+    if (!(checkLivelliMedioAlto(oggiLocal) ||
+        checkLivelliMedioAlto(domaniLocal))) return null;
+
+    List<Particella?> modifiche(Tipologia t1, Tipologia t2) {
+      var setOggi = <Particella?>{
+        for (Map<Particella, ValoreDelGiorno> el in t1.lista)
+          el.values.first.gruppoValore >= 2 ? el.keys.first : null
+      };
+      setOggi.removeWhere((e) => e == null);
+      var setDomani = <Particella?>{
+        for (Map<Particella, ValoreDelGiorno> el in t2.lista)
+          el.values.first.gruppoValore >= 2 ? el.keys.first : null
+      };
+      setDomani.removeWhere((e) => e == null);
+
+      return setOggi.difference(setDomani).toList();
+    }
+
+    // ORDINA LE PARTICELLE DELLA TIPOLOGIA TOP,                                AGGIUNGERE I PESI
+    oggiLocal.first.lista.sort(((a, b) =>
+        b.values.first.gruppoValore.compareTo(a.values.first.gruppoValore)));
+    domaniLocal.first.lista.sort(((a, b) =>
+        b.values.first.gruppoValore.compareTo(a.values.first.gruppoValore)));
+
+    // IMPLEMENTAZIONE CHE RESTITUISCE IL VALORE MA COMPLICATO DA GESTIRE
+    if (oggiLocal.first.lista.first.values.first.gruppoValore >
+        domaniLocal.first.lista.first.values.first.gruppoValore) {
+      List<Particella?> mod = modifiche(oggiLocal.first, domaniLocal.first);
+      print(mod);
+      for (Particella? p in mod) {
+        for (Map<Particella, ValoreDelGiorno> el in domaniLocal.first.lista) {
+          if (el.keys.first == p) {
+            print(el.values.first.gruppoValore);
+          }
+        }
+      }
+    }
+
+    //IMPLEMENTAZIONE CON "DIMINUISCE"
+    if (oggiLocal.first.lista.first.values.first.gruppoValore >
+        domaniLocal.first.lista.first.values.first.gruppoValore) {
+      List<Particella?> mod = modifiche(oggiLocal.first, domaniLocal.first);
+      return DatiNotifica(mod.toString(), "DIMINUZIONE");
+    }
+
+    //print(modifiche(oggiLocal.first, domaniLocal.first));
+    return DatiNotifica("prova", "provo");
+  }
+
+  static Future<DatiNotifica?> ottieniVecchio(
+      Posizione p, List<Tipologia> oggi, List<Tipologia> domani) async {
     if (!(await PreferencesNotificaParticelle.ottieni())) return null;
 
     // copia della lista per poter eseguire operazioni in sicurezza
@@ -46,10 +121,12 @@ class DatiNotifica {
       //                                                                        aggiungere il peso
       //
       // quelli che aggiungendo il peso non arrivano a 2 escluderli
+      /*
       for (Map<Particella, num> p in ret) {
         num peso = await Peso.getPeso(p.keys.first.nome);
         p.updateAll((key, value) => value + peso);
       }
+      */
       ret.removeWhere((e) => e.values.first < 2);
       return ret;
     }
@@ -90,7 +167,7 @@ class DatiNotifica {
     }
     nomi = "$nomi a ${p.pos}";
     Map<int, String> livello = {1: "basso", 20: "medio", 30: "alto"};
-    print(maxDomani.first.values.first.gruppoValore);
+    //print(maxDomani.first.values.first.gruppoValore);
     return DatiNotifica(
         nomi, "Livello ${livello[maxDomani.first.values.first.gruppoValore]!}");
   }
@@ -178,5 +255,10 @@ class DatiNotifica {
       }
     }
     return null;
+  }
+
+  @override
+  String toString() {
+    return "$stampaNomi $stampaLivello";
   }
 }

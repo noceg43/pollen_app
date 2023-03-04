@@ -69,9 +69,18 @@ class Particella {
   }
 
   @override
+  bool operator ==(Object other) =>
+      other is Particella &&
+      other.runtimeType == runtimeType &&
+      other.nome == nome;
+
+  @override
   String toString() {
     return nome;
   }
+
+  @override
+  int get hashCode => nome.hashCode;
 }
 
 class ValoreDelGiorno {
@@ -116,7 +125,7 @@ class Tipologia {
   String nome = "";
   late Posizione pos;
 
-  Tipologia._(this.lista, this.nome, this.pos);
+  Tipologia(this.lista, this.nome, this.pos);
 
   //                                                                            da Posizione e offset del giorno
   //                                                                            ottiene lista ordinata di tipologie
@@ -135,27 +144,27 @@ class Tipologia {
     List<ParticellaInquinante> listaInq = inq.giornaliero(giorno);
 
     // creare istanze Tipologia
-    Tipologia a = Tipologia._([
+    Tipologia a = Tipologia([
       for (Particella p in Particella.daPolline(alberi.keys.toList(), "Alberi"))
         {p: ValoreDelGiorno.daPolline(alberi, giorno)[p.nome]!}
     ], "Alberi", p);
-    Tipologia e = Tipologia._([
+    Tipologia e = Tipologia([
       for (Particella p in Particella.daPolline(erbe.keys.toList(), "Erbe"))
         {p: ValoreDelGiorno.daPolline(erbe, giorno)[p.nome]!}
     ], "Erbe", p);
-    Tipologia s = Tipologia._([
+    Tipologia s = Tipologia([
       for (Particella p in Particella.daPolline(spore.keys.toList(), "Spore"))
         {p: ValoreDelGiorno.daPolline(spore, giorno)[p.nome]!}
     ], "Spore", p);
-    Tipologia i = Tipologia._([
+    Tipologia i = Tipologia([
       for (Particella p in Particella.daInquinamento(listaInq))
         {p: ValoreDelGiorno.daInquinamento(listaInq, giorno)[p.nome]!}
     ], "Inquinamento", p);
     // ordinarle internamente per particella
-    a._ordina();
-    e._ordina();
-    s._ordina();
-    i._ordina();
+    a.ordina();
+    e.ordina();
+    s.ordina();
+    i.ordina();
     List<Tipologia> ret = [a, e, s, i];
     // ordinare le istanze di Tipologia
     ret.sort(((a, b) => b.sommaValori().compareTo(a.sommaValori())));
@@ -163,7 +172,7 @@ class Tipologia {
     return ret;
   }
 
-  void _ordina() {
+  void ordina() {
     lista.sort(((a, b) =>
         b.values.first.gruppoValore.compareTo(a.values.first.gruppoValore)));
   }
