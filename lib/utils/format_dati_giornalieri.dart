@@ -26,8 +26,11 @@ class FormatTipoGiornaliero {
     };
     tipo = data.nome;
     int valoreMedio = data.mediaNuova();
-    if (valoreMedio < 20 && valoreMedio > 1) valoreMedio = 20;
-    if (valoreMedio < 30 && valoreMedio > 20) valoreMedio = 30;
+    if (valoreMedio <= 14 && valoreMedio > 1) {
+      valoreMedio = 20;
+    } else if (valoreMedio < 30 && valoreMedio > 14) {
+      valoreMedio = 30;
+    }
     livello = livelli[valoreMedio]!;
     col = livColori[valoreMedio]!;
     img = AssetImage('assets/images/${tipo.toLowerCase()}.png');

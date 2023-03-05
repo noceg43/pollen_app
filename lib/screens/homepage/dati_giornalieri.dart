@@ -30,7 +30,6 @@ class ListGiornaliera extends StatelessWidget {
   Widget build(BuildContext context) {
     // prende la prima tipologia e la formatta (ottiene i dati da rappresentare)
     FormatTipoGiornaliero formatTop = FormatTipoGiornaliero(tipologie.first);
-
     return RefreshIndicator(
       onRefresh: () async {
         update();

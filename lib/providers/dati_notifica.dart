@@ -55,25 +55,19 @@ class DatiNotifica {
       Set<Particella> ret = {};
       if (diminuisce) {
         for (Particella p in partOggi.keys) {
-          if ((partDomani.containsKey(p) ? partDomani[p] : 0)! < partOggi[p]!) {
+          if (partOggi[p]! >= 2 &&
+              (partDomani.containsKey(p) ? partDomani[p] : 0)! < partOggi[p]!) {
             ret.add(p);
           }
         }
       } else {
         for (Particella p in partDomani.keys) {
-          if ((partOggi.containsKey(p) ? partOggi[p] : 0)! < partDomani[p]!) {
+          if (partDomani[p]! >= 2 &&
+              (partOggi.containsKey(p) ? partOggi[p] : 0)! < partDomani[p]!) {
             ret.add(p);
           }
         }
       }
-
-      /*
-      for (Particella p in partDomani.keys) {
-        if (partOggi[p] != partDomani[p]) {
-          ret.add(p);
-        }
-      }
-      */
       print(partOggi);
       print(partDomani);
       return ret.toList();
@@ -101,17 +95,15 @@ class DatiNotifica {
           modifiche(oggiLocal.first, domaniLocal.first, true);
       print(mod);
       return DatiNotifica(mod.toString(), "DIMINUZIONE");
-    }
+    } else
     //IMPLEMENTAZIONE CON "AUMENTO"
-    if (oggiLocal.first.lista.first.values.first.gruppoValore <
-        domaniLocal.first.lista.first.values.first.gruppoValore) {
+    {
       List<Particella?> mod =
           modifiche(oggiLocal.first, domaniLocal.first, false);
       print(mod);
+      if (mod.isEmpty) return null;
       return DatiNotifica(mod.toString(), "AUMENTO");
     }
-    //print(modifiche(oggiLocal.first, domaniLocal.first));
-    return DatiNotifica("prova", "provo");
   }
 
   static Future<DatiNotifica?> ottieniVecchio(
