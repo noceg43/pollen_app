@@ -134,8 +134,8 @@ void main() async {
       List<Tipologia> totDomani = insiemeOrdinate(sDomani, eDomani);
 
       DatiNotifica? dati = await DatiNotifica.ottieni(p, totOggi, totDomani);
-      expect(dati!.stampaNomi, "[rossa]");
-      expect(dati.stampaLivello, "AUMENTO");
+      expect(dati!.particelle, "[rossa]");
+      expect(dati.valore, "AUMENTO");
     });
 
     test('ASSENTE-ALTO', () async {
@@ -168,8 +168,8 @@ void main() async {
       List<Tipologia> totDomani = insiemeOrdinate(sDomani, eDomani);
 
       DatiNotifica? dati = await DatiNotifica.ottieni(p, totOggi, totDomani);
-      expect(dati!.stampaNomi, "[rossa]");
-      expect(dati.stampaLivello, "AUMENTO");
+      expect(dati!.particelle, "[rossa]");
+      expect(dati.valore, "AUMENTO");
     });
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -271,8 +271,8 @@ void main() async {
       List<Tipologia> totDomani = insiemeOrdinate(sDomani, eDomani);
 
       DatiNotifica? dati = await DatiNotifica.ottieni(p, totOggi, totDomani);
-      expect(dati!.stampaNomi, "[rossa]");
-      expect(dati.stampaLivello, "AUMENTO");
+      expect(dati!.particelle, "[rossa]");
+      expect(dati.valore, "AUMENTO");
     });
 
     test('BASSO-ALTO', () async {
@@ -305,8 +305,8 @@ void main() async {
       List<Tipologia> totDomani = insiemeOrdinate(sDomani, eDomani);
 
       DatiNotifica? dati = await DatiNotifica.ottieni(p, totOggi, totDomani);
-      expect(dati!.stampaNomi, "[rossa]");
-      expect(dati.stampaLivello, "AUMENTO");
+      expect(dati!.particelle, "[rossa]");
+      expect(dati.valore, "AUMENTO");
     });
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -342,8 +342,8 @@ void main() async {
       List<Tipologia> totDomani = insiemeOrdinate(sDomani, eDomani);
 
       DatiNotifica? dati = await DatiNotifica.ottieni(p, totOggi, totDomani);
-      expect(dati!.stampaNomi, "[rossa]");
-      expect(dati.stampaLivello, "DIMINUZIONE");
+      expect(dati!.particelle, "[rossa]");
+      expect(dati.valore, "DIMINUZIONE");
     });
 
     test('MEDIO-BASSO', () async {
@@ -376,8 +376,8 @@ void main() async {
       List<Tipologia> totDomani = insiemeOrdinate(sDomani, eDomani);
 
       DatiNotifica? dati = await DatiNotifica.ottieni(p, totOggi, totDomani);
-      expect(dati!.stampaNomi, "[rossa]");
-      expect(dati.stampaLivello, "DIMINUZIONE");
+      expect(dati!.particelle, "[rossa]");
+      expect(dati.valore, "DIMINUZIONE");
     });
 
     test('MEDIO-MEDIO', () async {
@@ -410,8 +410,8 @@ void main() async {
       List<Tipologia> totDomani = insiemeOrdinate(sDomani, eDomani);
 
       DatiNotifica? dati = await DatiNotifica.ottieni(p, totOggi, totDomani);
-      expect(dati!.stampaNomi, "[verde]");
-      expect(dati.stampaLivello, "AUMENTO");
+      expect(dati!.particelle, "[verde]");
+      expect(dati.valore, "AUMENTO");
     });
 
     test('MEDIO-ALTO', () async {
@@ -444,8 +444,8 @@ void main() async {
       List<Tipologia> totDomani = insiemeOrdinate(sDomani, eDomani);
 
       DatiNotifica? dati = await DatiNotifica.ottieni(p, totOggi, totDomani);
-      expect(dati!.stampaNomi, "[rossa]");
-      expect(dati.stampaLivello, "AUMENTO");
+      expect(dati!.particelle, "[rossa]");
+      expect(dati.valore, "AUMENTO");
     });
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -481,8 +481,8 @@ void main() async {
       List<Tipologia> totDomani = insiemeOrdinate(sDomani, eDomani);
 
       DatiNotifica? dati = await DatiNotifica.ottieni(p, totOggi, totDomani);
-      expect(dati!.stampaNomi, "[rossa]");
-      expect(dati.stampaLivello, "DIMINUZIONE");
+      expect(dati!.particelle, "[rossa]");
+      expect(dati.valore, "DIMINUZIONE");
     });
 
     test('ALTO-BASSO', () async {
@@ -515,8 +515,8 @@ void main() async {
       List<Tipologia> totDomani = insiemeOrdinate(sDomani, eDomani);
 
       DatiNotifica? dati = await DatiNotifica.ottieni(p, totOggi, totDomani);
-      expect(dati!.stampaNomi, "[rossa]");
-      expect(dati.stampaLivello, "DIMINUZIONE");
+      expect(dati!.particelle, "[rossa]");
+      expect(dati.valore, "DIMINUZIONE");
     });
 
     test('ALTO-MEDIO', () async {
@@ -549,8 +549,8 @@ void main() async {
       List<Tipologia> totDomani = insiemeOrdinate(sDomani, eDomani);
 
       DatiNotifica? dati = await DatiNotifica.ottieni(p, totOggi, totDomani);
-      expect(dati!.stampaNomi, "[rossa]");
-      expect(dati.stampaLivello, "DIMINUZIONE");
+      expect(dati!.particelle, "[rossa]");
+      expect(dati.valore, "DIMINUZIONE");
     });
 
     test('ALTO-ALTO', () async {
@@ -583,8 +583,8 @@ void main() async {
       List<Tipologia> totDomani = insiemeOrdinate(sDomani, eDomani);
 
       DatiNotifica? dati = await DatiNotifica.ottieni(p, totOggi, totDomani);
-      expect(dati!.stampaNomi, "[verde]");
-      expect(dati.stampaLivello, "AUMENTO");
+      expect(dati!.particelle, "[verde]");
+      expect(dati.valore, "AUMENTO");
     });
   });
 
@@ -688,8 +688,8 @@ void main() async {
       List<Tipologia> totDomani = insiemeOrdinate(sDomani, eDomani);
 
       DatiNotifica? dati = await DatiNotifica.ottieni(p, totOggi, totDomani);
-      expect(dati!.stampaNomi, "[rossa]");
-      expect(dati.stampaLivello, "AUMENTO");
+      expect(dati!.particelle, "[rossa]");
+      expect(dati.valore, "AUMENTO");
     });
 
     test('ASSENTE-ALTO', () async {
@@ -722,8 +722,8 @@ void main() async {
       List<Tipologia> totDomani = insiemeOrdinate(sDomani, eDomani);
 
       DatiNotifica? dati = await DatiNotifica.ottieni(p, totOggi, totDomani);
-      expect(dati!.stampaNomi, "[rossa]");
-      expect(dati.stampaLivello, "AUMENTO");
+      expect(dati!.particelle, "[rossa]");
+      expect(dati.valore, "AUMENTO");
     });
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -825,8 +825,8 @@ void main() async {
       List<Tipologia> totDomani = insiemeOrdinate(sDomani, eDomani);
 
       DatiNotifica? dati = await DatiNotifica.ottieni(p, totOggi, totDomani);
-      expect(dati!.stampaNomi, "[grigia]");
-      expect(dati.stampaLivello, "AUMENTO");
+      expect(dati!.particelle, "[grigia]");
+      expect(dati.valore, "AUMENTO");
     });
 
     test('BASSO-ALTO', () async {
@@ -859,8 +859,8 @@ void main() async {
       List<Tipologia> totDomani = insiemeOrdinate(sDomani, eDomani);
 
       DatiNotifica? dati = await DatiNotifica.ottieni(p, totOggi, totDomani);
-      expect(dati!.stampaNomi, "[grigia]");
-      expect(dati.stampaLivello, "AUMENTO");
+      expect(dati!.particelle, "[grigia]");
+      expect(dati.valore, "AUMENTO");
     });
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -896,8 +896,8 @@ void main() async {
       List<Tipologia> totDomani = insiemeOrdinate(sDomani, eDomani);
 
       DatiNotifica? dati = await DatiNotifica.ottieni(p, totOggi, totDomani);
-      expect(dati!.stampaNomi, "[rossa]");
-      expect(dati.stampaLivello, "DIMINUZIONE");
+      expect(dati!.particelle, "[rossa]");
+      expect(dati.valore, "DIMINUZIONE");
     });
 
     test('MEDIO-BASSO', () async {
@@ -930,8 +930,8 @@ void main() async {
       List<Tipologia> totDomani = insiemeOrdinate(sDomani, eDomani);
 
       DatiNotifica? dati = await DatiNotifica.ottieni(p, totOggi, totDomani);
-      expect(dati!.stampaNomi, "[rossa]");
-      expect(dati.stampaLivello, "DIMINUZIONE");
+      expect(dati!.particelle, "[rossa]");
+      expect(dati.valore, "DIMINUZIONE");
     });
 
     test('MEDIO-MEDIO', () async {
@@ -964,8 +964,8 @@ void main() async {
       List<Tipologia> totDomani = insiemeOrdinate(sDomani, eDomani);
 
       DatiNotifica? dati = await DatiNotifica.ottieni(p, totOggi, totDomani);
-      expect(dati!.stampaNomi, "[grigia]");
-      expect(dati.stampaLivello, "AUMENTO");
+      expect(dati!.particelle, "[grigia]");
+      expect(dati.valore, "AUMENTO");
     });
 
     test('MEDIO-ALTO', () async {
@@ -998,8 +998,8 @@ void main() async {
       List<Tipologia> totDomani = insiemeOrdinate(sDomani, eDomani);
 
       DatiNotifica? dati = await DatiNotifica.ottieni(p, totOggi, totDomani);
-      expect(dati!.stampaNomi, "[grigia]");
-      expect(dati.stampaLivello, "AUMENTO");
+      expect(dati!.particelle, "[grigia]");
+      expect(dati.valore, "AUMENTO");
     });
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -1035,8 +1035,8 @@ void main() async {
       List<Tipologia> totDomani = insiemeOrdinate(sDomani, eDomani);
 
       DatiNotifica? dati = await DatiNotifica.ottieni(p, totOggi, totDomani);
-      expect(dati!.stampaNomi, "[rossa]");
-      expect(dati.stampaLivello, "DIMINUZIONE");
+      expect(dati!.particelle, "[rossa]");
+      expect(dati.valore, "DIMINUZIONE");
     });
 
     test('ALTO-BASSO', () async {
@@ -1069,8 +1069,8 @@ void main() async {
       List<Tipologia> totDomani = insiemeOrdinate(sDomani, eDomani);
 
       DatiNotifica? dati = await DatiNotifica.ottieni(p, totOggi, totDomani);
-      expect(dati!.stampaNomi, "[rossa]");
-      expect(dati.stampaLivello, "DIMINUZIONE");
+      expect(dati!.particelle, "[rossa]");
+      expect(dati.valore, "DIMINUZIONE");
     });
 
     test('ALTO-MEDIO', () async {
@@ -1103,8 +1103,8 @@ void main() async {
       List<Tipologia> totDomani = insiemeOrdinate(sDomani, eDomani);
 
       DatiNotifica? dati = await DatiNotifica.ottieni(p, totOggi, totDomani);
-      expect(dati!.stampaNomi, "[rossa]");
-      expect(dati.stampaLivello, "DIMINUZIONE");
+      expect(dati!.particelle, "[rossa]");
+      expect(dati.valore, "DIMINUZIONE");
     });
 
     test('ALTO-ALTO', () async {
@@ -1137,8 +1137,8 @@ void main() async {
       List<Tipologia> totDomani = insiemeOrdinate(sDomani, eDomani);
 
       DatiNotifica? dati = await DatiNotifica.ottieni(p, totOggi, totDomani);
-      expect(dati!.stampaNomi, "[grigia]");
-      expect(dati.stampaLivello, "AUMENTO");
+      expect(dati!.particelle, "[grigia]");
+      expect(dati.valore, "AUMENTO");
     });
   });
 }

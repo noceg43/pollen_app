@@ -5,9 +5,41 @@ import 'package:demo_1/providers/preferences.dart';
 import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
 
 class DatiNotifica {
-  late String stampaNomi;
-  late String stampaLivello;
-  DatiNotifica(this.stampaNomi, this.stampaLivello);
+  late String titolo;
+  late String corpo;
+  late String particelle;
+  late String valore;
+  DatiNotifica(this.titolo, this.corpo, this.particelle, this.valore);
+  static List<Particella> _modifiche(
+      Tipologia t1, Tipologia t2, bool diminuisce) {
+    Map<Particella, num> partOggi = {
+      for (Map<Particella, ValoreDelGiorno> el in t1.lista)
+        el.keys.first: el.values.first.gruppoValore
+    };
+    Map<Particella, num> partDomani = {
+      for (Map<Particella, ValoreDelGiorno> el in t2.lista)
+        el.keys.first: el.values.first.gruppoValore
+    };
+    Set<Particella> ret = {};
+    if (diminuisce) {
+      for (Particella p in partOggi.keys) {
+        if (partOggi[p]! >= 2 &&
+            (partDomani.containsKey(p) ? partDomani[p] : 0)! < partOggi[p]!) {
+          ret.add(p);
+        }
+      }
+    } else {
+      for (Particella p in partDomani.keys) {
+        if (partDomani[p]! >= 2 &&
+            (partOggi.containsKey(p) ? partOggi[p] : 0)! < partDomani[p]!) {
+          ret.add(p);
+        }
+      }
+    }
+    //print(partOggi);
+    //print(partDomani);
+    return ret.toList();
+  }
 
   static Future<DatiNotifica?> ottieni(
       Posizione p, List<Tipologia> oggi, List<Tipologia> domani) async {
@@ -43,36 +75,6 @@ class DatiNotifica {
     if (!(checkLivelliMedioAlto(oggiLocal) ||
         checkLivelliMedioAlto(domaniLocal))) return null;
 
-    List<Particella> modifiche(Tipologia t1, Tipologia t2, bool diminuisce) {
-      Map<Particella, num> partOggi = {
-        for (Map<Particella, ValoreDelGiorno> el in t1.lista)
-          el.keys.first: el.values.first.gruppoValore
-      };
-      Map<Particella, num> partDomani = {
-        for (Map<Particella, ValoreDelGiorno> el in t2.lista)
-          el.keys.first: el.values.first.gruppoValore
-      };
-      Set<Particella> ret = {};
-      if (diminuisce) {
-        for (Particella p in partOggi.keys) {
-          if (partOggi[p]! >= 2 &&
-              (partDomani.containsKey(p) ? partDomani[p] : 0)! < partOggi[p]!) {
-            ret.add(p);
-          }
-        }
-      } else {
-        for (Particella p in partDomani.keys) {
-          if (partDomani[p]! >= 2 &&
-              (partOggi.containsKey(p) ? partOggi[p] : 0)! < partDomani[p]!) {
-            ret.add(p);
-          }
-        }
-      }
-      print(partOggi);
-      print(partDomani);
-      return ret.toList();
-    }
-
     /*
     // IMPLEMENTAZIONE CHE RESTITUISCE IL VALORE MA COMPLICATO DA GESTIRE
     if (oggiLocal.first.lista.first.values.first.gruppoValore >
@@ -88,24 +90,41 @@ class DatiNotifica {
       }
     }
     */
+    String titolo(List<Particella?> part) {
+      switch (part.first!.tipo) {
+        case "Alberi":
+          return "Polline degli alberi🌳 in ";
+        case "Spore":
+          return "Spore fungine🍄 in ";
+        case "Erbe":
+          return "Polline delle erbe🌿 in ";
+        default:
+          return "Particelle inquinanti🌁 in ";
+      }
+    }
+
+    String titoloEnd = " a ${oggiLocal.first.pos.pos}";
     //IMPLEMENTAZIONE CON "DIMINUISCE"
     if (oggiLocal.first.lista.first.values.first.gruppoValore >
         domaniLocal.first.lista.first.values.first.gruppoValore) {
       List<Particella?> mod =
-          modifiche(oggiLocal.first, domaniLocal.first, true);
-      print(mod);
-      return DatiNotifica(mod.toString(), "DIMINUZIONE");
+          _modifiche(oggiLocal.first, domaniLocal.first, true);
+      //print(mod);
+      return DatiNotifica("${titolo(mod)}diminuzione📉$titoloEnd",
+          mod.join(', '), mod.toString(), "DIMINUZIONE");
     } else
-    //IMPLEMENTAZIONE CON "AUMENTO"
+    //IMPLEMENTAZIONE CON "AUMENTO" e "STESSO LIVELLO"
     {
       List<Particella?> mod =
-          modifiche(oggiLocal.first, domaniLocal.first, false);
-      print(mod);
+          _modifiche(oggiLocal.first, domaniLocal.first, false);
+      //print(mod);
       if (mod.isEmpty) return null;
-      return DatiNotifica(mod.toString(), "AUMENTO");
+      return DatiNotifica("${titolo(mod)}aumento📈$titoloEnd", mod.join(', '),
+          mod.toString(), "AUMENTO");
     }
   }
 
+/*
   static Future<DatiNotifica?> ottieniVecchio(
       Posizione p, List<Tipologia> oggi, List<Tipologia> domani) async {
     if (!(await PreferencesNotificaParticelle.ottieni())) return null;
@@ -193,8 +212,33 @@ class DatiNotifica {
     return DatiNotifica(
         nomi, "Livello ${livello[maxDomani.first.values.first.gruppoValore]!}");
   }
-
+*/
   static Future<DatiNotifica?> ottieniInquinamento(
+      Posizione p, List<Tipologia> oggi, List<Tipologia> domani) async {
+    if (!(await PreferencesNotificaInquinamento.ottieni())) return null;
+
+    Tipologia oggiInq = oggi.where((e) => e.nome == "Inquinamento").first;
+    Tipologia domaniInq = domani.where((e) => e.nome == "Inquinamento").first;
+    List<Particella> diminuite = _modifiche(oggiInq, domaniInq, true);
+    List<Particella> aumentate = _modifiche(oggiInq, domaniInq, false);
+    if (aumentate.isEmpty && diminuite.isEmpty) return null;
+    String titolo = "Domani qualità dell'aria ";
+    String titoloEnd = " a ${oggiInq.pos.pos}";
+
+    if (aumentate.length > diminuite.length) {
+      titolo = "${titolo}peggiore$titoloEnd 🌁 ";
+
+      return DatiNotifica(titolo, "${aumentate.join(', ')} in aumento📈",
+          aumentate.toString(), "AUMENTO");
+    } else {
+      titolo = "${titolo}migliore$titoloEnd 🏞";
+      return DatiNotifica(titolo, "${diminuite.join(', ')} in diminuzione📉",
+          diminuite.toString(), "DIMINUZIONE");
+    }
+  }
+
+/*
+  static Future<DatiNotifica?> ottieniInquinamentoVecchio(
       Posizione p, List<Tipologia> oggi, List<Tipologia> domani) async {
     if (!(await PreferencesNotificaInquinamento.ottieni())) return null;
     // se non c'è inquinamento
@@ -278,9 +322,9 @@ class DatiNotifica {
     }
     return null;
   }
-
+*/
   @override
   String toString() {
-    return "$stampaNomi $stampaLivello";
+    return "$titolo $corpo";
   }
 }

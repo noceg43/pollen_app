@@ -31,7 +31,7 @@ class DatiCompleti extends StatelessWidget {
       // il true sarà il check sul se abilitare le notifiche inquinamento
       if (await PreferencesNotificaParticelle.ottieni()) {
         if (d != null) {
-          NotificaParticella.instantNotify(d.stampaNomi, d.stampaLivello);
+          NotificaParticella.instantNotify(d.titolo, d.corpo);
         } else {
           String urlOra = 'http://worldtimeapi.org/api/timezone/Europe/London';
           //final response = await http.get(Uri.parse(urlMeteo));
@@ -48,7 +48,7 @@ class DatiCompleti extends StatelessWidget {
       // il true sarà il check sul se abilitare le notifiche inquinamento
       if (await PreferencesNotificaInquinamento.ottieni()) {
         if (inq != null) {
-          NotificaInquinamento.instantNotify(inq.stampaNomi, inq.stampaLivello);
+          NotificaInquinamento.instantNotify(inq.titolo, inq.corpo);
         } else {
           String urlOra = 'http://worldtimeapi.org/api/timezone/Europe/London';
           //final response = await http.get(Uri.parse(urlMeteo));
@@ -63,6 +63,7 @@ class DatiCompleti extends StatelessWidget {
     }
 
     dynamic stampaNotifica() async {
+      print(await Peso.chiAumentare(dataPos));
       DatiNotifica? dataTot = await DatiNotifica.ottieni(
           dataPos,
           await Tipologia.daPosizione(dataPos, 0),

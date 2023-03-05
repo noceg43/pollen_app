@@ -27,7 +27,7 @@ void lavoroInquinamento() async {
       p, await Tipologia.daPosizione(p, 0), await Tipologia.daPosizione(p, 1));
 
   if (i != null) {
-    NotificaInquinamento.instantNotify(i.stampaNomi, i.stampaLivello);
+    NotificaInquinamento.instantNotify(i.titolo, i.corpo);
   } else {
     /*
     String urlOra = 'http://worldtimeapi.org/api/timezone/Europe/London';
@@ -52,7 +52,7 @@ void lavoroPolline() async {
       p, await Tipologia.daPosizione(p, 0), await Tipologia.daPosizione(p, 1));
   if (await PreferencesNotificaParticelle.ottieni()) {
     if (i != null) {
-      NotificaParticella.instantNotify(i.stampaNomi, i.stampaLivello);
+      NotificaParticella.instantNotify(i.titolo, i.corpo);
     } else {
       /*
       String urlOra = 'http://worldtimeapi.org/api/timezone/Europe/London';
