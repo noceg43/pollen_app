@@ -11,6 +11,7 @@ class DatiNotifica {
   late String particelle;
   late String valore;
   DatiNotifica(this.titolo, this.corpo, this.particelle, this.valore);
+
   static List<Particella> _modifiche(
       Tipologia t1, Tipologia t2, bool diminuisce) {
     Map<Particella, num> partOggi = {
@@ -93,11 +94,14 @@ class DatiNotifica {
       //print(e.keys.first.nome);
       //print(e.values.first.valore);
       //print(await Peso.getPeso(e.keys.first.nome, storage));
-      var stessoDomani = domani.first.lista
-          .where((element) => element.keys.first.nome == e.keys.first.nome);
+      Iterable<Map<Particella, ValoreDelGiorno>> stessoDomani = [];
+      for (Tipologia t in domani) {
+        stessoDomani = t.lista
+            .where((element) => element.keys.first.nome == e.keys.first.nome);
+        if (stessoDomani.isNotEmpty) break;
+      }
 
-      if (stessoDomani.isNotEmpty &&
-          e.values.first.gruppoValore == 0 &&
+      if (e.values.first.gruppoValore == 0 &&
           e.values.first.gruppoValore ==
               stessoDomani.first.values.first.gruppoValore) continue;
 
@@ -161,8 +165,8 @@ class DatiNotifica {
 
     String titoloEnd = " a ${oggiLocal.first.pos.pos}";
     //IMPLEMENTAZIONE CON "DIMINUISCE"
-    if (oggiLocal.first.lista.first.values.first.gruppoValore >
-        domaniLocal.first.lista.first.values.first.gruppoValore) {
+    if (oggi.first.lista.first.values.first.gruppoValore >
+        domani.first.lista.first.values.first.gruppoValore) {
       List<Particella?> mod =
           _modifiche(oggiLocal.first, domaniLocal.first, true);
       print(mod);
@@ -173,7 +177,7 @@ class DatiNotifica {
     {
       List<Particella?> mod =
           _modifiche(oggiLocal.first, domaniLocal.first, false);
-      //print(mod);
+      print(mod);
       if (mod.isEmpty) return null;
       return DatiNotifica("${titolo(mod)}aumento📈$titoloEnd", mod.join(', '),
           mod.toString(), "AUMENTO");
