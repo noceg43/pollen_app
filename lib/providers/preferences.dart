@@ -26,9 +26,10 @@ class UltimaPosizione {
     return Posizione(double.parse(lista[0]), double.parse(lista[1]), lista[2]);
     */
     const storage = FlutterSecureStorage();
-    String? pos = await storage.read(key: 'posizione');
-    String? lat = await storage.read(key: 'latitudine');
-    String? lon = await storage.read(key: 'longitudine');
+    Map<String, String> tutto = await storage.readAll();
+    String? pos = tutto['posizione'];
+    String? lat = tutto['latitudine'];
+    String? lon = tutto['longitudine'];
 
     return Posizione(double.parse(lat!), double.parse(lon!), pos!);
   }
@@ -111,18 +112,28 @@ class Peso {
 
   static Future<List<Peso>> getContatore(Posizione pos) async {
     const storage = FlutterSecureStorage();
-    List lista = await chiAumentare(pos);
+    List lista = await Peso.chiAumentare(await Tipologia.daPosizione(pos, 0));
     List<Peso> pesi = [];
+    Map<String, String> tutto = await storage.readAll();
     for (String s in lista) {
-      final virgolato = await storage.read(key: s) ?? '0';
+      final virgolato = tutto[s] ?? '0';
       pesi.add(Peso(s, double.parse(virgolato)));
     }
     return pesi;
   }
 
   //                 DA QUALE VALORE INZIARE AD INSERIRE NEL DIARIO LE PARTICELLE
-  static Future<List<String>> chiAumentare(Posizione pos) async {
+  static Future<List<String>> chiAumentareNo(Posizione pos) async {
     List<Tipologia> listaTip = await Tipologia.daPosizione(pos, 0);
+    List<String> tip = [
+      for (Map<Particella, ValoreDelGiorno> p
+          in Tipologia.massimi(listaTip) ?? [])
+        p.keys.first.nome
+    ];
+    return tip;
+  }
+
+  static Future<List<String>> chiAumentare(List<Tipologia> listaTip) async {
     List<String> tip = [
       for (Map<Particella, ValoreDelGiorno> p
           in Tipologia.massimi(listaTip) ?? [])
@@ -142,7 +153,7 @@ class Peso {
   static Future<void> aumentaMultipli(
       Posizione pos, double peso, BuildContext context) async {
     const storage = FlutterSecureStorage();
-    List lista = await chiAumentare(pos);
+    List lista = await Peso.chiAumentare(await Tipologia.daPosizione(pos, 0));
     String testo;
     if (lista.isEmpty) {
       testo = "Nessuna particella di livello medio-alta rilevata";
@@ -159,8 +170,44 @@ class Peso {
     //ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
     List<Peso> pesi = [];
+    Map<String, String> tutto = await storage.readAll();
+
     for (String s in lista) {
-      final virgolato = await storage.read(key: s) ?? '0';
+      final virgolato = tutto[s] ?? '0';
+      pesi.add(Peso(s, double.parse(virgolato)));
+    }
+
+    for (Peso p in pesi) {
+      p.aumentaSingolo(peso);
+    }
+  }
+
+  static double calcolaPeso(num statoFisicoValore, num oraValore) {
+    return (statoFisicoValore / 10) *
+        0.0625 *
+        (16 - (oraValore > 16 ? 16 : oraValore) + 1);
+  }
+
+  static Future<void> aumentaMultipliTest(
+      List<Tipologia> listaTip, double peso) async {
+    const storage = FlutterSecureStorage();
+    List lista = await Peso.chiAumentare(listaTip);
+    String testo;
+    if (lista.isEmpty) {
+      testo = "Nessuna particella di livello medio-alta rilevata";
+    } else {
+      testo = "Segnate:";
+      for (String i in lista) {
+        testo = "$testo $i";
+      }
+    }
+    print(testo);
+
+    List<Peso> pesi = [];
+    Map<String, String> tutto = await storage.readAll();
+
+    for (String s in lista) {
+      final virgolato = tutto[s] ?? '0';
       pesi.add(Peso(s, double.parse(virgolato)));
     }
 
@@ -204,8 +251,11 @@ class Peso {
     await preferences.clear();
   }
 
-  static Future<double> getPeso(String cod) async {
-    const storage = FlutterSecureStorage();
-    return double.parse(await storage.read(key: cod) ?? '0');
+  static Future<double> getPeso(
+      String cod, FlutterSecureStorage storage) async {
+    //print(await storage.read(key: (await storage.readAll()).keys.first));
+    Map<String, String> tutto = await storage.readAll();
+
+    return double.parse(tutto[cod] ?? '0');
   }
 }

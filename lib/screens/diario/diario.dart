@@ -13,12 +13,6 @@ class _DiarioSchermataState extends State<DiarioSchermata> {
   double oraValore = 12;
   double statoFisicoValore = 5;
 
-  double calcolaPeso() {
-    return (statoFisicoValore / 10) *
-        0.0625 *
-        (16 - (oraValore > 16 ? 16 : oraValore) + 1);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -132,7 +126,8 @@ class _DiarioSchermataState extends State<DiarioSchermata> {
                 onPressed: (() {
                   // ignore: avoid_print
                   Navigator.pop(context, true);
-                  Peso.aumentaMultipli(widget.pos, calcolaPeso(), context);
+                  Peso.aumentaMultipli(widget.pos,
+                      Peso.calcolaPeso(statoFisicoValore, oraValore), context);
                   DiarioDisponibile.usato();
                 }),
                 label: const Text("Conferma"),

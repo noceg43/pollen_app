@@ -63,7 +63,7 @@ class DatiCompleti extends StatelessWidget {
     }
 
     dynamic stampaNotifica() async {
-      print(await Peso.chiAumentare(dataPos));
+      print(await Peso.chiAumentare(await Tipologia.daPosizione(dataPos, 0)));
       DatiNotifica? dataTot = await DatiNotifica.ottieni(
           dataPos,
           await Tipologia.daPosizione(dataPos, 0),

@@ -43,9 +43,33 @@ class DatiNotifica {
 
   static Future<DatiNotifica?> ottieni(
       Posizione p, List<Tipologia> oggi, List<Tipologia> domani) async {
-    // copia della lista per poter eseguire operazioni in sicurezza
-    List<Tipologia> oggiLocal = [for (Tipologia t in oggi) t];
-    List<Tipologia> domaniLocal = [for (Tipologia t in domani) t];
+    // copie delle liste per poter eseguire operazioni in sicurezza
+    List<Tipologia> oggiLocal = [
+      for (Tipologia t in oggi)
+        Tipologia([
+          for (Map<Particella, ValoreDelGiorno> p in t.lista)
+            {
+              Particella(
+                      p.keys.first.nome, p.keys.first.limite, p.keys.first.tipo,
+                      idPolline: p.keys.first.idPolline):
+                  ValoreDelGiorno(p.values.first.valore, p.values.first.giorno,
+                      p.values.first.tendenza, p.values.first.gruppoValore)
+            }
+        ], t.nome, t.pos)
+    ];
+    List<Tipologia> domaniLocal = [
+      for (Tipologia t in domani)
+        Tipologia([
+          for (Map<Particella, ValoreDelGiorno> p in t.lista)
+            {
+              Particella(
+                      p.keys.first.nome, p.keys.first.limite, p.keys.first.tipo,
+                      idPolline: p.keys.first.idPolline):
+                  ValoreDelGiorno(p.values.first.valore, p.values.first.giorno,
+                      p.values.first.tendenza, p.values.first.gruppoValore)
+            }
+        ], t.nome, t.pos)
+    ];
 
     void normalizza(List<Tipologia> tList) {
       for (Tipologia t in tList) {
