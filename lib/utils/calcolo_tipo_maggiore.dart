@@ -87,7 +87,7 @@ class ValoreDelGiorno {
   num valore = 0;
   late DateTime giorno;
   String? tendenza;
-  int gruppoValore = 0;
+  num gruppoValore = 0;
   ValoreDelGiorno(this.valore, this.giorno, this.tendenza, this.gruppoValore);
 
   static Map<String, ValoreDelGiorno> daPolline(
@@ -177,9 +177,9 @@ class Tipologia {
         b.values.first.gruppoValore.compareTo(a.values.first.gruppoValore)));
   }
 
-  int sommaValori() {
+  num sommaValori() {
     if (lista.isEmpty) return 0;
-    int s = 0;
+    num s = 0;
     for (Map<Particella, ValoreDelGiorno> i in lista) {
       s += i.values.first.gruppoValore;
     }
@@ -221,7 +221,7 @@ class Tipologia {
       {num soglia = 20}) {
     List<Map<Particella, ValoreDelGiorno>> top = t.first.lista;
     if (top.isEmpty) return null;
-    int valMax = top.first.values.first.gruppoValore;
+    num valMax = top.first.values.first.gruppoValore;
     if (valMax < soglia) return null;
     List<Map<Particella, ValoreDelGiorno>> ret = [];
     for (Map<Particella, ValoreDelGiorno> p in top) {

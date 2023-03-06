@@ -1,6 +1,7 @@
 import 'package:demo_1/providers/dati_notifica.dart';
 import 'package:demo_1/providers/position.dart';
 import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() async {
@@ -35,6 +36,9 @@ void main() async {
   }
 
   group('Test Provider dati_notifica STESSA TIPOLOGIA', () {
+    setUpAll(() {
+      FlutterSecureStorage.setMockInitialValues({});
+    });
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //                                TEST ASSENTE-
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -589,6 +593,9 @@ void main() async {
   });
 
   group('Test Provider dati_notifica TIPOLOGIE DIVERSE', () {
+    setUpAll(() {
+      FlutterSecureStorage.setMockInitialValues({});
+    });
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //                                TEST ASSENTE-
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

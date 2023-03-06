@@ -3,6 +3,7 @@
 import 'package:demo_1/providers/position.dart';
 import 'package:demo_1/providers/preferences.dart';
 import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class DatiNotifica {
   late String titolo;
@@ -38,7 +39,7 @@ class DatiNotifica {
     }
     //print(partOggi);
     //print(partDomani);
-    return ret.toList();
+    return diminuisce ? ret.toList().reversed.toList() : ret.toList();
   }
 
   static Future<DatiNotifica?> ottieni(
@@ -74,7 +75,7 @@ class DatiNotifica {
     void normalizza(List<Tipologia> tList) {
       for (Tipologia t in tList) {
         for (Map<Particella, ValoreDelGiorno> el in t.lista) {
-          if (el.values.first.gruppoValore >= 20) {
+          if (el.values.first.gruppoValore >= 10) {
             el.values.first.gruppoValore =
                 (el.values.first.gruppoValore / 10).round();
           }
@@ -86,10 +87,41 @@ class DatiNotifica {
     normalizza(domaniLocal);
     // ordinare le tipologie in base ai pesi in questa fase
     // ORDINA LE PARTICELLE DELLA TIPOLOGIA TOP,                                AGGIUNGERE I PESI
+
+    const storage = FlutterSecureStorage(); // recupero pesi e li aggiungo
+    for (var e in oggiLocal.first.lista) {
+      //print(e.keys.first.nome);
+      //print(e.values.first.valore);
+      //print(await Peso.getPeso(e.keys.first.nome, storage));
+      var stessoDomani = domani.first.lista
+          .where((element) => element.keys.first.nome == e.keys.first.nome);
+
+      if (stessoDomani.isNotEmpty &&
+          e.values.first.gruppoValore == 0 &&
+          e.values.first.gruppoValore ==
+              stessoDomani.first.values.first.gruppoValore) continue;
+
+      e.values.first.gruppoValore = (e.values.first.gruppoValore +
+          await Peso.getPeso(e.keys.first.nome, storage));
+    }
+
+    for (var e in domaniLocal.first.lista) {
+      //print(e.keys.first.nome);
+      //print(e.values.first.valore);
+      //print(await Peso.getPeso(e.keys.first.nome, storage));
+      if (e.values.first.gruppoValore > 0) {
+        e.values.first.gruppoValore = (e.values.first.gruppoValore +
+            await Peso.getPeso(e.keys.first.nome, storage));
+      }
+    }
+
     oggiLocal.first.lista.sort(((a, b) =>
         b.values.first.gruppoValore.compareTo(a.values.first.gruppoValore)));
     domaniLocal.first.lista.sort(((a, b) =>
         b.values.first.gruppoValore.compareTo(a.values.first.gruppoValore)));
+
+    print(oggiLocal);
+    print(domaniLocal);
 
     bool checkLivelliMedioAlto(List<Tipologia> tList) {
       if (tList.first.lista.first.values.first.gruppoValore >= 2) return true;
@@ -133,7 +165,7 @@ class DatiNotifica {
         domaniLocal.first.lista.first.values.first.gruppoValore) {
       List<Particella?> mod =
           _modifiche(oggiLocal.first, domaniLocal.first, true);
-      //print(mod);
+      print(mod);
       return DatiNotifica("${titolo(mod)}diminuzione📉$titoloEnd",
           mod.join(', '), mod.toString(), "DIMINUZIONE");
     } else

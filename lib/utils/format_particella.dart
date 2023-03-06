@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class FormatParticella {
   String nome = "";
   num valore = 0;
-  int valColore = 0;
+  num valColore = 0;
   IconData? icona;
   FormatParticella(Map<Particella, ValoreDelGiorno> data) {
     nome = data.keys.first.nome;
