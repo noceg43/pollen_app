@@ -2597,14 +2597,13 @@ void main() {
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
-          expect(dati!.particelle, '[grigia]');
-          expect(dati.valore, 'AUMENTO');
+          expect(dati, null);
         });
 
         test('Particelle a 0.5-3', () async {
           var storage = const FlutterSecureStorage();
-          await storage.write(key: 'grigia', value: '0.5');
-          await storage.write(key: 'rossa', value: '3');
+          await storage.write(key: 'rossa', value: '0.5');
+          await storage.write(key: 'grigia', value: '3');
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
@@ -2689,8 +2688,7 @@ void main() {
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
-          expect(dati!.particelle, '[grigia]');
-          expect(dati.valore, 'AUMENTO');
+          expect(dati, null);
         });
 
         test('Particelle a 0.5-0.5', () async {
@@ -2985,14 +2983,14 @@ void main() {
         ], "Erbe", p);
         List<Tipologia> totOggi = insiemeOrdinate(sOggi, eOggi);
         Tipologia sDomani = Tipologia([
-          {grigia: assente},
-          {nera: assente},
+          {grigia: medio},
+          {nera: medio},
           {beige: assente},
           {marrone: assente}
         ], "Spore", p);
         Tipologia eDomani = Tipologia([
-          {rossa: medio},
-          {verde: medio},
+          {rossa: assente},
+          {verde: assente},
           {blu: assente},
           {gialla: assente}
         ], "Erbe", p);
@@ -3002,7 +3000,7 @@ void main() {
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
-          expect(dati!.particelle, '[verde]');
+          expect(dati!.particelle, '[grigia, nera]');
           expect(dati.valore, 'AUMENTO');
         });
 
@@ -3012,8 +3010,8 @@ void main() {
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
-          expect(dati!.particelle, '[verde]');
-          expect(dati.valore, 'AUMENTO');
+          expect(dati!.particelle, '[rossa]');
+          expect(dati.valore, 'DIMINUZIONE');
         });
 
         test('Particella a 2', () async {
@@ -3022,8 +3020,8 @@ void main() {
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
-          expect(dati!.particelle, '[verde]');
-          expect(dati.valore, 'AUMENTO');
+          expect(dati!.particelle, '[rossa]');
+          expect(dati.valore, 'DIMINUZIONE');
         });
 
         test('Particella a 3', () async {
@@ -3032,52 +3030,52 @@ void main() {
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
-          expect(dati!.particelle, '[verde]');
-          expect(dati.valore, 'AUMENTO');
+          expect(dati!.particelle, '[rossa]');
+          expect(dati.valore, 'DIMINUZIONE');
         });
 
         test('Particelle a 0.5-0.5', () async {
           var storage = const FlutterSecureStorage();
           await storage.write(key: 'rossa', value: '0.5');
-          await storage.write(key: 'verde', value: '0.5');
+          await storage.write(key: 'grigia', value: '0.5');
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
-          expect(dati!.particelle, '[verde]');
+          expect(dati!.particelle, '[grigia, nera]');
           expect(dati.valore, 'AUMENTO');
         });
 
         test('Particelle a 0.5-2', () async {
           var storage = const FlutterSecureStorage();
           await storage.write(key: 'rossa', value: '0.5');
-          await storage.write(key: 'verde', value: '2');
+          await storage.write(key: 'grigia', value: '2');
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
-          expect(dati!.particelle, '[verde]');
+          expect(dati!.particelle, '[grigia, nera]');
           expect(dati.valore, 'AUMENTO');
         });
 
         test('Particelle a 0.5-3', () async {
           var storage = const FlutterSecureStorage();
-          await storage.write(key: 'rossa', value: '0.5');
-          await storage.write(key: 'verde', value: '3');
+          await storage.write(key: 'grigia', value: '0.5');
+          await storage.write(key: 'rossa', value: '3');
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
-          expect(dati!.particelle, '[verde]');
-          expect(dati.valore, 'AUMENTO');
+          expect(dati!.particelle, '[rossa]');
+          expect(dati.valore, 'DIMINUZIONE');
         });
 
         test('Particelle a 2-3', () async {
           var storage = const FlutterSecureStorage();
-          await storage.write(key: 'rossa', value: '2');
+          await storage.write(key: 'grigia', value: '2');
           await storage.write(key: 'verde', value: '3');
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
-          expect(dati!.particelle, '[verde]');
-          expect(dati.valore, 'AUMENTO');
+          expect(dati!.particelle, '[rossa]');
+          expect(dati.valore, 'DIMINUZIONE');
         });
       }));
 
@@ -3099,13 +3097,13 @@ void main() {
         ], "Erbe", p);
         List<Tipologia> totOggi = insiemeOrdinate(sOggi, eOggi);
         Tipologia sDomani = Tipologia([
-          {grigia: assente},
+          {grigia: alto},
           {nera: assente},
           {beige: assente},
           {marrone: assente}
         ], "Spore", p);
         Tipologia eDomani = Tipologia([
-          {rossa: alto},
+          {rossa: medio},
           {verde: assente},
           {blu: assente},
           {gialla: assente}
@@ -3116,7 +3114,7 @@ void main() {
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
-          expect(dati!.particelle, '[rossa]');
+          expect(dati!.particelle, '[grigia]');
           expect(dati.valore, 'AUMENTO');
         });
 
@@ -3126,7 +3124,7 @@ void main() {
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
-          expect(dati!.particelle, '[rossa]');
+          expect(dati!.particelle, '[grigia]');
           expect(dati.valore, 'AUMENTO');
         });
 
@@ -3136,51 +3134,49 @@ void main() {
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
-          expect(dati!.particelle, '[rossa]');
-          expect(dati.valore, 'AUMENTO');
+          expect(dati, null);
         });
 
         test('Particella a 3', () async {
           var storage = const FlutterSecureStorage();
-          await storage.write(key: 'rossa', value: '3');
+          await storage.write(key: 'grigia', value: '3');
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
-          expect(dati!.particelle, '[rossa]');
+          expect(dati!.particelle, '[grigia]');
           expect(dati.valore, 'AUMENTO');
         });
 
         test('Particelle a 0.5-0.5', () async {
           var storage = const FlutterSecureStorage();
           await storage.write(key: 'rossa', value: '0.5');
-          await storage.write(key: 'verde', value: '0.5');
+          await storage.write(key: 'grigia', value: '0.5');
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
-          expect(dati!.particelle, '[rossa]');
+          expect(dati!.particelle, '[grigia]');
           expect(dati.valore, 'AUMENTO');
         });
 
         test('Particelle a 0.5-2', () async {
           var storage = const FlutterSecureStorage();
           await storage.write(key: 'rossa', value: '0.5');
-          await storage.write(key: 'verde', value: '2');
+          await storage.write(key: 'grigia', value: '2');
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
-          expect(dati!.particelle, '[rossa]');
+          expect(dati!.particelle, '[grigia]');
           expect(dati.valore, 'AUMENTO');
         });
 
         test('Particelle a 0.5-3', () async {
           var storage = const FlutterSecureStorage();
-          await storage.write(key: 'rossa', value: '0.5');
-          await storage.write(key: 'verde', value: '3');
+          await storage.write(key: 'grigia', value: '0.5');
+          await storage.write(key: 'rossa', value: '3');
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
-          expect(dati!.particelle, '[rossa]');
-          expect(dati.valore, 'AUMENTO');
+          expect(dati, null);
         });
 
         test('Particelle a 2-3', () async {
@@ -3190,8 +3186,7 @@ void main() {
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
-          expect(dati!.particelle, '[rossa]');
-          expect(dati.valore, 'AUMENTO');
+          expect(dati, null);
         });
       }));
 
@@ -3328,8 +3323,8 @@ void main() {
         ], "Erbe", p);
         List<Tipologia> totOggi = insiemeOrdinate(sOggi, eOggi);
         Tipologia sDomani = Tipologia([
-          {grigia: assente},
-          {nera: assente},
+          {grigia: basso},
+          {nera: basso},
           {beige: assente},
           {marrone: assente}
         ], "Spore", p);
@@ -3351,7 +3346,7 @@ void main() {
 
         test('Particella a 0.5', () async {
           var storage = const FlutterSecureStorage();
-          await storage.write(key: 'rossa', value: '0.5');
+          await storage.write(key: 'grigia', value: '0.5');
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
@@ -3361,28 +3356,28 @@ void main() {
 
         test('Particella a 2', () async {
           var storage = const FlutterSecureStorage();
-          await storage.write(key: 'rossa', value: '2');
+          await storage.write(key: 'grigia', value: '2');
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
-          expect(dati!.particelle, '[rossa]');
-          expect(dati.valore, 'DIMINUZIONE');
+          expect(dati!.particelle, '[grigia]');
+          expect(dati.valore, 'AUMENTO');
         });
 
         test('Particella a 3', () async {
           var storage = const FlutterSecureStorage();
-          await storage.write(key: 'rossa', value: '3');
+          await storage.write(key: 'nera', value: '3');
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
-          expect(dati!.particelle, '[rossa]');
-          expect(dati.valore, 'DIMINUZIONE');
+          expect(dati!.particelle, '[nera]');
+          expect(dati.valore, 'AUMENTO');
         });
 
         test('Particelle a 0.5-0.5', () async {
           var storage = const FlutterSecureStorage();
           await storage.write(key: 'rossa', value: '0.5');
-          await storage.write(key: 'verde', value: '0.5');
+          await storage.write(key: 'grigia', value: '0.5');
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
@@ -3393,7 +3388,7 @@ void main() {
         test('Particelle a 0.5-2', () async {
           var storage = const FlutterSecureStorage();
           await storage.write(key: 'rossa', value: '0.5');
-          await storage.write(key: 'verde', value: '2');
+          await storage.write(key: 'grigia', value: '2');
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
@@ -3403,8 +3398,8 @@ void main() {
 
         test('Particelle a 0.5-3', () async {
           var storage = const FlutterSecureStorage();
-          await storage.write(key: 'rossa', value: '0.5');
-          await storage.write(key: 'verde', value: '3');
+          await storage.write(key: 'grigia', value: '0.5');
+          await storage.write(key: 'rossa', value: '3');
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
@@ -3414,8 +3409,8 @@ void main() {
 
         test('Particelle a 2-3', () async {
           var storage = const FlutterSecureStorage();
-          await storage.write(key: 'rossa', value: '2');
-          await storage.write(key: 'verde', value: '3');
+          await storage.write(key: 'grigia', value: '2');
+          await storage.write(key: 'rossa', value: '3');
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
@@ -3442,8 +3437,8 @@ void main() {
         ], "Erbe", p);
         List<Tipologia> totOggi = insiemeOrdinate(sOggi, eOggi);
         Tipologia sDomani = Tipologia([
-          {grigia: assente},
-          {nera: assente},
+          {grigia: medio},
+          {nera: medio},
           {beige: assente},
           {marrone: assente}
         ], "Spore", p);
@@ -3475,28 +3470,28 @@ void main() {
 
         test('Particella a 2', () async {
           var storage = const FlutterSecureStorage();
-          await storage.write(key: 'rossa', value: '2');
+          await storage.write(key: 'grigia', value: '2');
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
-          expect(dati!.particelle, '[rossa]');
-          expect(dati.valore, 'DIMINUZIONE');
+          expect(dati!.particelle, '[grigia, nera]');
+          expect(dati.valore, 'AUMENTO');
         });
 
         test('Particella a 3', () async {
           var storage = const FlutterSecureStorage();
-          await storage.write(key: 'rossa', value: '3');
+          await storage.write(key: 'nera', value: '3');
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
-          expect(dati!.particelle, '[rossa]');
-          expect(dati.valore, 'DIMINUZIONE');
+          expect(dati!.particelle, '[nera, grigia]');
+          expect(dati.valore, 'AUMENTO');
         });
 
         test('Particelle a 0.5-0.5', () async {
           var storage = const FlutterSecureStorage();
           await storage.write(key: 'rossa', value: '0.5');
-          await storage.write(key: 'verde', value: '0.5');
+          await storage.write(key: 'grigia', value: '0.5');
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
@@ -3507,18 +3502,18 @@ void main() {
         test('Particelle a 0.5-2', () async {
           var storage = const FlutterSecureStorage();
           await storage.write(key: 'rossa', value: '0.5');
-          await storage.write(key: 'verde', value: '2');
+          await storage.write(key: 'grigia', value: '2');
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
-          expect(dati!.particelle, '[rossa]');
-          expect(dati.valore, 'DIMINUZIONE');
+          expect(dati!.particelle, '[grigia, nera]');
+          expect(dati.valore, 'AUMENTO');
         });
 
         test('Particelle a 0.5-3', () async {
           var storage = const FlutterSecureStorage();
-          await storage.write(key: 'rossa', value: '0.5');
-          await storage.write(key: 'verde', value: '3');
+          await storage.write(key: 'grigia', value: '0.5');
+          await storage.write(key: 'rossa', value: '3');
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
@@ -3528,13 +3523,13 @@ void main() {
 
         test('Particelle a 2-3', () async {
           var storage = const FlutterSecureStorage();
-          await storage.write(key: 'rossa', value: '2');
-          await storage.write(key: 'verde', value: '3');
+          await storage.write(key: 'grigia', value: '2');
+          await storage.write(key: 'nera', value: '3');
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
-          expect(dati!.particelle, '[rossa]');
-          expect(dati.valore, 'DIMINUZIONE');
+          expect(dati!.particelle, '[nera, grigia]');
+          expect(dati.valore, 'AUMENTO');
         });
       }));
 
@@ -3556,14 +3551,14 @@ void main() {
         ], "Erbe", p);
         List<Tipologia> totOggi = insiemeOrdinate(sOggi, eOggi);
         Tipologia sDomani = Tipologia([
-          {grigia: assente},
-          {nera: assente},
+          {grigia: alto},
+          {nera: alto},
           {beige: assente},
           {marrone: assente}
         ], "Spore", p);
         Tipologia eDomani = Tipologia([
-          {rossa: alto},
-          {verde: alto},
+          {rossa: assente},
+          {verde: basso},
           {blu: assente},
           {gialla: assente}
         ], "Erbe", p);
@@ -3573,81 +3568,81 @@ void main() {
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
-          expect(dati!.particelle, '[verde]');
+          expect(dati!.particelle, '[grigia, nera]');
           expect(dati.valore, 'AUMENTO');
         });
 
         test('Particella a 0.5', () async {
           var storage = const FlutterSecureStorage();
-          await storage.write(key: 'rossa', value: '0.5');
+          await storage.write(key: 'nera', value: '0.5');
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
-          expect(dati!.particelle, '[verde]');
+          expect(dati!.particelle, '[nera, grigia]');
           expect(dati.valore, 'AUMENTO');
         });
 
         test('Particella a 2', () async {
           var storage = const FlutterSecureStorage();
-          await storage.write(key: 'rossa', value: '2');
+          await storage.write(key: 'grigia', value: '2');
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
-          expect(dati!.particelle, '[verde]');
+          expect(dati!.particelle, '[grigia, nera]');
           expect(dati.valore, 'AUMENTO');
         });
 
         test('Particella a 3', () async {
           var storage = const FlutterSecureStorage();
-          await storage.write(key: 'rossa', value: '3');
+          await storage.write(key: 'verde', value: '3');
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
-          expect(dati!.particelle, '[verde]');
+          expect(dati!.particelle, '[grigia, nera]');
           expect(dati.valore, 'AUMENTO');
         });
 
         test('Particelle a 0.5-0.5', () async {
           var storage = const FlutterSecureStorage();
           await storage.write(key: 'rossa', value: '0.5');
-          await storage.write(key: 'verde', value: '0.5');
+          await storage.write(key: 'nera', value: '0.5');
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
-          expect(dati!.particelle, '[verde]');
+          expect(dati!.particelle, '[grigia, nera]');
           expect(dati.valore, 'AUMENTO');
         });
 
         test('Particelle a 0.5-2', () async {
           var storage = const FlutterSecureStorage();
           await storage.write(key: 'rossa', value: '0.5');
-          await storage.write(key: 'verde', value: '2');
+          await storage.write(key: 'grigia', value: '2');
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
-          expect(dati!.particelle, '[verde]');
+          expect(dati!.particelle, '[grigia, nera]');
           expect(dati.valore, 'AUMENTO');
         });
 
         test('Particelle a 0.5-3', () async {
           var storage = const FlutterSecureStorage();
-          await storage.write(key: 'rossa', value: '0.5');
-          await storage.write(key: 'verde', value: '3');
+          await storage.write(key: 'grigia', value: '0.5');
+          await storage.write(key: 'rossa', value: '3');
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
-          expect(dati!.particelle, '[verde]');
-          expect(dati.valore, 'AUMENTO');
+          expect(dati!.particelle, '[rossa]');
+          expect(dati.valore, 'DIMINUZIONE');
         });
 
         test('Particelle a 2-3', () async {
           var storage = const FlutterSecureStorage();
           await storage.write(key: 'rossa', value: '2');
-          await storage.write(key: 'verde', value: '3');
+          await storage.write(key: 'grigia', value: '3');
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
-          expect(dati!.particelle, '[verde]');
+          expect(dati!.particelle, '[grigia, nera]');
           expect(dati.valore, 'AUMENTO');
         });
       }));

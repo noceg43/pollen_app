@@ -88,7 +88,7 @@ class DatiNotifica {
     normalizza(domaniLocal);
     // ordinare le tipologie in base ai pesi in questa fase
     // ORDINA LE PARTICELLE DELLA TIPOLOGIA TOP,                                AGGIUNGERE I PESI
-
+/*
     const storage = FlutterSecureStorage(); // recupero pesi e li aggiungo
     for (var e in oggiLocal.first.lista) {
       //print(e.keys.first.nome);
@@ -123,7 +123,53 @@ class DatiNotifica {
         b.values.first.gruppoValore.compareTo(a.values.first.gruppoValore)));
     domaniLocal.first.lista.sort(((a, b) =>
         b.values.first.gruppoValore.compareTo(a.values.first.gruppoValore)));
+*/
 
+// INIZIO NUOVA IMPLEMENTAZIONE TIPOLOGIE ORDINATE IN BASE AL PESO
+    const storage = FlutterSecureStorage(); // recupero pesi e li aggiungo
+    for (Tipologia t in oggiLocal) {
+      for (var e in t.lista) {
+        //print(e.keys.first.nome);
+        //print(e.values.first.valore);
+        //print(await Peso.getPeso(e.keys.first.nome, storage));
+        Iterable<Map<Particella, ValoreDelGiorno>> stessoDomani = [];
+        for (Tipologia t in domani) {
+          stessoDomani = t.lista
+              .where((element) => element.keys.first.nome == e.keys.first.nome);
+          if (stessoDomani.isNotEmpty) break;
+        }
+
+        if (e.values.first.gruppoValore == 0 &&
+            e.values.first.gruppoValore ==
+                stessoDomani.first.values.first.gruppoValore) continue;
+
+        e.values.first.gruppoValore = (e.values.first.gruppoValore +
+            await Peso.getPeso(e.keys.first.nome, storage));
+      }
+      t.lista.sort(((a, b) =>
+          b.values.first.gruppoValore.compareTo(a.values.first.gruppoValore)));
+    }
+
+    for (Tipologia t in domaniLocal) {
+      for (var e in t.lista) {
+        //print(e.keys.first.nome);
+        //print(e.values.first.valore);
+        //print(await Peso.getPeso(e.keys.first.nome, storage));
+        if (e.values.first.gruppoValore > 0) {
+          e.values.first.gruppoValore = (e.values.first.gruppoValore +
+              await Peso.getPeso(e.keys.first.nome, storage));
+        }
+      }
+      t.lista.sort(((a, b) =>
+          b.values.first.gruppoValore.compareTo(a.values.first.gruppoValore)));
+    }
+
+    oggiLocal.sort(((a, b) => b.lista.first.values.first.gruppoValore
+        .compareTo(a.lista.first.values.first.gruppoValore)));
+    domaniLocal.sort(((a, b) => b.lista.first.values.first.gruppoValore
+        .compareTo(a.lista.first.values.first.gruppoValore)));
+
+// FINE NUOVA IMPLEMENTAZIONE TIPOLOGIE ORDINATE IN BASE AL PESO
     print(oggiLocal);
     print(domaniLocal);
 
@@ -165,8 +211,8 @@ class DatiNotifica {
 
     String titoloEnd = " a ${oggiLocal.first.pos.pos}";
     //IMPLEMENTAZIONE CON "DIMINUISCE"
-    if (oggi.first.lista.first.values.first.gruppoValore >
-        domani.first.lista.first.values.first.gruppoValore) {
+    if (oggiLocal.first.lista.first.values.first.gruppoValore >
+        domaniLocal.first.lista.first.values.first.gruppoValore) {
       List<Particella?> mod =
           _modifiche(oggiLocal.first, domaniLocal.first, true);
       print(mod);
