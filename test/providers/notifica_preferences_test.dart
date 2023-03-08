@@ -677,7 +677,6 @@ void main() {
 
           DatiNotifica? dati =
               await DatiNotifica.ottieni(p, totOggi, totDomani);
-          print(dati!);
           expect(dati!.particelle, '[verde]');
           expect(dati.valore, 'AUMENTO');
         });

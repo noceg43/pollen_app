@@ -63,12 +63,12 @@ class DatiCompleti extends StatelessWidget {
     }
 
     dynamic stampaNotifica() async {
-      print(await Peso.chiAumentare(await Tipologia.daPosizione(dataPos, 0)));
       DatiNotifica? dataTot = await DatiNotifica.ottieni(
           dataPos,
           await Tipologia.daPosizione(dataPos, 0),
           await Tipologia.daPosizione(dataPos, 1));
       print(dataTot ?? "nessuna notifica");
+
       DatiNotifica? dataInq = await DatiNotifica.ottieniInquinamento(
           dataPos,
           await Tipologia.daPosizione(dataPos, 0),
@@ -84,7 +84,7 @@ class DatiCompleti extends StatelessWidget {
           Tipologia.daPosizione(dataPos, 0),
           Tipologia.daPosizione(dataPos, 1),
           Tipologia.daPosizione(dataPos, 2),
-          stampaNotifica()
+          //stampaNotifica()
         ],
       ),
       builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
@@ -99,6 +99,7 @@ class DatiCompleti extends StatelessWidget {
           List<Tipologia> oggi = snapshot.data![2];
           List<Tipologia> domani = snapshot.data![3];
           List<Tipologia> dopoDomani = snapshot.data![4];
+          //genera notifica
           //generaNotifica(oggi, domani);
           return TabBarView(
             children: [

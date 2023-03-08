@@ -164,6 +164,9 @@ class DatiNotifica {
           b.values.first.gruppoValore.compareTo(a.values.first.gruppoValore)));
     }
 
+    oggiLocal.removeWhere((element) => element.isEmpty());
+    domaniLocal.removeWhere((element) => element.isEmpty());
+
     oggiLocal.sort(((a, b) => b.lista.first.values.first.gruppoValore
         .compareTo(a.lista.first.values.first.gruppoValore)));
     domaniLocal.sort(((a, b) => b.lista.first.values.first.gruppoValore
@@ -209,15 +212,18 @@ class DatiNotifica {
       }
     }
 
-    String titoloEnd = " a ${oggiLocal.first.pos.pos}";
+    String corpoEnd = " a ${oggiLocal.first.pos.pos}";
     //IMPLEMENTAZIONE CON "DIMINUISCE"
     if (oggiLocal.first.lista.first.values.first.gruppoValore >
         domaniLocal.first.lista.first.values.first.gruppoValore) {
       List<Particella?> mod =
           _modifiche(oggiLocal.first, domaniLocal.first, true);
       print(mod);
-      return DatiNotifica("${titolo(mod)}diminuzione📉$titoloEnd",
-          mod.join(', '), mod.toString(), "DIMINUZIONE");
+      return DatiNotifica(
+          "${titolo(mod)}diminuzione📉",
+          "${(mod.length == 2) ? mod.join(' e ') : mod.join(', ')}$corpoEnd",
+          mod.toString(),
+          "DIMINUZIONE");
     } else
     //IMPLEMENTAZIONE CON "AUMENTO" e "STESSO LIVELLO"
     {
@@ -225,8 +231,11 @@ class DatiNotifica {
           _modifiche(oggiLocal.first, domaniLocal.first, false);
       print(mod);
       if (mod.isEmpty) return null;
-      return DatiNotifica("${titolo(mod)}aumento📈$titoloEnd", mod.join(', '),
-          mod.toString(), "AUMENTO");
+      return DatiNotifica(
+          "${titolo(mod)}aumento📈",
+          "${(mod.length == 2) ? mod.join(' e ') : mod.join(', ')}$corpoEnd",
+          mod.toString(),
+          "AUMENTO");
     }
   }
 
@@ -329,17 +338,23 @@ class DatiNotifica {
     List<Particella> aumentate = _modifiche(oggiInq, domaniInq, false);
     if (aumentate.isEmpty && diminuite.isEmpty) return null;
     String titolo = "Domani qualità dell'aria ";
-    String titoloEnd = " a ${oggiInq.pos.pos}";
+    String corpoEnd = " a ${oggiInq.pos.pos}";
 
     if (aumentate.length > diminuite.length) {
-      titolo = "${titolo}peggiore$titoloEnd 🌁 ";
+      titolo = "${titolo}peggiore 🌁 ";
 
-      return DatiNotifica(titolo, "${aumentate.join(', ')} in aumento📈",
-          aumentate.toString(), "AUMENTO");
+      return DatiNotifica(
+          titolo,
+          "${(aumentate.length == 2) ? aumentate.join(' e ') : aumentate.join(', ')} in aumento📈$corpoEnd",
+          aumentate.toString(),
+          "AUMENTO");
     } else {
-      titolo = "${titolo}migliore$titoloEnd 🏞";
-      return DatiNotifica(titolo, "${diminuite.join(', ')} in diminuzione📉",
-          diminuite.toString(), "DIMINUZIONE");
+      titolo = "${titolo}migliore 🏞";
+      return DatiNotifica(
+          titolo,
+          "${(diminuite.length == 2) ? diminuite.join(' e ') : diminuite.join(', ')} in diminuzione📉$corpoEnd",
+          diminuite.toString(),
+          "DIMINUZIONE");
     }
   }
 

@@ -1,5 +1,8 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:demo_1/providers/preferences.dart';
+import 'package:demo_1/screens/homepage/home.dart';
+import 'package:demo_1/screens/intro/schermata_intro.dart';
+import 'package:demo_1/widgets/impostazioni/lista_diario.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -202,7 +205,7 @@ class _SchermataImpostazioniState extends State<SchermataImpostazioni> {
                             style: TextStyle(color: Colors.black, fontSize: 16),
                           ),
                           Text(
-                            "Cambiamenti degli agenti inquinanti nel giorno successivo",
+                            "Cambiamenti delle particelle inquinanti nel giorno successivo",
                             style: TextStyle(
                                 color: Colors.black.withOpacity(0.6),
                                 fontSize: 16),
@@ -228,6 +231,41 @@ class _SchermataImpostazioniState extends State<SchermataImpostazioni> {
           const Divider(
             thickness: 1,
           ),
+          Container(
+            padding: const EdgeInsets.fromLTRB(40, 0, 40, 5),
+            child: Text(
+              "Aiuto",
+              style: TextStyle(color: Colors.green.shade900, fontSize: 15),
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SchermataIntro(),
+                ),
+              );
+            },
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(40, 5, 40, 5),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Mostra le pagine introduttive",
+                    style: TextStyle(color: Colors.black, fontSize: 16),
+                  ),
+                  Text(
+                    "Il tutorial iniziale",
+                    style: TextStyle(
+                        color: Colors.black.withOpacity(0.6), fontSize: 16),
+                  )
+                ],
+              ),
+            ),
+          ),
+          BiometricButton()
         ],
       ),
     );

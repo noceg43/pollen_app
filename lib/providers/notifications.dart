@@ -8,6 +8,8 @@ class NotificaParticella {
     return awesomeNotifications.createNotification(
       content: NotificationContent(
           id: Random().nextInt(100),
+          notificationLayout: NotificationLayout.BigText,
+          largeIcon: 'resource://assets/images/alberi.png',
           title: title,
           body: body,
           displayOnBackground: true,
@@ -24,6 +26,7 @@ class NotificaInquinamento {
     return awesomeNotifications.createNotification(
       content: NotificationContent(
           id: Random().nextInt(100),
+          notificationLayout: NotificationLayout.BigText,
           title: title,
           body: body,
           displayOnBackground: true,
