@@ -30,7 +30,7 @@ class SchermataDatiCompleti extends StatelessWidget {
             //onLongPress: (() => Peso.elimina()),
             child: IconButton(
                 onPressed: () {
-                  //Peso.stampa(context);
+                  Peso.stampa(context);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -90,7 +90,7 @@ class SchermataDatiCaricamento extends StatelessWidget {
         appBar: AppBar(
           leading: IconButton(
               onPressed: () => {
-                    //Peso.stampa(context),
+                    Peso.stampa(context),
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -98,6 +98,7 @@ class SchermataDatiCaricamento extends StatelessWidget {
                       ),
                     )
                   },
+              tooltip: "Impostazioni",
               icon: const Icon(Icons.settings)),
           actions: [
             IconButton(

@@ -11,8 +11,8 @@ class DiarioSchermata extends StatefulWidget {
 
 class _DiarioSchermataState extends State<DiarioSchermata> {
   double oraValore = 12;
-  double statoFisicoValore = 5;
-
+  double statoFisicoValore = 0;
+  Map<num, String> valoreLabel = {0: "Basso 🙂", 5: "Medio 😑", 10: "Alto 🤧"};
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +36,7 @@ class _DiarioSchermataState extends State<DiarioSchermata> {
                 height: 15,
               ),
               Text(
-                "Inserisci l’intensità del disturbo (da 0 a 10)\ntenendo conto di: ",
+                "Inserisci l’intensità del disturbo tenendo conto di: ",
                 textAlign: TextAlign.left,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
@@ -67,11 +67,11 @@ class _DiarioSchermataState extends State<DiarioSchermata> {
                       inactiveColor: Colors.green.shade100,
                       value: statoFisicoValore,
                       max: 10,
-                      divisions: 10,
-                      label: (statoFisicoValore).round().toString(),
+                      divisions: 2,
+                      label: valoreLabel[(statoFisicoValore).round()],
                       onChanged: (double value) {
                         setState(() {
-                          if (value < 1) value = 1;
+                          //if (value < 1) value = 1;
                           statoFisicoValore = value;
                         });
                       },
@@ -83,7 +83,7 @@ class _DiarioSchermataState extends State<DiarioSchermata> {
             const Spacer(),
             //const SizedBox(height: 50),
             const Text(
-              "Quante ore hai passato all'aperto ?",
+              "Quante ore hai trascorso all'aperto ?",
               textAlign: TextAlign.left,
               style: TextStyle(fontSize: 24, fontStyle: FontStyle.italic),
             ),
@@ -126,8 +126,11 @@ class _DiarioSchermataState extends State<DiarioSchermata> {
                 onPressed: (() {
                   // ignore: avoid_print
                   Navigator.pop(context, true);
-                  Peso.aumentaMultipli(widget.pos,
-                      Peso.calcolaPeso(statoFisicoValore, oraValore), context);
+                  Peso.aumentaMultipli(
+                      widget.pos,
+                      statoFisicoValore == 0 ? 1 : statoFisicoValore,
+                      oraValore,
+                      context);
                   DiarioDisponibile.usato();
                 }),
                 label: const Text("Conferma"),

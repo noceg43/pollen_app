@@ -107,20 +107,10 @@ class PrimaVolta {
 }
 
 class Peso {
-  double p = 0;
+  num statoFisicoValore;
+  num oraValore;
   String codice = "";
-
-  static Future<List<Peso>> getContatore(Posizione pos) async {
-    const storage = FlutterSecureStorage();
-    List lista = await Peso.chiAumentare(await Tipologia.daPosizione(pos, 0));
-    List<Peso> pesi = [];
-    Map<String, String> tutto = await storage.readAll();
-    for (String s in lista) {
-      final virgolato = tutto[s] ?? '0';
-      pesi.add(Peso(s, double.parse(virgolato)));
-    }
-    return pesi;
-  }
+  DateTime giorno;
 
   //                 DA QUALE VALORE INZIARE AD INSERIRE NEL DIARIO LE PARTICELLE
   static Future<List<String>> chiAumentareNo(Posizione pos) async {
@@ -142,16 +132,21 @@ class Peso {
     return tip;
   }
 
-  Peso(this.codice, this.p);
-  Future<void> aumentaSingolo(double peso) async {
+  Peso(this.codice, this.statoFisicoValore, this.oraValore, this.giorno);
+  Future<void> aumentaSingolo(num statoFisicoValore, num oraValore) async {
     const storage = FlutterSecureStorage();
-    p = p + peso;
-    await storage.write(key: codice, value: p.toString());
+
+    await storage.write(
+        key: "${codice}_${giorno.month}/${giorno.day}/${giorno.year}_STATO",
+        value: statoFisicoValore.toString());
+    await storage.write(
+        key: "${codice}_${giorno.month}/${giorno.day}/${giorno.year}_ORA",
+        value: oraValore.toString());
   }
 
   // usare questa
-  static Future<void> aumentaMultipli(
-      Posizione pos, double peso, BuildContext context) async {
+  static Future<void> aumentaMultipli(Posizione pos, num statoFisicoValore,
+      num oraValore, BuildContext context) async {
     const storage = FlutterSecureStorage();
     List lista = await Peso.chiAumentare(await Tipologia.daPosizione(pos, 0));
     String testo;
@@ -173,12 +168,11 @@ class Peso {
     Map<String, String> tutto = await storage.readAll();
 
     for (String s in lista) {
-      final virgolato = tutto[s] ?? '0';
-      pesi.add(Peso(s, double.parse(virgolato)));
+      pesi.add(Peso(s, statoFisicoValore, oraValore, DateTime.now()));
     }
 
     for (Peso p in pesi) {
-      p.aumentaSingolo(peso);
+      p.aumentaSingolo(statoFisicoValore, oraValore);
     }
   }
 
@@ -188,6 +182,7 @@ class Peso {
         (16 - (oraValore > 16 ? 16 : oraValore) + 1);
   }
 
+/*
   static Future<void> aumentaMultipliTest(
       List<Tipologia> listaTip, double peso) async {
     const storage = FlutterSecureStorage();
@@ -208,14 +203,14 @@ class Peso {
 
     for (String s in lista) {
       final virgolato = tutto[s] ?? '0';
-      pesi.add(Peso(s, double.parse(virgolato)));
+      pesi.add(Peso(s, double.parse(virgolato), DateTime.now()));
     }
 
     for (Peso p in pesi) {
       p.aumentaSingolo(peso);
     }
   }
-
+*/
   static Future<Map<String, String>> stampa(BuildContext context) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     print({for (String i in prefs.getKeys()) i: prefs.get(i).toString()});
@@ -228,6 +223,9 @@ class Peso {
     const storage = FlutterSecureStorage();
     Map<String, String> valoricriptati = await storage.readAll();
     print(valoricriptati);
+    print(await Peso.getPeso("Cupressacee/Taxacee", storage));
+    print(await Peso.getParticelleDaGiorno(
+        DateTime.now().add(Duration(days: 1)), storage));
     return {for (String i in prefs.getKeys()) i: prefs.get(i).toString()};
   }
 
@@ -251,11 +249,55 @@ class Peso {
     await preferences.clear();
   }
 
+  static Future<List<String>?> getParticelleDaGiorno(
+      DateTime giorno, FlutterSecureStorage storage) async {
+    //print(await storage.read(key: (await storage.readAll()).keys.first));
+    Map<String, String> tutto = await storage.readAll();
+    String giornoString = "${giorno.month}/${giorno.day}/${giorno.year}";
+    num ore = 0;
+    for (String s in tutto.keys) {
+      if (s.contains(giornoString) && s.contains("_ORA")) {
+        ore = num.parse(tutto[s]!);
+        break;
+      }
+    }
+    if (ore == 0) return null;
+
+    num valore = 0;
+    for (String s in tutto.keys) {
+      if (s.contains(giornoString) && s.contains("_STATO")) {
+        valore = num.parse(tutto[s]!);
+        break;
+      }
+    }
+
+    Set<String> particelle = {
+      for (String s in tutto.keys)
+        if (s.contains(giornoString)) s.split("_")[0]
+    };
+    return particelle.toList() + [ore.toString(), valore.toString()];
+  }
+
   static Future<double> getPeso(
       String cod, FlutterSecureStorage storage) async {
     //print(await storage.read(key: (await storage.readAll()).keys.first));
     Map<String, String> tutto = await storage.readAll();
 
-    return double.parse(tutto[cod] ?? '0');
+    Map<String, String> ore = {
+      for (String s in tutto.keys)
+        if (s.contains(cod) && s.contains("_ORA")) s.split('_')[1]: tutto[s]!
+    };
+    Map<String, String> stati = {
+      for (String s in tutto.keys)
+        if (s.contains(cod) && s.contains("_STATO")) s.split('_')[1]: tutto[s]!
+    };
+
+    List<double> pesi = [
+      for (String s in ore.keys)
+        calcolaPeso(num.parse(stati[s]!), num.parse(stati[s]!))
+    ];
+    double ret = pesi.reduce((value, element) => value + element);
+
+    return ret;
   }
 }

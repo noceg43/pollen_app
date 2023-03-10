@@ -28,33 +28,24 @@ class ButtonDiarioState extends State<ButtonDiario> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Peso>>(
-      future: Peso.getContatore(widget.dataPos),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return FutureBuilder<bool>(
-              future: DiarioDisponibile.statoUsato(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return Visibility(
-                    visible: (!result && !snapshot.data!),
-                    child: FloatingActionButton(
-                      tooltip: "Diario",
-                      onPressed: (() {
-                        (snapshot.hasData) ? {_navigaDiario(context)} : null;
-                      }),
-                      backgroundColor: Colors.green,
-                      child: const Icon(Icons.menu_book),
-                    ),
-                  );
-                } else {
-                  return Container();
-                }
-              });
-        } else {
-          return Container();
-        }
-      },
-    );
+    return FutureBuilder<bool>(
+        future: DiarioDisponibile.statoUsato(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Visibility(
+              visible: (!result && !snapshot.data!),
+              child: FloatingActionButton(
+                tooltip: "Diario",
+                onPressed: (() {
+                  (snapshot.hasData) ? {_navigaDiario(context)} : null;
+                }),
+                backgroundColor: Colors.green,
+                child: const Icon(Icons.menu_book),
+              ),
+            );
+          } else {
+            return Container();
+          }
+        });
   }
 }
