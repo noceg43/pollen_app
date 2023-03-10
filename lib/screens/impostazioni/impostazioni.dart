@@ -44,45 +44,7 @@ class _SchermataImpostazioniState extends State<SchermataImpostazioni> {
               style: TextStyle(color: Colors.green.shade900, fontSize: 15),
             ),
           ),
-          InkWell(
-            onTap: () {
-              showDialog<String>(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text('Attenzione'),
-                  content:
-                      const Text('Confermi di voler cancellare tutti i dati ?'),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => {Navigator.pop(context)},
-                      child: const Text('No'),
-                    ),
-                    TextButton(
-                      onPressed: () =>
-                          {Peso.eliminaDatiDiario(), Navigator.pop(context)},
-                      child: const Text('Sì, confermo'),
-                    ),
-                  ],
-                ),
-              );
-            },
-            child: Container(
-              padding: const EdgeInsets.fromLTRB(40, 5, 40, 5),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Cancella le interazioni con il diario",
-                      style: TextStyle(color: Colors.black, fontSize: 16),
-                    ),
-                    Text(
-                      "Elimina tutti i dati inseriti nella pagina diario",
-                      style: TextStyle(
-                          color: Colors.black.withOpacity(0.6), fontSize: 16),
-                    ),
-                  ]),
-            ),
-          ),
+          DatiProtettiBiometric(),
           InkWell(
             onTap: () {
               setState(() {
@@ -265,7 +227,6 @@ class _SchermataImpostazioniState extends State<SchermataImpostazioni> {
               ),
             ),
           ),
-          BiometricButton()
         ],
       ),
     );

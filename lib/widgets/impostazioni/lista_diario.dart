@@ -1,17 +1,17 @@
+import 'package:demo_1/screens/lista_particelle_diario/lista_particelle_diario.dart';
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
 
-class BiometricButton extends StatelessWidget {
+class DatiProtettiBiometric extends StatelessWidget {
   final LocalAuthentication localAuth = LocalAuthentication();
 
-  BiometricButton({super.key});
+  DatiProtettiBiometric({super.key});
 
   Future<bool> _authenticate() async {
     final LocalAuthentication auth = LocalAuthentication();
     final bool canAuthenticateWithBiometrics = await auth.canCheckBiometrics;
     final bool canAuthenticate =
         canAuthenticateWithBiometrics || await auth.isDeviceSupported();
-    print(canAuthenticate);
     // Esegue il test di autenticazione biometrica
     bool authenticated = false;
     try {
@@ -28,8 +28,8 @@ class BiometricButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () async {
+    return InkWell(
+      onTap: () async {
         // Verifica l'autenticazione biometrica
         bool authenticated = await _authenticate();
         if (authenticated) {
@@ -37,7 +37,7 @@ class BiometricButton extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => NewScreen(),
+              builder: (context) => ListaParticelleDiario(),
             ),
           );
         } else {
@@ -49,22 +49,22 @@ class BiometricButton extends StatelessWidget {
           );
         }
       },
-      child: const Text('Avvia nuova schermata'),
-    );
-  }
-}
-
-class NewScreen extends StatelessWidget {
-  const NewScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Nuova Schermata'),
-      ),
-      body: const Center(
-        child: Text('Questa è la nuova schermata'),
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(40, 5, 40, 5),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              "Visualizza le interazioni con il diario",
+              style: TextStyle(color: Colors.black, fontSize: 16),
+            ),
+            Text(
+              "Mostra i dati recuperati tramite la pagina diario",
+              style:
+                  TextStyle(color: Colors.black.withOpacity(0.6), fontSize: 16),
+            )
+          ],
+        ),
       ),
     );
   }

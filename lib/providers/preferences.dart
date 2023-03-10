@@ -224,8 +224,8 @@ class Peso {
     Map<String, String> valoricriptati = await storage.readAll();
     print(valoricriptati);
     print(await Peso.getPeso("Cupressacee/Taxacee", storage));
-    print(await Peso.getParticelleDaGiorno(
-        DateTime.now().add(Duration(days: 1)), storage));
+    print(await Peso.getParticelleDaGiorno("3/11/2023"));
+    print(await Peso.getGiorni());
     return {for (String i in prefs.getKeys()) i: prefs.get(i).toString()};
   }
 
@@ -249,14 +249,29 @@ class Peso {
     await preferences.clear();
   }
 
-  static Future<List<String>?> getParticelleDaGiorno(
-      DateTime giorno, FlutterSecureStorage storage) async {
+  static Future<List<String>?> getGiorni() async {
+    const storage = FlutterSecureStorage();
+    Map<String, String> tutto = await storage.readAll();
+    Set<DateTime> giorni = {};
+    for (String s in tutto.keys) {
+      if (s.split("_").length < 2) continue;
+      String g = s.split("_")[1];
+      giorni.add(DateTime(int.parse(g.split("/")[2]),
+          int.parse(g.split("/")[0]), int.parse(g.split("/")[1])));
+    }
+    List<DateTime> ordinato = giorni.toList();
+    ordinato.sort(((a, b) => b.compareTo(a)));
+    if (ordinato.isEmpty) return null;
+    return [for (DateTime o in ordinato) "${o.month}/${o.day}/${o.year}"];
+  }
+
+  static Future<List<String>?> getParticelleDaGiorno(String giorno) async {
+    const storage = FlutterSecureStorage();
     //print(await storage.read(key: (await storage.readAll()).keys.first));
     Map<String, String> tutto = await storage.readAll();
-    String giornoString = "${giorno.month}/${giorno.day}/${giorno.year}";
     num ore = 0;
     for (String s in tutto.keys) {
-      if (s.contains(giornoString) && s.contains("_ORA")) {
+      if (s.contains(giorno) && s.contains("_ORA")) {
         ore = num.parse(tutto[s]!);
         break;
       }
@@ -265,7 +280,7 @@ class Peso {
 
     num valore = 0;
     for (String s in tutto.keys) {
-      if (s.contains(giornoString) && s.contains("_STATO")) {
+      if (s.contains(giorno) && s.contains("_STATO")) {
         valore = num.parse(tutto[s]!);
         break;
       }
@@ -273,9 +288,9 @@ class Peso {
 
     Set<String> particelle = {
       for (String s in tutto.keys)
-        if (s.contains(giornoString)) s.split("_")[0]
+        if (s.contains(giorno)) s.split("_")[0]
     };
-    return particelle.toList() + [ore.toString(), valore.toString()];
+    return [ore.toString(), valore.toString()] + particelle.toList();
   }
 
   static Future<double> getPeso(
