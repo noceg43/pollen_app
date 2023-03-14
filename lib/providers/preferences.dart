@@ -311,6 +311,7 @@ class Peso {
       for (String s in ore.keys)
         calcolaPeso(num.parse(stati[s]!), num.parse(stati[s]!))
     ];
+    if (pesi.isEmpty) return 0;
     double ret = pesi.reduce((value, element) => value + element);
 
     return ret;
