@@ -100,7 +100,7 @@ class DatiCompleti extends StatelessWidget {
           List<Tipologia> domani = snapshot.data![3];
           List<Tipologia> dopoDomani = snapshot.data![4];
           //genera notifica
-          //generaNotifica(oggi, domani);
+          generaNotifica(oggi, domani);
           return TabBarView(
             children: [
               ListGiornaliera(

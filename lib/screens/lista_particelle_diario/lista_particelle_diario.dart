@@ -15,8 +15,8 @@ class _ListaParticelleDiarioState extends State<ListaParticelleDiario> {
     showDialog<String>(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-        title: const Text('Attenzione'),
-        content: const Text('Confermi di voler cancellare tutti i dati ?'),
+        title: const Text('Warning'),
+        content: const Text('Confirm you want to delete all data ?'),
         actions: <Widget>[
           TextButton(
             onPressed: () => {Navigator.pop(context)},
@@ -30,7 +30,7 @@ class _ListaParticelleDiarioState extends State<ListaParticelleDiario> {
               }),
               Navigator.of(context).maybePop()
             },
-            child: const Text('Sì, confermo'),
+            child: const Text('Yes, I confirm'),
           ),
         ],
       ),
@@ -41,7 +41,7 @@ class _ListaParticelleDiarioState extends State<ListaParticelleDiario> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Diario Personale'),
+        title: const Text('Personal Diary'),
       ),
       body: Center(
         child: FutureBuilder<List<String>?>(
@@ -58,7 +58,7 @@ class _ListaParticelleDiarioState extends State<ListaParticelleDiario> {
                   ],
                 );
               } else {
-                return const Text("Nessun dato presente");
+                return const Text("No data present");
               }
             }),
       ),
@@ -70,7 +70,7 @@ class _ListaParticelleDiarioState extends State<ListaParticelleDiario> {
                 onPressed: () {
                   _showdialog();
                 },
-                tooltip: "Elimina i dati personali registrati",
+                tooltip: "Delete registered personal data",
                 backgroundColor: Colors.red,
                 child: Icon(
                   Icons.delete,

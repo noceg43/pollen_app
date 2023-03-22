@@ -20,16 +20,16 @@ class TipoSchermata extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Posizione posizione;
-    if (tipologia.nome == "Inquinamento" && s is Posizione) {
+    if (tipologia.nome == "Pollution" && s is Posizione) {
       posizione = s;
     } else {
       posizione = Posizione(s.latitude, s.longitude, s.statenameI);
     }
     Map<String, String> titolo = {
-      "Alberi": "Polline degli alberi",
-      "Erbe": "Polline delle erbe",
-      "Spore": "Spore",
-      "Inquinamento": "Inquinamento"
+      "Trees": "Tree pollen",
+      "Herbs": "Herb pollen",
+      "Spores": "Spores",
+      "Pollution": "Pollution"
     };
 
     return Scaffold(
@@ -78,11 +78,11 @@ class TipoSchermata extends StatelessWidget {
                         offset: const Offset(0.0, -15.0),
                         child: Container(
                           padding: const EdgeInsets.all(10),
-                          child: (tipologia.nome == "Inquinamento")
+                          child: (tipologia.nome == "Pollution")
                               ? Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text("Recuperati dalla posizione:",
+                                    Text("Retrieved from location:",
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyMedium),
@@ -103,7 +103,7 @@ class TipoSchermata extends StatelessWidget {
                                       textBaseline: TextBaseline.alphabetic,
                                       children: [
                                         Text(
-                                          "Con una precisione di ",
+                                          "With an accuracy of ",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyMedium,
@@ -121,7 +121,7 @@ class TipoSchermata extends StatelessWidget {
                               : Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text("Recuperati dalla stazione di:",
+                                    Text("Retrieved from location:",
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyMedium),
@@ -148,7 +148,7 @@ class TipoSchermata extends StatelessWidget {
                                         textBaseline: TextBaseline.alphabetic,
                                         children: [
                                           Text(
-                                            "Distante: ",
+                                            "Distant: ",
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyMedium,

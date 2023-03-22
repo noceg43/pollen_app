@@ -57,13 +57,13 @@ class SchermataDatiCompleti extends StatelessWidget {
             labelStyle: Theme.of(context).textTheme.bodySmall,
             tabs: const [
               Tab(
-                text: "OGGI",
+                text: "TODAY",
               ),
               Tab(
-                text: "DOMANI",
+                text: "TOMORROW",
               ),
               Tab(
-                text: "DOPODOMANI",
+                text: "NEXT 2 DAYS",
               )
             ],
           ),

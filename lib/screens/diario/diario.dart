@@ -12,14 +12,14 @@ class DiarioSchermata extends StatefulWidget {
 class _DiarioSchermataState extends State<DiarioSchermata> {
   double oraValore = 12;
   double statoFisicoValore = 0;
-  Map<num, String> valoreLabel = {0: "Basso 🙂", 5: "Medio 😑", 10: "Alto 🤧"};
+  Map<num, String> valoreLabel = {0: "Low 🙂", 5: "Medium 😑", 10: "High 🤧"};
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         //title: Text(p.partNameI),
         leading: const BackButton(),
-        title: const Text("Segnala un disturbo"),
+        title: const Text("Report a symptom"),
       ),
       body: Container(
         padding: const EdgeInsets.fromLTRB(15, 20, 15, 0),
@@ -28,7 +28,7 @@ class _DiarioSchermataState extends State<DiarioSchermata> {
           children: [
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               const Text(
-                "Com’è andata oggi ?",
+                "How was it today ?",
                 textAlign: TextAlign.left,
                 style: TextStyle(fontSize: 24, fontStyle: FontStyle.italic),
               ),
@@ -36,7 +36,7 @@ class _DiarioSchermataState extends State<DiarioSchermata> {
                 height: 15,
               ),
               Text(
-                "Inserisci l’intensità del disturbo tenendo conto di: ",
+                "Enter the intensity of symptoms taking into consideration: ",
                 textAlign: TextAlign.left,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
@@ -44,7 +44,7 @@ class _DiarioSchermataState extends State<DiarioSchermata> {
                 height: 5,
               ),
               Text(
-                "•occhi\n•naso\n•polmoni\n•pelle",
+                "•eyes\n•nose\n•lungs\n•skin",
                 textAlign: TextAlign.left,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
@@ -57,7 +57,7 @@ class _DiarioSchermataState extends State<DiarioSchermata> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("implicazioni dello stato fisico".toUpperCase(),
+                    Text("Level of the symptoms".toUpperCase(),
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 18,
@@ -83,7 +83,7 @@ class _DiarioSchermataState extends State<DiarioSchermata> {
             const Spacer(),
             //const SizedBox(height: 50),
             const Text(
-              "Quante ore hai trascorso all'aperto ?",
+              "How many hours did you spend outside ?",
               textAlign: TextAlign.left,
               style: TextStyle(fontSize: 24, fontStyle: FontStyle.italic),
             ),
@@ -96,7 +96,7 @@ class _DiarioSchermataState extends State<DiarioSchermata> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("numero ore all'aperto".toUpperCase(),
+                  Text("number of hours outdoors".toUpperCase(),
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 18,
@@ -133,7 +133,7 @@ class _DiarioSchermataState extends State<DiarioSchermata> {
                       context);
                   DiarioDisponibile.usato();
                 }),
-                label: const Text("Conferma"),
+                label: const Text("Confirm"),
                 icon: const Icon(Icons.check),
               ),
             ),

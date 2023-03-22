@@ -75,18 +75,18 @@ class Inquinamento {
   List<ParticellaInquinante> giornaliero(int day) {
     List<ParticellaInquinante> ret = [];
     ret.add(ParticellaInquinante(
-        "Monossido di carbonio",
+        "Carbon Monoxide",
         hourly.carbonMonoxide.sublist(24 * (day), 24 * (day + 1)).reduce(max),
         4000));
     ret.add(ParticellaInquinante(
-        "Anidride solforosa",
+        "Sulphur Dioxide",
         hourly.sulphurDioxide.sublist(24 * (day), 24 * (day + 1)).reduce(max),
         40));
     ret.add(ParticellaInquinante(
-        "Diossido di azoto",
+        "Nitrogen Dioxide",
         hourly.nitrogenDioxide.sublist(24 * (day), 24 * (day + 1)).reduce(max),
         25));
-    ret.add(ParticellaInquinante("Ozono",
+    ret.add(ParticellaInquinante("Ozone",
         hourly.ozone.sublist(24 * (day), 24 * (day + 1)).reduce(max), 100));
     ret.add(ParticellaInquinante("PM 10",
         hourly.pm10.sublist(24 * (day), 24 * (day + 1)).reduce(max), 45));

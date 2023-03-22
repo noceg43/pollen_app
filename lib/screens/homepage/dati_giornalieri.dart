@@ -89,9 +89,9 @@ class ListGiornaliera extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Visibility(
-                                    visible: (formatTop.livello == "Medio" ||
-                                        formatTop.livello == "Alto"),
-                                    child: const Text("ATTENZIONE:",
+                                    visible: (formatTop.livello == "Medium" ||
+                                        formatTop.livello == "High"),
+                                    child: const Text("WARNING:",
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 14,
@@ -100,17 +100,17 @@ class ListGiornaliera extends StatelessWidget {
                                   Text(formatTop.tipo,
                                       style: TextStyle(
                                           color: (formatTop.livello ==
-                                                      "Medio" ||
-                                                  formatTop.livello == "Alto")
+                                                      "Medium" ||
+                                                  formatTop.livello == "High")
                                               ? Colors.white
                                               : Colors.black,
                                           fontSize: 24,
                                           fontWeight: FontWeight.bold)),
                                   Text(
-                                      "Il livello è ${formatTop.livello.toLowerCase()}",
+                                      "The level is ${formatTop.livello.toLowerCase()}",
                                       style: TextStyle(
-                                        color: (formatTop.livello == "Medio" ||
-                                                formatTop.livello == "Alto")
+                                        color: (formatTop.livello == "Medium" ||
+                                                formatTop.livello == "High")
                                             ? Colors.white
                                             : Colors.black,
                                         fontSize: 14,

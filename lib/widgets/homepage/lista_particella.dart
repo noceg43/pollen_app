@@ -26,7 +26,7 @@ class ListaParticella extends StatelessWidget {
     // logica per restituire in modo ordinato
     // la corretta particella/polline in base all'indice
     ItemParticella getItemParticella(int index) {
-      if (data.nome == "Inquinamento") {
+      if (data.nome == "Pollution") {
         return ItemParticella(
           data: data.lista.elementAt(index),
           s: p,
@@ -94,7 +94,7 @@ class ListaParticella extends StatelessWidget {
                                 builder: (context) => TipoSchermata(
                                   tipologia: data,
                                   s: (data.nome ==
-                                          "Inquinamento") // se particella inquinante allora restituisci posizione
+                                          "Pollution") // se particella inquinante allora restituisci posizione
                                       ? p
                                       : s,
                                   formTipo: formTipo,

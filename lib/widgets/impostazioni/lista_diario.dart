@@ -1,5 +1,7 @@
+import 'package:demo_1/providers/preferences.dart';
 import 'package:demo_1/screens/lista_particelle_diario/lista_particelle_diario.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:local_auth/local_auth.dart';
 
 class DatiProtettiBiometric extends StatelessWidget {
@@ -17,11 +19,10 @@ class DatiProtettiBiometric extends StatelessWidget {
     try {
       authenticated = await localAuth.authenticate(
         options: AuthenticationOptions(biometricOnly: canAuthenticate),
-        localizedReason:
-            "Effettua l'accesso  per visualizzare i dati personali",
+        localizedReason: "Log in to view personal information",
       );
     } catch (e) {
-      print('Errore durante l\'autenticazione: $e');
+      print('Error during l\'authentication: $e');
     }
     return authenticated;
   }
@@ -44,7 +45,7 @@ class DatiProtettiBiometric extends StatelessWidget {
           // Mostra un messaggio di errore se l'autenticazione fallisce
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('L\'autenticazione biometrica è fallita'),
+              content: Text('Biometric authentication has failed'),
             ),
           );
         }
@@ -55,11 +56,11 @@ class DatiProtettiBiometric extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              "Visualizza le interazioni con il diario",
+              "View diary interactions",
               style: TextStyle(color: Colors.black, fontSize: 16),
             ),
             Text(
-              "Mostra i dati recuperati tramite la pagina diario",
+              "Show data retrieved via diary page",
               style:
                   TextStyle(color: Colors.black.withOpacity(0.6), fontSize: 16),
             )

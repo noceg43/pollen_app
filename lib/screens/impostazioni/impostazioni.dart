@@ -32,7 +32,7 @@ class _SchermataImpostazioniState extends State<SchermataImpostazioni> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Impostazioni"),
+        title: const Text("Settings"),
         leading: const BackButton(),
       ),
       body: ListView(
@@ -40,7 +40,7 @@ class _SchermataImpostazioniState extends State<SchermataImpostazioni> {
           Container(
             padding: const EdgeInsets.fromLTRB(40, 10, 40, 5),
             child: Text(
-              "Dati personali",
+              "Personal Data",
               style: TextStyle(color: Colors.green.shade900, fontSize: 15),
             ),
           ),
@@ -57,7 +57,7 @@ class _SchermataImpostazioniState extends State<SchermataImpostazioni> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    "Reimposta permesso per posizione",
+                    "Reset location access",
                     style: TextStyle(color: Colors.black, fontSize: 16),
                   ),
                   FutureBuilder<LocationPermission>(
@@ -67,14 +67,14 @@ class _SchermataImpostazioniState extends State<SchermataImpostazioni> {
                           if (snapshot.data == LocationPermission.always ||
                               snapshot.data == LocationPermission.whileInUse) {
                             return Text(
-                              "Abilitato",
+                              "Enabled",
                               style: TextStyle(
                                   color: Colors.black.withOpacity(0.6),
                                   fontSize: 16),
                             );
                           } else {
                             return Text(
-                              "Disabilitato",
+                              "Disabled",
                               style: TextStyle(
                                   color: Colors.black.withOpacity(0.6),
                                   fontSize: 16),
@@ -94,7 +94,7 @@ class _SchermataImpostazioniState extends State<SchermataImpostazioni> {
           Container(
             padding: const EdgeInsets.fromLTRB(40, 0, 40, 5),
             child: Text(
-              "Notifiche",
+              "Notifications",
               style: TextStyle(color: Colors.green.shade900, fontSize: 15),
             ),
           ),
@@ -117,11 +117,11 @@ class _SchermataImpostazioniState extends State<SchermataImpostazioni> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            "Aumento particelle sensibili",
+                            "Regarding possible changes about particles",
                             style: TextStyle(color: Colors.black, fontSize: 16),
                           ),
                           Text(
-                            "Massimo una volta al giorno, legate alle interazioni con il diario",
+                            "Maximum once a day, related to diary interactions",
                             style: TextStyle(
                                 color: Colors.black.withOpacity(0.6),
                                 fontSize: 16),
@@ -163,11 +163,11 @@ class _SchermataImpostazioniState extends State<SchermataImpostazioni> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            "Qualità aria",
+                            "Air Quality",
                             style: TextStyle(color: Colors.black, fontSize: 16),
                           ),
                           Text(
-                            "Cambiamenti delle particelle inquinanti nel giorno successivo",
+                            "Changes in pollutant particles in the next day",
                             style: TextStyle(
                                 color: Colors.black.withOpacity(0.6),
                                 fontSize: 16),
@@ -196,7 +196,7 @@ class _SchermataImpostazioniState extends State<SchermataImpostazioni> {
           Container(
             padding: const EdgeInsets.fromLTRB(40, 0, 40, 5),
             child: Text(
-              "Aiuto",
+              "Help",
               style: TextStyle(color: Colors.green.shade900, fontSize: 15),
             ),
           ),
@@ -215,11 +215,11 @@ class _SchermataImpostazioniState extends State<SchermataImpostazioni> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    "Mostra le pagine introduttive",
+                    "Show Introduction Pages",
                     style: TextStyle(color: Colors.black, fontSize: 16),
                   ),
                   Text(
-                    "Il tutorial iniziale",
+                    "The initial tutorial",
                     style: TextStyle(
                         color: Colors.black.withOpacity(0.6), fontSize: 16),
                   )

@@ -35,9 +35,12 @@ class SchedaInfoParticella extends StatelessWidget {
           ),
           Transform.translate(
             offset: const Offset(0.0, -40.0),
-            child: Text(
-              "👷‍♂️Scheda in costruzione...",
-              style: Theme.of(context).textTheme.bodyMedium,
+            child: Container(
+              padding: EdgeInsets.all(5),
+              child: Text(
+                "Ash pollen, released during the tree's reproductive cycle, can cause allergic reactions in some individuals due to its dispersal through the air.",
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
             ),
           ),
         ],

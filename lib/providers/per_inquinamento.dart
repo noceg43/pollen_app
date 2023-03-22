@@ -20,10 +20,10 @@ class PerInquinamento {
   static Future<Map<DateTime, num>> fetch(
       Posizione p, Particella particella) async {
     Map<String, String> nomeParticella = {
-      "Monossido di carbonio": "carbon_monoxide",
-      "Anidride solforosa": "sulphur_dioxide",
-      "Diossido di azoto": "nitrogen_dioxide",
-      "Ozono": "ozone",
+      "Carbon Monoxide": "carbon_monoxide",
+      "Sulphur Dioxide": "sulphur_dioxide",
+      "Nitrogen Dioxide": "nitrogen_dioxide",
+      "Ozone": "ozone",
       "PM 10": "pm10",
       "PM 2.5": "pm2_5"
     };

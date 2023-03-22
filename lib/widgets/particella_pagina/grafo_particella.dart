@@ -63,7 +63,7 @@ class _GraficoState extends State<Grafico> {
     Widget text;
     if (value == value.toInt()) {
       text = Text(
-        "${widget.listVal.keys.elementAt(value.toInt()).day}/${widget.listVal.keys.elementAt(value.toInt()).month}",
+        "${widget.listVal.keys.elementAt(value.toInt()).month}/${widget.listVal.keys.elementAt(value.toInt()).day}",
         style: style,
       );
     } else {

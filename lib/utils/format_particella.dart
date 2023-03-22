@@ -9,7 +9,8 @@ class FormatParticella {
   num valColore = 0;
   IconData? icona;
   FormatParticella(Map<Particella, ValoreDelGiorno> data) {
-    nome = data.keys.first.nome;
+    nome = data.keys.first.nome[0].toUpperCase() +
+        data.keys.first.nome.substring(1);
     valore = data.values.first.valore;
     valColore = data.values.first.gruppoValore;
     if (data.keys.first.tipo != "Inquinamento") {

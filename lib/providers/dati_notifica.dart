@@ -173,9 +173,8 @@ class DatiNotifica {
         .compareTo(a.lista.first.values.first.gruppoValore)));
 
 // FINE NUOVA IMPLEMENTAZIONE TIPOLOGIE ORDINATE IN BASE AL PESO
-    print(oggiLocal);
-    print(domaniLocal);
-
+    //print(oggiLocal);
+    //print(domaniLocal);
     bool checkLivelliMedioAlto(List<Tipologia> tList) {
       if (tList.first.lista.first.values.first.gruppoValore >= 2) return true;
       return false;
@@ -201,27 +200,31 @@ class DatiNotifica {
     */
     String titolo(List<Particella?> part) {
       switch (part.first!.tipo) {
-        case "Alberi":
-          return "Polline degli alberi🌳 in ";
-        case "Spore":
-          return "Spore fungine🍄 in ";
-        case "Erbe":
-          return "Polline delle erbe🌿 in ";
+        case "Trees":
+          return "Trees pollen🌳 ";
+        case "Spores":
+          return "Spores🍄 ";
+        case "Herbs":
+          return "Herbs pollen🌿 ";
         default:
-          return "Particelle inquinanti🌁 in ";
+          return "Pollution🌁 ";
       }
     }
 
-    String corpoEnd = " a ${oggiLocal.first.pos.pos}";
+    String corpoEnd = " in ${oggiLocal.first.pos.pos}";
     //IMPLEMENTAZIONE CON "DIMINUISCE"
     if (oggiLocal.first.lista.first.values.first.gruppoValore >
         domaniLocal.first.lista.first.values.first.gruppoValore) {
       List<Particella?> mod =
           _modifiche(oggiLocal.first, domaniLocal.first, true);
-      print(mod);
+      for (var element in mod) {
+        element!.nome =
+            element.nome[0].toUpperCase() + element.nome.substring(1);
+      }
+      //print(mod);
       return DatiNotifica(
-          "${titolo(mod)}diminuzione📉",
-          "${(mod.length == 2) ? mod.join(' e ') : mod.join(', ')}$corpoEnd",
+          "${titolo(mod)}decreasing tomorrow📉",
+          "${(mod.length == 2) ? mod.join(' and ') : mod.join(', ')}$corpoEnd",
           mod.toString(),
           "DIMINUZIONE");
     } else
@@ -229,10 +232,14 @@ class DatiNotifica {
     {
       List<Particella?> mod =
           _modifiche(oggiLocal.first, domaniLocal.first, false);
-      print(mod);
+      for (var element in mod) {
+        element!.nome =
+            element.nome[0].toUpperCase() + element.nome.substring(1);
+      }
+      //print(mod);
       if (mod.isEmpty) return null;
       return DatiNotifica(
-          "${titolo(mod)}aumento📈",
+          "${titolo(mod)}on the increase tomorrow📈",
           "${(mod.length == 2) ? mod.join(' e ') : mod.join(', ')}$corpoEnd",
           mod.toString(),
           "AUMENTO");
@@ -332,27 +339,27 @@ class DatiNotifica {
       Posizione p, List<Tipologia> oggi, List<Tipologia> domani) async {
     if (!(await PreferencesNotificaInquinamento.ottieni())) return null;
 
-    Tipologia oggiInq = oggi.where((e) => e.nome == "Inquinamento").first;
-    Tipologia domaniInq = domani.where((e) => e.nome == "Inquinamento").first;
+    Tipologia oggiInq = oggi.where((e) => e.nome == "Pollution").first;
+    Tipologia domaniInq = domani.where((e) => e.nome == "Pollution").first;
     List<Particella> diminuite = _modifiche(oggiInq, domaniInq, true);
     List<Particella> aumentate = _modifiche(oggiInq, domaniInq, false);
     if (aumentate.isEmpty && diminuite.isEmpty) return null;
-    String titolo = "Domani qualità dell'aria ";
-    String corpoEnd = " a ${oggiInq.pos.pos}";
+    String titolo = "Tomorrow air quality ";
+    String corpoEnd = " in ${oggiInq.pos.pos}";
 
     if (aumentate.length > diminuite.length) {
-      titolo = "${titolo}peggiore 🌁 ";
+      titolo = "${titolo}looks worse 🌁 ";
 
       return DatiNotifica(
           titolo,
-          "${(aumentate.length == 2) ? aumentate.join(' e ') : aumentate.join(', ')} in aumento📈$corpoEnd",
+          "${(aumentate.length == 2) ? aumentate.join(' and ') : aumentate.join(', ')} on the rise📈$corpoEnd",
           aumentate.toString(),
           "AUMENTO");
     } else {
-      titolo = "${titolo}migliore 🏞";
+      titolo = "${titolo}is better 🏞";
       return DatiNotifica(
           titolo,
-          "${(diminuite.length == 2) ? diminuite.join(' e ') : diminuite.join(', ')} in diminuzione📉$corpoEnd",
+          "${(diminuite.length == 2) ? diminuite.join(' and ') : diminuite.join(', ')} decreasing📉$corpoEnd",
           diminuite.toString(),
           "DIMINUZIONE");
     }

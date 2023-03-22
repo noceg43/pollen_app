@@ -27,17 +27,17 @@ List<Map<String, dynamic>> tipoMaggiore(
     maxInq += element;
   }
   Map<String, num> massimi = {
-    "Alberi": massimo(alberi),
-    "Erbe": massimo(erbe),
-    "Spore": massimo(spore),
-    "Inquinamento": maxInq
+    "Trees": massimo(alberi),
+    "Herbs": massimo(erbe),
+    "Spores": massimo(spore),
+    "Pollution": maxInq
   };
 
   List<Map<String, dynamic>> ret = [
-    {"Alberi": alberi},
-    {"Erbe": erbe},
-    {"Spore": spore},
-    {"Inquinamento": inq}
+    {"Trees": alberi},
+    {"Herbs": erbe},
+    {"Spores": spore},
+    {"Pollution": inq}
   ];
 
   ret.sort(
@@ -56,7 +56,7 @@ class Particella {
   static List<Particella> daPolline(List<Polline> poll, String tipo) {
     return [
       for (Polline p in poll)
-        Particella(p.partNameI, [p.partLow, p.partMiddle, p.partHigh], tipo,
+        Particella(p.partNameE, [p.partLow, p.partMiddle, p.partHigh], tipo,
             idPolline: p.partId)
     ];
   }
@@ -64,7 +64,7 @@ class Particella {
   static List<Particella> daInquinamento(List<ParticellaInquinante> inq) {
     return [
       for (ParticellaInquinante p in inq)
-        Particella(p.tipo, [p.lim], "Inquinamento")
+        Particella(p.tipo, [p.lim], "Pollution")
     ];
   }
 
@@ -94,7 +94,7 @@ class ValoreDelGiorno {
       Map<Polline, Tendenza> tend, int giorno) {
     return {
       for (Polline p in tend.keys)
-        p.partNameI: ValoreDelGiorno(
+        p.partNameE: ValoreDelGiorno(
             tend[p]!.valore,
             DateTime.now().add(Duration(days: giorno)),
             tend[p]!.freccia,
@@ -142,24 +142,24 @@ class Tipologia {
     // ottenere dati per inquinamento
     Inquinamento inq = await Inquinamento.fetch(p);
     List<ParticellaInquinante> listaInq = inq.giornaliero(giorno);
-
     // creare istanze Tipologia
     Tipologia a = Tipologia([
-      for (Particella p in Particella.daPolline(alberi.keys.toList(), "Alberi"))
+      for (Particella p in Particella.daPolline(alberi.keys.toList(), "Trees"))
         {p: ValoreDelGiorno.daPolline(alberi, giorno)[p.nome]!}
-    ], "Alberi", p);
+    ], "Trees", p);
     Tipologia e = Tipologia([
-      for (Particella p in Particella.daPolline(erbe.keys.toList(), "Erbe"))
+      for (Particella p in Particella.daPolline(erbe.keys.toList(), "Herbs"))
         {p: ValoreDelGiorno.daPolline(erbe, giorno)[p.nome]!}
-    ], "Erbe", p);
+    ], "Herbs", p);
     Tipologia s = Tipologia([
-      for (Particella p in Particella.daPolline(spore.keys.toList(), "Spore"))
+      for (Particella p in Particella.daPolline(spore.keys.toList(), "Spores"))
         {p: ValoreDelGiorno.daPolline(spore, giorno)[p.nome]!}
-    ], "Spore", p);
+    ], "Spores", p);
     Tipologia i = Tipologia([
       for (Particella p in Particella.daInquinamento(listaInq))
         {p: ValoreDelGiorno.daInquinamento(listaInq, giorno)[p.nome]!}
-    ], "Inquinamento", p);
+    ], "Pollution", p);
+
     // ordinarle internamente per particella
     a.ordina();
     e.ordina();
@@ -168,7 +168,6 @@ class Tipologia {
     List<Tipologia> ret = [a, e, s, i];
     // ordinare le istanze di Tipologia
     ret.sort(((a, b) => b.sommaValori().compareTo(a.sommaValori())));
-
     return ret;
   }
 

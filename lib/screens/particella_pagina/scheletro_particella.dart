@@ -13,7 +13,7 @@ class ScheletroParticella extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(p.nome),
+        title: Text(p.nome[0].toUpperCase() + p.nome.substring(1)),
         leading: const BackButton(),
       ),
       body: FutureBuilder<Map<DateTime, num>>(
@@ -33,14 +33,14 @@ class ScheletroParticella extends StatelessWidget {
                       child: Row(
                         children: [
                           Text(
-                            "Ultimi dati disponibili:",
+                            "Latest data available:",
                             style: Theme.of(context).textTheme.headline5,
                           ),
                           const Spacer(),
                           Text(
-                            (p.tipo == "Inquinamento")
+                            (p.tipo == "Pollution")
                                 ? "(µg/m³)"
-                                : "(granuli/m³)",
+                                : "(granules/m³)",
                             style: Theme.of(context).textTheme.subtitle2,
                           ),
                         ],
@@ -56,8 +56,8 @@ class ScheletroParticella extends StatelessWidget {
                         TextSpan(
                             style: Theme.of(context).textTheme.subtitle2,
                             children: [
-                              const TextSpan(text: "Dati ottenuti da: "),
-                              (p.tipo == "Inquinamento")
+                              const TextSpan(text: "Data obtained from: "),
+                              (p.tipo == "Pollution")
                                   ? TextSpan(
                                       children: [
                                         TextSpan(

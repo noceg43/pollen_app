@@ -47,7 +47,7 @@ class Polline {
   static List<Polline> getAlberi(Iterable<Polline> tutti) {
     List<Polline> ret = [];
     for (Polline p in tutti) {
-      if (p.tipo == "Alberi") ret.add(p);
+      if (p.tipo == "Trees") ret.add(p);
     }
     return ret;
   }
@@ -55,7 +55,7 @@ class Polline {
   static List<Polline> getErbe(Iterable<Polline> tutti) {
     List<Polline> ret = [];
     for (Polline p in tutti) {
-      if (p.tipo == "Erbe") ret.add(p);
+      if (p.tipo == "Herbs") ret.add(p);
     }
     return ret;
   }
@@ -63,7 +63,7 @@ class Polline {
   static List<Polline> getSpore(Iterable<Polline> tutti) {
     List<Polline> ret = [];
     for (Polline p in tutti) {
-      if (p.tipo == "Spore") ret.add(p);
+      if (p.tipo == "Spores") ret.add(p);
     }
     return ret;
   }
@@ -102,13 +102,13 @@ class Polline {
         "Amaranthaceae",
       ];
       List<String> erbeFamiglia = ["Cannabaceae", "Urticaceae", "Compositae"];
-      if (json['PARENT_NAME_L'] == "Spore") return "Spore";
+      if (json['PARENT_NAME_L'] == "Spores") return "Spores";
       if (erbeFamiglia.contains(json['PARENT_NAME_L']) ||
           erbe.contains(json['PART_NAME_L']) ||
           erbeFamiglia.contains(json['PART_NAME_L'])) {
-        return "Erbe";
+        return "Herbs";
       } else {
-        return "Alberi";
+        return "Trees";
       }
     }
 
@@ -380,7 +380,7 @@ class Tendenza {
   static Map<Polline, Tendenza> getAlberi(Map<Polline, Tendenza> tutte) {
     Map<Polline, Tendenza> ret = {};
     for (Polline p in tutte.keys) {
-      if (p.tipo == "Alberi") ret[p] = tutte[p]!;
+      if (p.tipo == "Trees") ret[p] = tutte[p]!;
     }
     return ret;
   }
@@ -388,7 +388,7 @@ class Tendenza {
   static Map<Polline, Tendenza> getErbe(Map<Polline, Tendenza> tutte) {
     Map<Polline, Tendenza> ret = {};
     for (Polline p in tutte.keys) {
-      if (p.tipo == "Erbe") ret[p] = tutte[p]!;
+      if (p.tipo == "Herbs") ret[p] = tutte[p]!;
     }
     return ret;
   }
@@ -396,7 +396,7 @@ class Tendenza {
   static Map<Polline, Tendenza> getSpore(Map<Polline, Tendenza> tutte) {
     Map<Polline, Tendenza> ret = {};
     for (Polline p in tutte.keys) {
-      if (p.tipo == "Spore") ret[p] = tutte[p]!;
+      if (p.tipo == "Spores") ret[p] = tutte[p]!;
     }
     return ret;
   }

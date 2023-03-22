@@ -25,7 +25,7 @@ class CardContenitore extends StatelessWidget {
           Container(
             padding: const EdgeInsets.fromLTRB(15, 10, 0, 10),
             child: Text(
-              "Indici rilevati:",
+              "Particles detected:",
               style: Theme.of(context).textTheme.headline6,
             ),
           ),

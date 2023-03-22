@@ -12,10 +12,10 @@ class FormatTipoGiornaliero {
 
   FormatTipoGiornaliero(Tipologia data) {
     Map<int, String> livelli = {
-      0: "Molto Basso",
-      1: "Basso",
-      20: "Medio",
-      30: "Alto"
+      0: "Very low",
+      1: "Low",
+      20: "Medium",
+      30: "High"
     };
 
     Map<int, Color> livColori = {

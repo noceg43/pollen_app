@@ -10,11 +10,7 @@ class ParticellaDiario extends StatelessWidget {
   final String nome;
   final String livello;
   final String ore;
-  final Map<num, String> livelli = {
-    1: "Basso 🙂",
-    5: "Medio 😑",
-    10: "Alto 🤧"
-  };
+  final Map<num, String> livelli = {1: "Low 🙂", 5: "Medium 😑", 10: "High 🤧"};
   final Map<num, Color> colore = {
     1: const Color.fromARGB(255, 215, 198, 41),
     5: const Color(0xFFFBAF55),
@@ -26,9 +22,9 @@ class ParticellaDiario extends StatelessWidget {
         future: Polline.fetch(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            String tipo = "inquinamento";
+            String tipo = "Pollution";
             Iterable<Polline> tipi = snapshot.data!.where(
-              (e) => e.partNameI == nome,
+              (e) => e.partNameE == nome,
             );
             if (tipi.isNotEmpty) tipo = tipi.first.tipo;
             return Row(
@@ -59,14 +55,14 @@ class ParticellaDiario extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        nome,
+                        nome[0].toUpperCase() + nome.substring(1),
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       Container(
                         padding: EdgeInsets.fromLTRB(2, 2, 0, 1),
                         child: RichText(
                             text: TextSpan(
-                                text: "Livello dei sintomi riportati: ",
+                                text: "Level of reported symptoms: ",
                                 style: Theme.of(context).textTheme.bodyMedium,
                                 children: <TextSpan>[
                               TextSpan(
@@ -81,16 +77,16 @@ class ParticellaDiario extends StatelessWidget {
                         child: RichText(
                             text: TextSpan(
                                 text: (num.parse(ore).toInt() == 1)
-                                    ? "un'ora "
-                                    : "${num.parse(ore).toInt()}" " ore",
+                                    ? "one hour"
+                                    : "${num.parse(ore).toInt()}" " hours",
                                 style: const TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold),
                                 children: <TextSpan>[
                               TextSpan(
                                   text: (num.parse(ore).toInt() == 1)
-                                      ? " trascorsa all'aperto"
-                                      : " trascorse all'aperto",
+                                      ? " spent outdoors"
+                                      : " spent outdoors",
                                   style: const TextStyle(
                                       fontWeight: FontWeight.normal))
                             ])),

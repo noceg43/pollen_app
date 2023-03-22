@@ -42,7 +42,7 @@ class _SceltaStazioneState extends State<SceltaStazione> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Scegli la stazione"),
+        title: const Text("Choose the station"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(10),
