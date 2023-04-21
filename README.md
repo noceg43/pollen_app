@@ -1,16 +1,28 @@
-# demo_1
+# pollen_app (Internship and Thesis project)
+Project and development of a mobile and context-aware application to monitor the presence of pollen
 
-A new Flutter project.
+## CONTEXT AND OBJECTIVES
+### - Identifying the area of interest 🌼 🌁
+    
+Pollen, spores (http://dati.retecivica.bz.it/it/dataset/italian-pollnet-webservices) and polluting particles (https://github.com/open-meteo/open-meteo)
 
-## Getting Started
+### - Customisation of collected data according to context 🗺 📒
 
-This project is a starting point for a Flutter application.
+Position and sensitivity to the user's reported particles
 
-A few resources to get you started if this is your first Flutter project:
+### - Showing data 📊
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Android Mobile Application (Flutter based)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## PROJECT FEATURES
+### - Geolocalization 🗺
+provide information on the user's location
+
+### - Displaying Data 📊
+Show data in a structured and clear manner
+
+### - Diary 📒
+Possibility for the user to report the particles to which they are most sensitive
+
+### - Notifications 📨
+Sending notifications of changes in particle level on the following day
