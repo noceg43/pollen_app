@@ -1,59 +1,143 @@
 // contiene listview del giorno, widget meteo e polline
 
-import 'package:demo_1/providers/inquinamento.dart';
 import 'package:demo_1/providers/polline.dart';
-import 'package:demo_1/utils/format_inquinamento.dart';
+import 'package:demo_1/providers/position.dart';
+import 'package:demo_1/utils/calcolo_tipo_maggiore.dart';
+import 'package:demo_1/utils/format_dati_giornalieri.dart';
 import 'package:demo_1/utils/format_meteo.dart';
-import 'package:demo_1/utils/format_polline.dart';
-import 'package:demo_1/widgets/homepage/inquinamento.dart';
+import 'package:demo_1/widgets/homepage/card_contiene_lista.dart';
 import 'package:demo_1/widgets/homepage/meteo.dart';
-import 'package:demo_1/widgets/homepage/polline.dart';
 import 'package:flutter/material.dart';
 
 // Contiene Listview del giorno con WidgetMeteo e WidgetPolline
 
-// INPUT: FormatMeteo e tendenza giornaliera
+// INPUT: FormatMeteo Map<Polline, Tendenza> giornaliera e List<ParticellaInquinante>
 // OUTPUT: Listview con meteo e polline
 class ListGiornaliera extends StatelessWidget {
   ListGiornaliera(
       {required this.m,
-      required this.tend,
+      required this.tipologie,
       required this.update,
-      required this.inq})
+      required this.s,
+      required this.p})
       : super(key: ObjectKey(m));
   final FormatMeteo m;
-  final Map<Polline, String> tend;
-  final List<ParticellaInquinante> inq;
+  final List<Tipologia> tipologie;
+  final Stazione s;
+  final Posizione p;
   final void Function() update;
   @override
   Widget build(BuildContext context) {
+    // prende la prima tipologia e la formatta (ottiene i dati da rappresentare)
+    FormatTipoGiornaliero formatTop = FormatTipoGiornaliero(tipologie.first);
     return RefreshIndicator(
       onRefresh: () async {
         update();
       },
-      child: ListView.builder(
-        key: PageStorageKey(key),
-        itemCount: tend.length + 2 + inq.length,
-        padding: const EdgeInsets.all(16.0),
-        itemBuilder: (context, index) {
-          // primo elemento sarà il meteo
-          if (index == 0) {
-            return WidgetMeteo(m: m);
-          }
-          if (index == 1) {
-            return const SizedBox(
-              height: 20,
-            );
-          }
-          if (index >= (tend.length + 2)) {
-            return ItemInquinamento(
-                p: FormatInquinamento(inq[index - (tend.length + 2)]));
-          }
-          return ItemPolline(
-            p: FormatPolline(tend.keys.elementAt(index - 2),
-                tend.values.elementAt(index - 2)),
-          );
-        },
+      child: ScrollConfiguration(
+        behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+        child: SingleChildScrollView(
+          key: PageStorageKey(key),
+          child: Stack(
+            children: [
+              Column(
+                children: [
+                  // Back della schermata
+                  Container(
+                    height: 275,
+                    color: formatTop.col,
+                    child: Row(
+                      children: [
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Flexible(
+                          child: Container(
+                            //width: 115,
+                            //height: 235,
+                            constraints: const BoxConstraints(maxHeight: 185),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.3),
+                                  spreadRadius: 1,
+                                  blurRadius: 10,
+                                  offset: const Offset(5, 8),
+                                ),
+                              ],
+                              image: DecorationImage(
+                                  image: formatTop.img, fit: BoxFit.scaleDown),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 60,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Material(
+                                elevation: 10,
+                                child: WidgetMeteo(
+                                  m: m,
+                                )),
+                            const Spacer(),
+                            Container(
+                              padding: const EdgeInsets.fromLTRB(20, 0, 0, 40),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Visibility(
+                                    visible: (formatTop.livello == "Medio" ||
+                                        formatTop.livello == "Alto"),
+                                    child: const Text("ATTENZIONE:",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14,
+                                        )),
+                                  ),
+                                  Text(formatTop.tipo,
+                                      style: TextStyle(
+                                          color: (formatTop.livello ==
+                                                      "Medio" ||
+                                                  formatTop.livello == "Alto")
+                                              ? Colors.white
+                                              : Colors.black,
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold)),
+                                  Text(
+                                      "Il livello è ${formatTop.livello.toLowerCase()}",
+                                      style: TextStyle(
+                                        color: (formatTop.livello == "Medio" ||
+                                                formatTop.livello == "Alto")
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: 14,
+                                      )),
+                                ],
+                              ),
+                            ),
+                            const Spacer()
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+
+                  Transform.translate(
+                    offset: const Offset(0.0, -40.0),
+                    child: CardContenitore(
+                      listaOrdinata: tipologie,
+                      staz: s,
+                      p: p,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -1,7 +1,4 @@
-import 'dart:math';
-
 import 'package:demo_1/providers/inquinamento.dart';
-import 'package:flutter/material.dart';
 
 // Contiene: costruttore che restituisce tutto il necessario per costruire il widget Inquinamento
 
@@ -10,11 +7,11 @@ import 'package:flutter/material.dart';
 
 class FormatInquinamento {
   String tipo = "";
-  int val = 0;
-  Color valoreColore = Colors.white;
+  num val = 0;
+  int valoreColore = 0;
   FormatInquinamento(ParticellaInquinante p) {
     tipo = p.tipo;
     val = p.val;
-    if (p.superato) valoreColore = Colors.red;
+    if (p.superato) valoreColore = 3;
   }
 }

@@ -45,7 +45,10 @@ class _MyHomePageState extends State<MyHomePage> {
               );
             } else if (snapshot.hasData) {
               return SchermataDatiCompleti(
-                  dataPos: snapshot.data!, update: update);
+                dataPos: snapshot.data!,
+                update: update,
+                homepage: true,
+              );
             } else {
               return const SchermataDatiCaricamento(errore: false);
             }

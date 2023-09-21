@@ -1,24 +1,28 @@
-// ignore_for_file: missing_return
-
 import 'dart:convert';
-import 'dart:io';
 import 'dart:math';
 
-import 'package:http/http.dart' as http;
+import 'package:demo_1/providers/cache.dart';
+import 'package:demo_1/providers/position.dart';
 
 class Inquinamento {
   late final double latitude;
   late final double longitude;
   late final double generationtimeMs;
-  late final int utcOffsetSeconds;
+  late final num utcOffsetSeconds;
   late final String timezone;
   late final String timezoneAbbreviation;
   late final HourlyUnits hourlyUnits;
   late final Hourly hourly;
-  static Future<Inquinamento> fetch(num lat, num lon) async {
-    final response = await http.get(Uri.parse(
-        'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=$lat&longitude=$lon&hourly=pm10,pm2_5,carbon_monoxide,nitrogen_dioxide,sulphur_dioxide,ozone'));
+  static Future<Inquinamento> fetch(Posizione p) async {
+    String urlInquinamento =
+        'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${p.lat}&longitude=${p.lon}&hourly=pm10,pm2_5,carbon_monoxide,nitrogen_dioxide,sulphur_dioxide,ozone';
+    //final response = await http.get(Uri.parse(urlInquinamento));
 
+    var file =
+        await GiornalieraCacheManager.instance.getSingleFile(urlInquinamento);
+
+    return Inquinamento.fromJson(jsonDecode(await file.readAsString()));
+    /*
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
@@ -28,6 +32,7 @@ class Inquinamento {
       // then throw an exception.
       throw Exception('Failed to load album');
     }
+    */
   }
 
   Inquinamento(
@@ -70,22 +75,22 @@ class Inquinamento {
   List<ParticellaInquinante> giornaliero(int day) {
     List<ParticellaInquinante> ret = [];
     ret.add(ParticellaInquinante(
-        "CO",
+        "Monossido di carbonio",
         hourly.carbonMonoxide.sublist(24 * (day), 24 * (day + 1)).reduce(max),
         4000));
     ret.add(ParticellaInquinante(
-        "SO2",
+        "Anidride solforosa",
         hourly.sulphurDioxide.sublist(24 * (day), 24 * (day + 1)).reduce(max),
         40));
     ret.add(ParticellaInquinante(
-        "NO2",
+        "Diossido di azoto",
         hourly.nitrogenDioxide.sublist(24 * (day), 24 * (day + 1)).reduce(max),
         25));
-    ret.add(ParticellaInquinante("O3",
+    ret.add(ParticellaInquinante("Ozono",
         hourly.ozone.sublist(24 * (day), 24 * (day + 1)).reduce(max), 100));
-    ret.add(ParticellaInquinante("PM10",
+    ret.add(ParticellaInquinante("PM 10",
         hourly.pm10.sublist(24 * (day), 24 * (day + 1)).reduce(max), 45));
-    ret.add(ParticellaInquinante("PM25",
+    ret.add(ParticellaInquinante("PM 2.5",
         hourly.pm25.sublist(24 * (day), 24 * (day + 1)).reduce(max), 15));
 
     return ret;
@@ -94,11 +99,15 @@ class Inquinamento {
 
 class ParticellaInquinante {
   String tipo = "";
-  int val;
-  int lim;
+  num val;
+  num lim;
   bool superato = false;
   ParticellaInquinante(this.tipo, this.val, this.lim) {
     superato = (val >= lim);
+  }
+  @override
+  String toString() {
+    return tipo;
   }
 }
 
@@ -145,12 +154,12 @@ class HourlyUnits {
 
 class Hourly {
   late final List<String> time;
-  late final List<int> pm10;
-  late final List<int> pm25;
-  late final List<int> carbonMonoxide;
-  late final List<int> nitrogenDioxide;
-  late final List<int> sulphurDioxide;
-  late final List<int> ozone;
+  late final List<num> pm10;
+  late final List<num> pm25;
+  late final List<num> carbonMonoxide;
+  late final List<num> nitrogenDioxide;
+  late final List<num> sulphurDioxide;
+  late final List<num> ozone;
 
   Hourly(
       {required this.time,
@@ -163,12 +172,12 @@ class Hourly {
 
   Hourly.fromJson(Map<String, dynamic> json) {
     time = json['time'].cast<String>();
-    pm10 = json['pm10'].cast<int>();
-    pm25 = json['pm2_5'].cast<int>();
-    carbonMonoxide = json['carbon_monoxide'].cast<int>();
-    nitrogenDioxide = json['nitrogen_dioxide'].cast<int>();
-    sulphurDioxide = json['sulphur_dioxide'].cast<int>();
-    ozone = json['ozone'].cast<int>();
+    pm10 = json['pm10'].cast<num>();
+    pm25 = json['pm2_5'].cast<num>();
+    carbonMonoxide = json['carbon_monoxide'].cast<num>();
+    nitrogenDioxide = json['nitrogen_dioxide'].cast<num>();
+    sulphurDioxide = json['sulphur_dioxide'].cast<num>();
+    ozone = json['ozone'].cast<num>();
   }
 
   Map<String, dynamic> toJson() {
@@ -182,11 +191,4 @@ class Hourly {
     data['ozone'] = ozone;
     return data;
   }
-}
-
-void main() async {
-  num latMo = 44.645958;
-  num lonMo = 10.925529;
-  Inquinamento inq = await Inquinamento.fetch(latMo, lonMo);
-  print(inq.hourly.ozone);
 }

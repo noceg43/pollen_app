@@ -49,8 +49,9 @@ class _SceltaStazioneState extends State<SceltaStazione> {
         child: Column(
           children: [
             TextField(
-              onChanged: (value) => runFilter(value),
-            ),
+                onChanged: (value) => runFilter(value),
+                focusNode: FocusNode(),
+                autofocus: true),
             Expanded(
               child: stazTrovate.isNotEmpty
                   ? ListView.builder(
